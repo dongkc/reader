@@ -38,27 +38,27 @@ Item {
           Label {
             id: label1
             height: 20
-            text: "阅读器IP地址"
+            text: "阅读器IP地址:"
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
           }
 
           TextField {
             id: textField1
-            placeholderText: qsTr("Text Field")
+            placeholderText: qsTr("192.168.1.100")
           }
 
           Label {
             id: label2
             height: 20
-            text: qsTr("阅读器端口")
+            text: qsTr("阅读器端口:")
             horizontalAlignment: Text.AlignLeft
             verticalAlignment: Text.AlignVCenter
           }
 
           TextField {
             id: textField2
-            placeholderText: qsTr("Text Field")
+            placeholderText: qsTr("800")
           }
 
           Button {
@@ -173,7 +173,6 @@ Item {
 
       TextArea {
         id: textArea1
-        text: "1234567"
         anchors.rightMargin: 5
         anchors.leftMargin: 0
         anchors.bottomMargin: 5
