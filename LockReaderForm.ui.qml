@@ -14,6 +14,7 @@ Item {
 
     Column {
       id: column1
+      x: 0
       width: 150
       height: 500
       spacing: 10
@@ -22,14 +23,15 @@ Item {
 
       GroupBox {
         id: groupBox1
+        x: 5
         width: 150
-        height: 300
+        height: 150
         title: qsTr("Settings")
 
         Column {
           id: column2
-          width: 200
-          height: 400
+          width: 150
+          height: 140
           spacing: 5
 
           Label {
@@ -40,62 +42,141 @@ Item {
             verticalAlignment: Text.AlignVCenter
           }
 
-            TextField {
-              id: textField1
-              placeholderText: qsTr("Text Field")
-            }
+          TextField {
+            id: textField1
+            placeholderText: qsTr("Text Field")
+          }
+
+          Label {
+            id: label2
+            height: 20
+            text: qsTr("阅读器端口")
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+          }
+
+          TextField {
+            id: textField2
+            placeholderText: qsTr("Text Field")
+          }
+
+          Button {
+            id: button1
+            width: 104
+            text: qsTr("连接")
+          }
+        }
+      }
+
+      GroupBox {
+        id: groupBox2
+        x: 5
+        width: 150
+        height: 280
+        title: qsTr("Group Box")
+
+        Column {
+          id: column3
+          width: 150
+          height: 280
+          spacing: 10
+
+
+
+          Label {
+            id: label3
+            height: 20
+            text: qsTr("关锁号:")
+            verticalAlignment: Text.AlignVCenter
+          }
+
+
+
+          TextField {
+            id: textField3
+            placeholderText: qsTr("Text Field")
+          }
+
+          Button {
+            id: button2
+            width: 104
+            text: qsTr("施封")
+          }
+
+
+
+          Button {
+            id: button3
+            width: 104
+            text: qsTr("解封")
+          }
+
+
+
+          Button {
+            id: button4
+            width: 104
+            text: qsTr("验封")
+          }
+
+
+
+          Row {
+            id: row1
+            width: 120
+            height: 25
+            spacing: 5
 
             Label {
-              id: label2
+              id: label4
               height: 20
-              text: qsTr("阅读器端口")
+              text: qsTr("连续次数")
               horizontalAlignment: Text.AlignLeft
               verticalAlignment: Text.AlignVCenter
             }
 
-            TextField {
-              id: textField2
-              placeholderText: qsTr("Text Field")
+            SpinBox {
+              id: spinBox1
+              minimumValue: 1
+              decimals: 0
+              maximumValue: 10000
             }
+          }
 
-            Button {
-                id: button1
-                width: 104
-                text: qsTr("连接")
-            }
+
+
+          Button {
+            id: button5
+            width: 104
+            text: qsTr("连续发送")
+          }
+
+
+
+          Button {
+            id: button6
+            width: 104
+            text: qsTr("停止")
+          }
+
+
         }
       }
-
-        GroupBox {
-            id: groupBox2
-            width: 360
-            height: 300
-            title: qsTr("Group Box")
-        }
     }
 
     ColumnLayout {
       id: columnLayout1
-      anchors.right: parent.right
-      anchors.rightMargin: 10
-      anchors.left: parent.left
-      anchors.leftMargin: 230
-      anchors.bottom: parent.bottom
-      anchors.bottomMargin: 10
-      anchors.top: parent.top
-      anchors.topMargin: 10
+      anchors.leftMargin: 170
+      anchors.fill: parent
 
       TextArea {
         id: textArea1
         text: "1234567"
-        anchors.left: parent.left
+        anchors.rightMargin: 5
         anchors.leftMargin: 0
-        anchors.right: parent.right
-        anchors.rightMargin: 0
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 0
-        anchors.top: parent.top
-        anchors.topMargin: 0
+        anchors.bottomMargin: 5
+        anchors.topMargin: 5
+        anchors.fill: parent
         readOnly: true
       }
     }
