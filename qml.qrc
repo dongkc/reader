@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>LockReader.qml</file>
+        <file>LockReaderForm.ui.qml</file>
+    </qresource>
+</RCC>
