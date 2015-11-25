@@ -30,6 +30,7 @@ Item {
 
         Column {
           id: column2
+          x: 5
           width: 150
           height: 140
           spacing: 5
@@ -77,6 +78,7 @@ Item {
 
         Column {
           id: column3
+          x: 5
           width: 150
           height: 280
           spacing: 10
