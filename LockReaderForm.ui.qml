@@ -7,10 +7,20 @@ Item {
   height: 500
   anchors.fill: parent
 
+  property alias btn_con: btn_connect
+  property alias txt_ip: txt_ip
+  property alias txt_port: txt_port
+  property alias txt_lockid: txt_lockid
+  property alias btn_lock: btn_lock
+  property alias btn_unlock: btn_unlock
+  property alias btn_verify: btn_verify
+  property alias btn_multi_send: btn_multi_send
+  property alias btn_stop: btn_stop
+  property alias spinbox_count: spinbox_count
+
   RowLayout {
     id: rowLayout1
     anchors.fill: parent
-
 
     Column {
       id: column1
@@ -36,7 +46,7 @@ Item {
           spacing: 5
 
           Label {
-            id: label1
+            id: lbl_ip
             height: 20
             text: "阅读器IP地址:"
             horizontalAlignment: Text.AlignLeft
@@ -44,7 +54,7 @@ Item {
           }
 
           TextField {
-            id: textField1
+            id: txt_ip
             placeholderText: qsTr("192.168.1.100")
           }
 
@@ -57,12 +67,12 @@ Item {
           }
 
           TextField {
-            id: textField2
+            id: txt_port
             placeholderText: qsTr("8000")
           }
 
           Button {
-            id: button1
+            id: btn_connect
             width: 104
             text: qsTr("连接")
           }
@@ -83,8 +93,6 @@ Item {
           height: 280
           spacing: 10
 
-
-
           Label {
             id: label3
             height: 20
@@ -92,36 +100,28 @@ Item {
             verticalAlignment: Text.AlignVCenter
           }
 
-
-
           TextField {
-            id: textField3
+            id: txt_lockid
             placeholderText: qsTr("Text Field")
           }
 
           Button {
-            id: button2
+            id: btn_lock
             width: 104
             text: qsTr("施封")
           }
 
-
-
           Button {
-            id: button3
+            id: btn_unlock
             width: 104
             text: qsTr("解封")
           }
 
-
-
           Button {
-            id: button4
+            id: btn_verify
             width: 104
             text: qsTr("验封")
           }
-
-
 
           Row {
             id: row1
@@ -138,7 +138,7 @@ Item {
             }
 
             SpinBox {
-              id: spinBox1
+              id: spinbox_count
               minimumValue: 1
               decimals: 0
               maximumValue: 10000
@@ -148,7 +148,7 @@ Item {
 
 
           Button {
-            id: button5
+            id: btn_multi_send
             width: 104
             text: qsTr("连续发送")
           }
@@ -156,7 +156,7 @@ Item {
 
 
           Button {
-            id: button6
+            id: btn_stop
             width: 104
             text: qsTr("停止")
           }

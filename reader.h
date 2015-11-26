@@ -14,8 +14,10 @@ public:
   Q_INVOKABLE bool connect(QString& ip, int port);
 
 signals:
+  void conn();
 
 public slots:
+  void connected();
 
 private:
   QTcpSocket *socket;
