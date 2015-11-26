@@ -2,7 +2,9 @@ TEMPLATE = app
 
 QT += qml quick widgets
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    uidata.cpp \
+    reader.cpp
 
 RESOURCES += qml.qrc
 
@@ -11,4 +13,8 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+HEADERS += \
+    uidata.h \
+    reader.h
 
