@@ -58,7 +58,7 @@ Item {
 
           TextField {
             id: textField2
-            placeholderText: qsTr("800")
+            placeholderText: qsTr("8000")
           }
 
           Button {
