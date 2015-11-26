@@ -2,6 +2,7 @@
 #define READER_H
 
 #include <QObject>
+#include <QtNetwork>
 #include "uidata.h"
 
 class Reader : public QObject
@@ -15,6 +16,9 @@ public:
 signals:
 
 public slots:
+
+private:
+  QTcpSocket *socket;
 };
 
 #endif // READER_H
