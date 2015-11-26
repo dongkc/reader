@@ -11,13 +11,14 @@ class Reader : public QObject
 public:
   explicit Reader(QObject *parent = 0);
 
-  Q_INVOKABLE bool connect(QString& ip, int port);
+  Q_INVOKABLE bool connect(QString ip, int port);
 
 signals:
   void conn();
 
 public slots:
   void connected();
+  void error(QAbstractSocket::SocketError);
 
 private:
   QTcpSocket *socket;

@@ -55,6 +55,7 @@ Item {
 
           TextField {
             id: txt_ip
+            text: "220.181.112.244"
             placeholderText: qsTr("192.168.1.100")
           }
 
