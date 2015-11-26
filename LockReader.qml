@@ -10,7 +10,7 @@ LockReaderForm {
     target: reader
     onConn: {
       console.log("socked connected")
-      btn_con.text = "connected"
+      state = "connected"
     }
   }
 }

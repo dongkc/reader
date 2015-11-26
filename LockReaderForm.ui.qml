@@ -69,6 +69,7 @@ Item {
 
           TextField {
             id: txt_port
+            text: "80"
             placeholderText: qsTr("8000")
           }
 
@@ -76,7 +77,8 @@ Item {
             id: btn_connect
             width: 104
             text: qsTr("连接")
-          }
+
+         }
         }
       }
 
@@ -85,6 +87,10 @@ Item {
         x: 5
         width: 150
         height: 280
+        checked: false
+        checkable: true
+        flat: true
+        visible: true
         title: qsTr("Group Box")
 
         Column {
@@ -183,5 +189,29 @@ Item {
       }
     }
   }
+
+  states: [
+    State {
+      name: "connected"
+      PropertyChanges {
+        target: btn_connect
+        text: "test"
+      }
+
+      PropertyChanges {
+        target: groupBox2
+        checkable: false
+        checked: true
+      }
+
+      PropertyChanges {
+        target: txt_port
+        text: "80"
+      }
+    },
+    State {
+        name: "running"
+    }
+  ]
 }
 
