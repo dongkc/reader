@@ -12,6 +12,9 @@ public:
   explicit Reader(QObject *parent = 0);
 
   Q_INVOKABLE bool connect(QString ip, int port);
+  Q_INVOKABLE void lock(QString lock_id, QString password);
+  Q_INVOKABLE void unlock(QString lock_id, QString password);
+  Q_INVOKABLE void check(QString lock_id, QString password);
 
 signals:
   void conn();

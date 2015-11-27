@@ -217,7 +217,7 @@ Item {
 
       PropertyChanges {
           target: btn_connect
-          text: qsTr("SUCCESS")
+          text: qsTr("已连接")
       }
 
       PropertyChanges {
