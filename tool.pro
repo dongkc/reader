@@ -5,7 +5,8 @@ QT += network
 
 SOURCES += main.cpp \
     uidata.cpp \
-    reader.cpp
+    reader.cpp \
+    message.cpp
 
 RESOURCES += qml.qrc
 
@@ -17,5 +18,9 @@ include(deployment.pri)
 
 HEADERS += \
     uidata.h \
-    reader.h
+    reader.h \
+    message.h
 
+
+LIBS += -L"../../poco-1.6.0/lib" -lPocoFoundation
+INCPATH += ../../poco-1.6.0/Foundation/include

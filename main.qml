@@ -11,11 +11,11 @@ ApplicationWindow {
     Tab {
       title: "阅读器测试"
       LockReader {
-
       }
 
     }
     Tab {
+      //title: "关锁号计算器"
       title: "关锁号计算器"
     }
     Tab {

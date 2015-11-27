@@ -70,6 +70,7 @@ Item {
           TextField {
             id: txt_port
             text: "80"
+            inputMask: qsTr("")
             placeholderText: qsTr("8000")
           }
 
@@ -87,9 +88,9 @@ Item {
         x: 5
         width: 150
         height: 280
-        checked: false
-        checkable: true
-        flat: true
+        checked: true
+        checkable: false
+        flat: false
         visible: true
         title: qsTr("Group Box")
 
@@ -109,6 +110,7 @@ Item {
 
           TextField {
             id: txt_lockid
+            readOnly: true
             placeholderText: qsTr("Text Field")
           }
 
@@ -116,18 +118,21 @@ Item {
             id: btn_lock
             width: 104
             text: qsTr("施封")
+            enabled: false
           }
 
           Button {
             id: btn_unlock
             width: 104
             text: qsTr("解封")
+            enabled: false
           }
 
           Button {
             id: btn_verify
             width: 104
             text: qsTr("验封")
+            enabled: false
           }
 
           Row {
@@ -146,6 +151,8 @@ Item {
 
             SpinBox {
               id: spinbox_count
+              activeFocusOnPress: false
+              selectByMouse: false
               minimumValue: 1
               decimals: 0
               maximumValue: 10000
@@ -158,6 +165,7 @@ Item {
             id: btn_multi_send
             width: 104
             text: qsTr("连续发送")
+            enabled: false
           }
 
 
@@ -166,6 +174,8 @@ Item {
             id: btn_stop
             width: 104
             text: qsTr("停止")
+            checkable: false
+            enabled: false
           }
 
 
@@ -193,10 +203,6 @@ Item {
   states: [
     State {
       name: "connected"
-      PropertyChanges {
-        target: btn_connect
-        text: "test"
-      }
 
       PropertyChanges {
         target: groupBox2
@@ -207,6 +213,47 @@ Item {
       PropertyChanges {
         target: txt_port
         text: "80"
+      }
+
+      PropertyChanges {
+          target: btn_connect
+          text: qsTr("SUCCESS")
+      }
+
+      PropertyChanges {
+        target: txt_lockid
+        readOnly: false
+      }
+
+      PropertyChanges {
+        target: btn_lock
+        enabled: true
+      }
+
+      PropertyChanges {
+        target: btn_unlock
+        enabled: true
+      }
+
+      PropertyChanges {
+        target: btn_verify
+        enabled: true
+      }
+
+      PropertyChanges {
+        target: btn_multi_send
+        enabled: true
+      }
+
+      PropertyChanges {
+        target: btn_stop
+        enabled: true
+      }
+
+      PropertyChanges {
+        target: spinbox_count
+        activeFocusOnPress: true
+        selectByMouse: true
       }
     },
     State {
