@@ -89,11 +89,11 @@ Item {
         x: 5
         width: 150
         height: 280
+        title: "Commands"
         checked: true
         checkable: false
         flat: false
         visible: true
-        title: qsTr("Group Box")
 
         Column {
           id: column3
@@ -112,7 +112,6 @@ Item {
           TextField {
             id: txt_lockid
             readOnly: true
-            placeholderText: qsTr("Text Field")
           }
 
           Button {
@@ -218,6 +217,7 @@ Item {
 
       PropertyChanges {
         target: txt_lockid
+        placeholderText: qsTr("")
         readOnly: false
       }
 
