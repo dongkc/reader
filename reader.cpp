@@ -5,6 +5,7 @@ Reader::Reader(QObject *parent) : QObject(parent)
 {
   socket = new QTcpSocket(this);
   QObject::connect(socket, SIGNAL(connected()), this, SLOT(connected()));
+  QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(read()));
   QObject::connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error(QAbstractSocket::SocketError)));
 }
 
@@ -70,4 +71,9 @@ void Reader::check(QString lock_id, QString pass)
                         len);
 
   socket->write(begin, len);
+}
+
+void Reader::read()
+{
+  qDebug() << "Received data from server";
 }

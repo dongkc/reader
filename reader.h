@@ -21,6 +21,7 @@ signals:
 
 public slots:
   void connected();
+  void read();
   void error(QAbstractSocket::SocketError);
 
 private:
