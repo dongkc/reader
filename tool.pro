@@ -24,3 +24,5 @@ HEADERS += \
 
 LIBS += -L"../../poco-1.6.0/lib" -lPocoFoundation
 INCPATH += ../../poco-1.6.0/Foundation/include
+
+RC_FILE = app.rc
