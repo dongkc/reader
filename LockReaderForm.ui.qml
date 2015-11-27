@@ -255,9 +255,6 @@ Item {
         activeFocusOnPress: true
         selectByMouse: true
       }
-    },
-    State {
-        name: "running"
     }
   ]
 }

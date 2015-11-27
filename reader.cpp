@@ -1,3 +1,5 @@
+#include <QMessageBox>
+
 #include "reader.h"
 #include "message.h"
 
@@ -24,11 +26,21 @@ void Reader::connected()
   emit conn();
 }
 
+void Reader::disconnect()
+{
+  socket->abort();
+  socket->disconnectFromHost();
+  qDebug() << "Disconnect from host";
+}
+
 void Reader::error(QAbstractSocket::SocketError socketError)
 {
-  //switch (socketError) {
-  //  case QAbstractSocket::RemoteHostCloseError:
   qDebug() << "NETWORK ERROR: " << socketError;
+  QMessageBox msg;
+  msg.setText("NETWORK ERROR");
+  msg.exec();
+
+  emit disConn();
 }
 
 void Reader::lock(QString lock_id, QString pass)

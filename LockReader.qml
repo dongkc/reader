@@ -2,8 +2,13 @@ import QtQuick 2.4
 
 LockReaderForm {
   btn_con.onClicked: {
-    btn_con.text = "connecting"
-    reader.connect(txt_ip.text, txt_port.text)
+    if (state == "") {
+      reader.connect(txt_ip.text, txt_port.text)
+    } else {
+      reader.disconnect()
+      state = ""
+    }
+
   }
 
   Connections {
@@ -11,6 +16,10 @@ LockReaderForm {
     onConn: {
       console.log("socked connected")
       state = "connected"
+    }
+    onDisConn: {
+      reader.disconnect()
+      state = ""
     }
   }
 }
