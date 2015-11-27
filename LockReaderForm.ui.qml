@@ -56,6 +56,7 @@ Item {
           TextField {
             id: txt_ip
             text: "220.181.112.244"
+            inputMask: "000.000.000.000;_"
             placeholderText: qsTr("192.168.1.100")
           }
 
@@ -70,7 +71,7 @@ Item {
           TextField {
             id: txt_port
             text: "80"
-            inputMask: qsTr("")
+            inputMask: "00000000"
             placeholderText: qsTr("8000")
           }
 
@@ -211,11 +212,6 @@ Item {
       }
 
       PropertyChanges {
-        target: txt_port
-        text: "80"
-      }
-
-      PropertyChanges {
           target: btn_connect
           text: "断开"
       }
@@ -255,6 +251,17 @@ Item {
         activeFocusOnPress: true
         selectByMouse: true
       }
+
+      PropertyChanges {
+        target: txt_ip
+        readOnly: true
+      }
+
+      PropertyChanges {
+        target: txt_port
+        readOnly: true
+      }
+
     }
   ]
 }
