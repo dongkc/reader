@@ -217,7 +217,7 @@ Item {
 
       PropertyChanges {
           target: btn_connect
-          text: qsTr("已连接")
+          text: "断开"
       }
 
       PropertyChanges {
