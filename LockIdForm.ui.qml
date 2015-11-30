@@ -39,7 +39,7 @@ Item {
 
         Grid {
             id: grid1
-            width: 200
+            width: 320
             height: 150
             spacing: 10
             rows: 4
@@ -47,7 +47,7 @@ Item {
 
             Label {
               id: label1
-              height: 30
+              height: 20
               text: qsTr("COUNTRY CODE:")
               horizontalAlignment: Text.AlignRight
               verticalAlignment: Text.AlignVCenter
@@ -55,13 +55,16 @@ Item {
 
             TextField {
               id: textField1
-              height: 30
+              height: 20
               text: "CN"
             }
 
             Label {
               id: label2
+              height: 20
               text: qsTr("MAKER ID:")
+              wrapMode: Text.NoWrap
+              verticalAlignment: Text.AlignVCenter
               horizontalAlignment: Text.AlignRight
             }
 
@@ -72,7 +75,9 @@ Item {
 
             Label {
               id: label3
+              height: 20
               text: qsTr("SERIAL ID:")
+              verticalAlignment: Text.AlignVCenter
               horizontalAlignment: Text.AlignRight
             }
 
@@ -82,7 +87,9 @@ Item {
 
             Label {
               id: label4
+              height: 20
               text: qsTr("LOCK TYPE:")
+              verticalAlignment: Text.AlignVCenter
               horizontalAlignment: Text.AlignRight
             }
 
@@ -93,7 +100,7 @@ Item {
 
         Button {
           id: button1
-          height: 30
+          height: 20
           text: qsTr("calculate")
           anchors.horizontalCenter: parent.horizontalCenter
         }
@@ -102,7 +109,7 @@ Item {
           id: label5
           height: 50
           color: "#1b26ed"
-          text: qsTr("Label")
+          text: qsTr("UNKNOWN")
           style: Text.Normal
           font.bold: true
           font.pointSize: 18
@@ -116,7 +123,8 @@ Item {
 
     GroupBox {
       id: groupBox2
-      width: 360
+      anchors.right: parent.right
+      anchors.rightMargin: 10
       anchors.left: groupBox1.right
       anchors.leftMargin: 10
       anchors.bottom: parent.bottom
@@ -125,12 +133,116 @@ Item {
       anchors.topMargin: 10
       title: qsTr("Group Box")
 
-      ColumnLayout {
-        id: columnLayout1
-        x: 0
-        y: 1
-        width: 100
-        height: 100
+      Column {
+          id: column2
+          width: 200
+          height: 250
+          spacing: 10
+          anchors.horizontalCenter: parent.horizontalCenter
+          anchors.verticalCenter: parent.verticalCenter
+
+          Row {
+            id: row1
+            width: 170
+            height: 22
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: 20
+
+            Label {
+              id: label6
+              height: 20
+              text: qsTr("LOCK ID")
+              verticalAlignment: Text.AlignVCenter
+            }
+
+              TextField {
+                  id: textField5
+                  height: 20
+                  placeholderText: qsTr("Text Field")
+              }
+          }
+
+          Button {
+            id: button2
+            y: 60
+            height: 20
+            text: qsTr("calculate")
+            anchors.horizontalCenter: parent.horizontalCenter
+          }
+
+          Grid {
+              id: grid2
+              y: 76
+              width: 150
+              height: 150
+              anchors.horizontalCenter: parent.horizontalCenter
+              flow: Grid.LeftToRight
+              layoutDirection: Qt.LeftToRight
+              spacing: 5
+              rows: 4
+              columns: 2
+
+              Label {
+                id: label7
+                height: 30
+                text: qsTr("COUNTRY CODE:")
+                verticalAlignment: Text.AlignVCenter
+              }
+
+              Label {
+                id: label8
+                height: 30
+                color: "#1b26ed"
+                text: qsTr("UNKNOWN")
+                wrapMode: Text.NoWrap
+                verticalAlignment: Text.AlignVCenter
+              }
+
+              Label {
+                id: label9
+                height: 30
+                text: qsTr("MAKER ID:")
+                verticalAlignment: Text.AlignVCenter
+              }
+
+              Label {
+                id: label10
+                height: 30
+                color: "#1b26ed"
+                text: qsTr("UNKNOWN")
+                verticalAlignment: Text.AlignVCenter
+              }
+
+              Label {
+                id: label11
+                height: 30
+                text: qsTr("SERIAL ID:")
+                verticalAlignment: Text.AlignVCenter
+              }
+
+              Label {
+                id: label12
+                height: 30
+                color: "#1b26ed"
+                text: qsTr("UNKNOWN")
+                verticalAlignment: Text.AlignVCenter
+              }
+
+              Label {
+                id: label13
+                height: 30
+                text: qsTr("LOCK TYPE:")
+                verticalAlignment: Text.AlignVCenter
+              }
+
+              Label {
+                  id: label14
+                  height: 30
+                  color: "#1b26ed"
+                  text: qsTr("UNKNOWN")
+                  verticalAlignment: Text.AlignVCenter
+              }
+          }
       }
     }
   }
