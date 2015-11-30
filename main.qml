@@ -17,6 +17,8 @@ ApplicationWindow {
     Tab {
       //title: "关锁号计算器"
       title: "关锁号计算器"
+      LockId {
+      }
     }
     Tab {
       title:"关锁GPRS测试"
