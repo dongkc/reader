@@ -28,117 +28,89 @@ Item {
 
       Column {
         id: column1
-        x: 40
-        width: 180
+        x: 100
+        width: 200
         height: 250
+        anchors.verticalCenterOffset: 0
+        anchors.horizontalCenterOffset: 0
         anchors.verticalCenter: parent.verticalCenter
         spacing: 10
         anchors.horizontalCenter: parent.horizontalCenter
 
-        Row {
-          id: row1
-          width: 150
-          height: 30
-          spacing: 10
+        Grid {
+            id: grid1
+            width: 200
+            height: 150
+            spacing: 10
+            rows: 4
+            columns: 2
 
-          Label {
-            id: label1
-            height: 30
-            text: qsTr("国别代码")
-            horizontalAlignment: Text.AlignLeft
-            verticalAlignment: Text.AlignVCenter
-          }
+            Label {
+              id: label1
+              height: 30
+              text: qsTr("COUNTRY CODE:")
+              horizontalAlignment: Text.AlignRight
+              verticalAlignment: Text.AlignVCenter
+            }
 
-              TextField {
-                  id: textField1
-                  height: 30
-                  text: "CN"
-              }
-        }
+            TextField {
+              id: textField1
+              height: 30
+              text: "CN"
+            }
 
-        Row {
-          id: row2
-          width: 200
-          height: 30
-          spacing: 10
+            Label {
+              id: label2
+              text: qsTr("MAKER ID:")
+              horizontalAlignment: Text.AlignRight
+            }
 
-          Label {
-            id: label2
-            height: 30
-            text: qsTr("生产商ID")
-            verticalAlignment: Text.AlignVCenter
-          }
+            TextField {
+              id: textField2
+              text: "NT"
+            }
 
-              TextField {
-                  id: textField2
-                  height: 30
-                  text: "NT"
-              }
-        }
+            Label {
+              id: label3
+              text: qsTr("SERIAL ID:")
+              horizontalAlignment: Text.AlignRight
+            }
 
-        Row {
-          id: row3
-          width: 200
-          height: 30
-          spacing: 10
+            TextField {
+              id: textField3
+            }
 
-          Label {
-            id: label3
-            height: 30
-            text: qsTr("自然序列号")
-            verticalAlignment: Text.AlignVCenter
-          }
+            Label {
+              id: label4
+              text: qsTr("LOCK TYPE:")
+              horizontalAlignment: Text.AlignRight
+            }
 
-              TextField {
-                id: textField3
-                x: 58
-                height: 30
-              }
-        }
-
-        Row {
-          id: row4
-          width: 200
-          height: 30
-          spacing: 10
-
-          Label {
-            id: label4
-            height: 30
-            text: qsTr("锁类型")
-            verticalAlignment: Text.AlignVCenter
-          }
-
-              TextField {
-                  id: textField4
-                  x: 58
-                  height: 30
-              }
+            TextField {
+              id: textField4
+            }
         }
 
         Button {
           id: button1
-          x: 40
           height: 30
-          text: qsTr("Button")
+          text: qsTr("calculate")
+          anchors.horizontalCenter: parent.horizontalCenter
         }
 
-        Row {
-          id: row5
-          width: 200
+        Label {
+          id: label5
           height: 50
+          color: "#1b26ed"
+          text: qsTr("Label")
+          style: Text.Normal
+          font.bold: true
+          font.pointSize: 18
+          font.family: "Verdana"
+          verticalAlignment: Text.AlignVCenter
+          anchors.horizontalCenter: parent.horizontalCenter
+        }
 
-          Label {
-            id: label5
-            text: qsTr("Label")
-          }
-
-              Text {
-                  id: text1
-                  text: qsTr("Text")
-                  font.pixelSize: 12
-              }
-          }
       }
     }
 
@@ -153,13 +125,13 @@ Item {
       anchors.topMargin: 10
       title: qsTr("Group Box")
 
-        ColumnLayout {
-            id: columnLayout1
-            x: 0
-            y: 1
-            width: 100
-            height: 100
-        }
+      ColumnLayout {
+        id: columnLayout1
+        x: 0
+        y: 1
+        width: 100
+        height: 100
+      }
     }
   }
 }
