@@ -144,7 +144,7 @@ Item {
           Row {
             id: row1
             width: 170
-            height: 22
+            height: 60
             anchors.horizontalCenter: parent.horizontalCenter
             spacing: 20
 
@@ -158,7 +158,6 @@ Item {
               TextField {
                   id: textField5
                   height: 20
-                  placeholderText: qsTr("Text Field")
               }
           }
 
@@ -186,6 +185,7 @@ Item {
                 id: label7
                 height: 30
                 text: qsTr("COUNTRY CODE:")
+                horizontalAlignment: Text.AlignRight
                 verticalAlignment: Text.AlignVCenter
               }
 
