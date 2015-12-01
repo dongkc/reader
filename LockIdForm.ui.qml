@@ -57,6 +57,7 @@ Item {
               id: textField1
               height: 20
               text: "CN"
+              inputMask: qsTr("AA")
             }
 
             Label {
@@ -71,6 +72,7 @@ Item {
             TextField {
               id: textField2
               text: "NT"
+              inputMask: qsTr("AA")
             }
 
             Label {
@@ -83,6 +85,9 @@ Item {
 
             TextField {
               id: textField3
+              text: ""
+              placeholderText: qsTr("00 01 23")
+              inputMask: qsTr("HH HH HH; ")
             }
 
             Label {
@@ -95,6 +100,8 @@ Item {
 
             TextField {
               id: textField4
+              placeholderText: qsTr("1")
+              inputMask: qsTr("H")
             }
         }
 
