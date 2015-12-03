@@ -8,6 +8,12 @@ Item {
 
   property alias group2: groupBox2
   property alias rowlayout: rowLayout1
+  property alias country_id: country_id
+  property alias maker_id: maker_id
+  property alias serial_id: serial_id
+  property alias lock_type: lock_type
+  property alias lock_id: lock_id
+  property alias btn_cal: btn_cal
 
   RowLayout {
     id: rowLayout1
@@ -54,7 +60,7 @@ Item {
             }
 
             TextField {
-              id: textField1
+              id: country_id
               height: 20
               text: "CN"
               inputMask: qsTr("AA")
@@ -70,7 +76,7 @@ Item {
             }
 
             TextField {
-              id: textField2
+              id: maker_id
               text: "NT"
               inputMask: qsTr("AA")
             }
@@ -84,7 +90,7 @@ Item {
             }
 
             TextField {
-              id: textField3
+              id: serial_id
               text: ""
               placeholderText: qsTr("00 01 23")
               inputMask: qsTr("HH HH HH; ")
@@ -99,21 +105,21 @@ Item {
             }
 
             TextField {
-              id: textField4
+              id: lock_type
               placeholderText: qsTr("1")
               inputMask: qsTr("H")
             }
         }
 
         Button {
-          id: button1
+          id: btn_cal
           height: 20
           text: qsTr("calculate")
           anchors.horizontalCenter: parent.horizontalCenter
         }
 
         Label {
-          id: label5
+          id: lock_id
           height: 50
           color: "#1b26ed"
           text: qsTr("UNKNOWN")
