@@ -24,7 +24,7 @@ HEADERS += \
     lockid.h
 
 
-LIBS += -L"../../poco-1.6.0/lib" -lPocoFoundation
+LIBS += -L"../../poco-1.6.0/lib" -lPocoFoundationd
 INCPATH += ../../poco-1.6.0/Foundation/include
 
 RC_FILE = app.rc

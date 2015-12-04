@@ -11,10 +11,10 @@ class LockId : public QObject
 public:
   explicit LockId(QObject *parent = 0);
 
-  Q_INVOKABLE QString calculate(std::string cn,
-                                std::string nt,
-                                std::string serial_id,
-                                std::string type);
+  Q_INVOKABLE QString calculate(QString cn,
+                                QString nt,
+                                QString serial_id,
+                                QString type);
 
 signals:
 

@@ -58,6 +58,12 @@ namespace
     table['7'] = 7;
     table['8'] = 8;
     table['9'] = 9;
+    table['a'] = 10;
+    table['b'] = 12;
+    table['c'] = 13;
+    table['d'] = 14;
+    table['e'] = 15;
+    table['f'] = 16;
   }
 
   inline uint8_t low_4bit(uint8_t byte)
@@ -100,31 +106,42 @@ LockId::LockId(QObject *parent) : QObject(parent)
   table_init();
 }
 
-QString LockId::calculate(string cn,
-                          string nt,
-                          string serial_id,
-                          string type)
+QString LockId::calculate(QString cn_ui,
+                          QString nt_ui,
+                          QString serial_id_ui,
+                          QString type_ui)
 {
+  string cn(cn_ui.toStdString());
+  string nt(nt_ui.toStdString());
+  string serial_id(serial_id_ui.toStdString());
+  string type(type_ui.toStdString());
+
   serial_id.erase(5, 1);
   serial_id.erase(2, 1);
 
   string str(cn + nt + serial_id + type);
   qDebug("INPUT DATA: %s", str.c_str());
 
-  uint32_t res = 0;
+  unsigned int res = 0;
   for(int i = 0; i < 11; ++i) {
-    res += str[i] << i;
+    unsigned int tmp = table[str[i]] << i;
+    res += table[str[i]] << i;
+    qDebug("dong %c, %d %d", str[i], tmp, i);
   }
   uint8_t check = (res % 11) % 10;
+
+  qDebug("data: %d check: %d", res, check);
 
   string data(serial_id + type);
   data.push_back(check + 0x30);
 
   unsigned int num = 0;
-  if (NumberParser::tryParseHex(data, num)) {
+  if (!NumberParser::tryParseHex(data, num)) {
     qDebug("Error: %s", data.c_str());
   };
+
   string ret(cn + nt + NumberFormatter::format0(num, 10));
+  qDebug("data: %d", num);
 
   return QString(ret.c_str());
 }
