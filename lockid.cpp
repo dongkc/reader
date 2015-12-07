@@ -157,3 +157,56 @@ QString LockId::calculate(QString cn_ui,
 
   return QString(ret.c_str());
 }
+
+QString LockId::cal_country_code(QString id)
+{
+  return QString(id.data(), 2);
+}
+
+QString LockId::cal_manufacturer(QString id)
+{
+  return QString(id.data() + 2, 2);
+}
+
+QString LockId::cal_serial_id(QString id)
+{
+  string data(id.toStdString());
+
+  string ret(cal_hex(data));
+  ret.erase(6);
+  ret.insert(4, " ");
+  ret.insert(2, " ");
+  return QString(ret.c_str());
+}
+
+QString LockId::cal_lock_type(QString id)
+{
+  string data(id.toStdString());
+  string ret(cal_hex(data));
+  ret.erase(7);
+  ret.erase(0, 6);
+
+  return QString(ret.c_str());
+}
+
+QString LockId::cal_check_code(QString id)
+{
+  string data(id.toStdString());
+  string ret(cal_hex(data));
+  ret.erase(0, 7);
+
+  return QString(ret.c_str());
+}
+
+string LockId::cal_hex(const string& data)
+{
+  unsigned int num = 0;
+
+  if (!NumberParser::tryParseUnsigned(data.data() + 4, num)) {
+    qDebug("Error: %s", data.c_str());
+  }
+
+  string ret(NumberFormatter::formatHex(num, 8));
+
+  return ret;
+}

@@ -14,6 +14,13 @@ Item {
   property alias lock_type: lock_type
   property alias lock_id: lock_id
   property alias btn_cal: btn_cal
+  property alias btn_cal2: btn_cal2
+  property alias txt_lock_id: txt_lock_id
+  property alias lbl_country_code: lbl_country_code
+  property alias lbl_manufacturer: lbl_manufacturer
+  property alias lbl_serial_id: lbl_serial_id
+  property alias lbl_lock_type: lbl_lock_type
+
 
   RowLayout {
     id: rowLayout1
@@ -179,13 +186,13 @@ Item {
           }
 
           TextField {
-            id: textField5
+            id: txt_lock_id
             height: 20
           }
         }
 
         Button {
-          id: button2
+          id: btn_cal2
           y: 60
           height: 20
           text: qsTr("calculate")
@@ -213,10 +220,10 @@ Item {
           }
 
           Label {
-            id: label8
+            id: lbl_country_code
             height: 30
             color: "#1b26ed"
-            text: qsTr("UNKNOWN")
+            text: qsTr("----")
             wrapMode: Text.NoWrap
             verticalAlignment: Text.AlignVCenter
           }
@@ -229,10 +236,10 @@ Item {
           }
 
           Label {
-            id: label10
+            id: lbl_manufacturer
             height: 30
             color: "#1b26ed"
-            text: qsTr("UNKNOWN")
+            text: qsTr("----")
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -244,10 +251,10 @@ Item {
           }
 
           Label {
-            id: label12
+            id: lbl_serial_id
             height: 30
             color: "#1b26ed"
-            text: qsTr("UNKNOWN")
+            text: qsTr("----")
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -259,10 +266,10 @@ Item {
           }
 
           Label {
-            id: label14
+            id: lbl_lock_type
             height: 30
             color: "#1b26ed"
-            text: qsTr("UNKNOWN")
+            text: qsTr("----")
             verticalAlignment: Text.AlignVCenter
           }
         }

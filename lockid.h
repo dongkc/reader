@@ -16,11 +16,22 @@ public:
                                 QString serial_id,
                                 QString type);
 
+  Q_INVOKABLE QString cal_country_code(QString id);
+
+  Q_INVOKABLE QString cal_manufacturer(QString id);
+
+  Q_INVOKABLE QString cal_serial_id(QString id);
+
+  Q_INVOKABLE QString cal_lock_type(QString id);
+
+  Q_INVOKABLE QString cal_check_code(QString id);
+
 signals:
 
 public slots:
 
 private:
+  std::string cal_hex(const std::string& id);
 };
 
 #endif // LOCKID_H
