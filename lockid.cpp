@@ -4,6 +4,7 @@
 #include <vector>
 #include <QtGlobal>
 #include <QDebug>
+#include <QMessageBox>
 #include <Poco/NumberParser.h>
 #include <Poco/NumberFormatter.h>
 
@@ -115,6 +116,17 @@ QString LockId::calculate(QString cn_ui,
   string nt(nt_ui.toStdString());
   string serial_id(serial_id_ui.toStdString());
   string type(type_ui.toStdString());
+
+  if (cn.size() != 2 ||
+      nt.size() != 2 ||
+      serial_id.size() != 8 ||
+      type.size() != 1) {
+    QMessageBox msg;
+    msg.setText("input error!");
+    msg.exec();
+    string ret("");
+    return QString(ret.c_str());
+  }
 
   serial_id.erase(5, 1);
   serial_id.erase(2, 1);

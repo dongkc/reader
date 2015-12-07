@@ -127,7 +127,7 @@ Item {
           width: 150
           height: 30
           color: "#0d3ebf"
-          text: qsTr("CNNT0000001234")
+          text: qsTr("----")
           anchors.top: parent.top
           anchors.topMargin: 250
           cursorVisible: false
