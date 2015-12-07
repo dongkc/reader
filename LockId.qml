@@ -26,7 +26,8 @@ LockIdForm {
 
   btn_cal2.onClicked: {
     if (txt_lock_id.text.length != 14) {
-      input_dialog.open()
+      //input_dialog.open()
+      input_dialog.visible = true
    } else {
       var cn = lockid.cal_country_code(txt_lock_id.text)
       var nt = lockid.cal_manufacturer(txt_lock_id.text)
