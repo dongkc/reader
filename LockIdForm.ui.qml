@@ -1,6 +1,7 @@
 import QtQuick 2.4
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.3
+import QtQuick.Window 2.2
 
 Item {
   width: 640
@@ -40,7 +41,7 @@ Item {
       anchors.top: parent.top
       anchors.topMargin: 10
       visible: true
-      title: qsTr("Group Box")
+      title: qsTr("正算")
 
       Column {
         id: column1
@@ -57,6 +58,8 @@ Item {
           id: grid1
           width: 240
           height: 150
+          transformOrigin: Item.Center
+          horizontalItemAlignment: Grid.AlignRight
           spacing: 10
           rows: 5
           columns: 2
@@ -64,7 +67,8 @@ Item {
           Label {
             id: label1
             height: 20
-            text: qsTr("COUNTRY CODE:")
+            text: qsTr("国家代码:")
+            transformOrigin: Item.Right
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
           }
@@ -79,7 +83,7 @@ Item {
           Label {
             id: label2
             height: 20
-            text: qsTr("MAKER ID:")
+            text: qsTr("制造商代码:")
             wrapMode: Text.NoWrap
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
@@ -94,7 +98,7 @@ Item {
           Label {
             id: label3
             height: 20
-            text: qsTr("SERIAL ID:")
+            text: qsTr("生产序列号:")
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
           }
@@ -109,7 +113,7 @@ Item {
           Label {
             id: label4
             height: 20
-            text: qsTr("LOCK TYPE:")
+            text: qsTr("关锁类型:")
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
           }
@@ -123,7 +127,7 @@ Item {
           Label {
             id: label8
             height: 30
-            text: qsTr("CHECK CODE:")
+            text: qsTr("校验码:")
           }
 
           Label {
@@ -137,7 +141,7 @@ Item {
         Button {
           id: btn_cal
           height: 20
-          text: qsTr("calculate")
+          text: qsTr("计算贴牌号")
           anchors.top: parent.top
           anchors.topMargin: 180
           anchors.horizontalCenter: parent.horizontalCenter
@@ -176,7 +180,7 @@ Item {
       anchors.bottomMargin: 10
       anchors.top: parent.top
       anchors.topMargin: 10
-      title: qsTr("Group Box")
+      title: qsTr("反算")
 
       Column {
         id: column2
@@ -196,13 +200,14 @@ Item {
           Label {
             id: label6
             height: 20
-            text: qsTr("LOCK ID:")
+            text: qsTr("关锁贴牌号:")
             verticalAlignment: Text.AlignVCenter
           }
 
           TextField {
             id: txt_lock_id
             height: 20
+            inputMask: qsTr("AAAA9999999999")
             font.bold: true
             font.pointSize: 8
           }
@@ -212,18 +217,18 @@ Item {
           id: btn_cal2
           y: 60
           height: 20
-          text: qsTr("calculate")
+          text: qsTr("计算")
           anchors.horizontalCenter: parent.horizontalCenter
         }
 
         Grid {
           id: grid2
           y: 76
-          width: 150
-          height: 150
+          width: 100
+          height: 170
           anchors.horizontalCenter: parent.horizontalCenter
+          horizontalItemAlignment: Grid.AlignRight
           flow: Grid.LeftToRight
-          layoutDirection: Qt.LeftToRight
           spacing: 5
           rows: 5
           columns: 2
@@ -231,7 +236,7 @@ Item {
           Label {
             id: label7
             height: 30
-            text: qsTr("COUNTRY CODE:")
+            text: qsTr("国家代码:")
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
           }
@@ -248,7 +253,7 @@ Item {
           Label {
             id: label9
             height: 30
-            text: qsTr("MAKER ID:")
+            text: qsTr("制造商代码:")
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -263,7 +268,7 @@ Item {
           Label {
             id: label11
             height: 30
-            text: qsTr("SERIAL ID:")
+            text: qsTr("生产序列号:")
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -278,7 +283,7 @@ Item {
           Label {
             id: label13
             height: 30
-            text: qsTr("LOCK TYPE:")
+            text: qsTr("关锁类型:")
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -293,7 +298,7 @@ Item {
           Label {
             id: label5
             height: 30
-            text: qsTr("CHECK CODE:")
+            text: qsTr("校验码:")
             verticalAlignment: Text.AlignVCenter
           }
 
