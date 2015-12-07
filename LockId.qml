@@ -9,8 +9,10 @@ LockIdForm {
                                    maker_id.text,
                                    serial_id.text,
                                    lock_type.text)
+    var check = lockid.check_code()
     if (text) {
       lock_id.text = text
+      lbl_check.text = check
     }
   }
 
@@ -19,11 +21,13 @@ LockIdForm {
     var nt = lockid.cal_manufacturer(txt_lock_id.text)
     var serial_id = lockid.cal_serial_id(txt_lock_id.text)
     var lock_type = lockid.cal_lock_type(txt_lock_id.text)
+    var check_code = lockid.cal_check_code(txt_lock_id.text)
 
     lbl_country_code.text = cn
     lbl_manufacturer.text = nt
     lbl_serial_id.text = serial_id
     lbl_lock_type.text = lock_type
+    lbl_check_code.text = check_code
   }
 }
 

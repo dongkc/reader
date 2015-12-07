@@ -12,6 +12,7 @@ Item {
   property alias maker_id: maker_id
   property alias serial_id: serial_id
   property alias lock_type: lock_type
+  property alias lbl_check: lbl_check
   property alias lock_id: lock_id
   property alias btn_cal: btn_cal
   property alias btn_cal2: btn_cal2
@@ -20,6 +21,7 @@ Item {
   property alias lbl_manufacturer: lbl_manufacturer
   property alias lbl_serial_id: lbl_serial_id
   property alias lbl_lock_type: lbl_lock_type
+  property alias lbl_check_code: lbl_check_code
 
 
   RowLayout {
@@ -56,7 +58,7 @@ Item {
           width: 240
           height: 150
           spacing: 10
-          rows: 4
+          rows: 5
           columns: 2
 
           Label {
@@ -116,6 +118,19 @@ Item {
             id: lock_type
             placeholderText: qsTr("1")
             inputMask: qsTr("H")
+          }
+
+          Label {
+            id: label8
+            height: 30
+            text: qsTr("CHECK CODE:")
+          }
+
+          Label {
+            id: lbl_check
+            height: 30
+            color: "#0d3ebf"
+              text: qsTr("-")
           }
         }
 
@@ -181,13 +196,15 @@ Item {
           Label {
             id: label6
             height: 20
-            text: qsTr("LOCK ID")
+            text: qsTr("LOCK ID:")
             verticalAlignment: Text.AlignVCenter
           }
 
           TextField {
             id: txt_lock_id
             height: 20
+            font.bold: true
+            font.pointSize: 8
           }
         }
 
@@ -208,7 +225,7 @@ Item {
           flow: Grid.LeftToRight
           layoutDirection: Qt.LeftToRight
           spacing: 5
-          rows: 4
+          rows: 5
           columns: 2
 
           Label {
@@ -271,6 +288,21 @@ Item {
             color: "#1b26ed"
             text: qsTr("----")
             verticalAlignment: Text.AlignVCenter
+          }
+
+          Label {
+            id: label5
+            height: 30
+            text: qsTr("CHECK CODE:")
+            verticalAlignment: Text.AlignVCenter
+          }
+
+          Label {
+              id: lbl_check_code
+              height: 30
+              color: "#1b26ed"
+              text: qsTr("----")
+              verticalAlignment: Text.AlignVCenter
           }
         }
       }

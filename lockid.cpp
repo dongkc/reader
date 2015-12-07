@@ -136,11 +136,9 @@ QString LockId::calculate(QString cn_ui,
 
   unsigned int res = 0;
   for(int i = 0; i < 11; ++i) {
-    unsigned int tmp = table[str[i]] << i;
     res += table[str[i]] << i;
-    qDebug("dong %c, %d %d", str[i], tmp, i);
   }
-  uint8_t check = (res % 11) % 10;
+  check = (res % 11) % 10;
 
   qDebug("data: %d check: %d", res, check);
 
@@ -209,4 +207,9 @@ string LockId::cal_hex(const string& data)
   string ret(NumberFormatter::formatHex(num, 8));
 
   return ret;
+}
+
+QString LockId::check_code()
+{
+  return QString(QChar(check + 0x30));
 }

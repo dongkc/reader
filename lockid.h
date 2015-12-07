@@ -1,6 +1,7 @@
 #ifndef LOCKID_H
 #define LOCKID_H
 
+#include <stdint.h>
 #include <string>
 #include <QString>
 #include <QObject>
@@ -15,6 +16,8 @@ public:
                                 QString nt,
                                 QString serial_id,
                                 QString type);
+
+  Q_INVOKABLE QString check_code();
 
   Q_INVOKABLE QString cal_country_code(QString id);
 
@@ -32,6 +35,9 @@ public slots:
 
 private:
   std::string cal_hex(const std::string& id);
+
+private:
+  uint8_t check;
 };
 
 #endif // LOCKID_H
