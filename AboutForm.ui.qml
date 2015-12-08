@@ -39,7 +39,7 @@ Item {
 
     Label {
       id: label8
-      text: qsTr("b62e05a6d8016cf0a35255ddbee18ecfdbc91847")
+      text: qsTr("35cbcfa1ab9bb477a186ad3e072923e107defffe")
       verticalAlignment: Text.AlignVCenter
       font.pointSize: 18
     }
