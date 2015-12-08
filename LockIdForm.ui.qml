@@ -58,6 +58,7 @@ Item {
           id: grid1
           width: 240
           height: 150
+          anchors.horizontalCenter: parent.horizontalCenter
           transformOrigin: Item.Center
           horizontalItemAlignment: Grid.AlignRight
           spacing: 10
@@ -68,6 +69,7 @@ Item {
             id: label1
             height: 20
             text: qsTr("国家代码:")
+            font.pointSize: 16
             transformOrigin: Item.Right
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
@@ -84,6 +86,7 @@ Item {
             id: label2
             height: 20
             text: qsTr("制造商代码:")
+            font.pointSize: 16
             wrapMode: Text.NoWrap
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
@@ -99,6 +102,7 @@ Item {
             id: label3
             height: 20
             text: qsTr("生产序列号:")
+            font.pointSize: 16
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
           }
@@ -114,6 +118,7 @@ Item {
             id: label4
             height: 20
             text: qsTr("关锁类型:")
+            font.pointSize: 16
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignRight
           }
@@ -128,6 +133,7 @@ Item {
             id: label8
             height: 30
             text: qsTr("校验码:")
+            font.pointSize: 16
           }
 
           Label {
@@ -140,7 +146,7 @@ Item {
 
         Button {
           id: btn_cal
-          height: 20
+          height: 40
           text: qsTr("计算贴牌号")
           anchors.top: parent.top
           anchors.topMargin: 180
@@ -192,31 +198,33 @@ Item {
 
         Row {
           id: row1
-          width: 170
-          height: 60
+          width: 240
+          height: 50
           anchors.horizontalCenter: parent.horizontalCenter
-          spacing: 20
+          spacing: 10
 
           Label {
             id: label6
             height: 20
             text: qsTr("关锁贴牌号:")
+            font.pointSize: 16
             verticalAlignment: Text.AlignVCenter
           }
 
           TextField {
             id: txt_lock_id
-            height: 20
+            width: 120
+            height: 25
             inputMask: qsTr("AAAA9999999999")
             font.bold: true
-            font.pointSize: 8
+            font.pointSize: 10
           }
         }
 
         Button {
           id: btn_cal2
           y: 60
-          height: 20
+          height: 40
           text: qsTr("计算")
           anchors.horizontalCenter: parent.horizontalCenter
         }
@@ -224,7 +232,7 @@ Item {
         Grid {
           id: grid2
           y: 76
-          width: 100
+          width: 200
           height: 170
           anchors.horizontalCenter: parent.horizontalCenter
           horizontalItemAlignment: Grid.AlignRight
@@ -237,6 +245,7 @@ Item {
             id: label7
             height: 30
             text: qsTr("国家代码:")
+            font.pointSize: 16
             horizontalAlignment: Text.AlignRight
             verticalAlignment: Text.AlignVCenter
           }
@@ -246,6 +255,7 @@ Item {
             height: 30
             color: "#1b26ed"
             text: qsTr("----")
+            font.pointSize: 18
             wrapMode: Text.NoWrap
             verticalAlignment: Text.AlignVCenter
           }
@@ -254,6 +264,7 @@ Item {
             id: label9
             height: 30
             text: qsTr("制造商代码:")
+            font.pointSize: 16
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -262,6 +273,7 @@ Item {
             height: 30
             color: "#1b26ed"
             text: qsTr("----")
+            font.pointSize: 18
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -269,6 +281,7 @@ Item {
             id: label11
             height: 30
             text: qsTr("生产序列号:")
+            font.pointSize: 16
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -277,6 +290,7 @@ Item {
             height: 30
             color: "#1b26ed"
             text: qsTr("----")
+            font.pointSize: 18
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -284,6 +298,7 @@ Item {
             id: label13
             height: 30
             text: qsTr("关锁类型:")
+            font.pointSize: 16
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -292,6 +307,7 @@ Item {
             height: 30
             color: "#1b26ed"
             text: qsTr("----")
+            font.pointSize: 18
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -299,6 +315,7 @@ Item {
             id: label5
             height: 30
             text: qsTr("校验码:")
+            font.pointSize: 16
             verticalAlignment: Text.AlignVCenter
           }
 
@@ -307,6 +324,7 @@ Item {
               height: 30
               color: "#1b26ed"
               text: qsTr("----")
+              font.pointSize: 18
               verticalAlignment: Text.AlignVCenter
           }
         }

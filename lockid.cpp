@@ -112,10 +112,10 @@ QString LockId::calculate(QString cn_ui,
                           QString serial_id_ui,
                           QString type_ui)
 {
-  string cn(cn_ui.toStdString());
-  string nt(nt_ui.toStdString());
-  string serial_id(serial_id_ui.toStdString());
-  string type(type_ui.toStdString());
+  cn = cn_ui.toStdString();
+  nt = nt_ui.toStdString();
+  serial_id = serial_id_ui.toStdString();
+  type = type_ui.toStdString();
 
   if (cn.size() != 2 ||
       nt.size() != 2 ||
@@ -156,60 +156,80 @@ QString LockId::calculate(QString cn_ui,
   return QString(ret.c_str());
 }
 
-QString LockId::cal_country_code(QString id)
+QString LockId::cal_country_code()
 {
-  return QString(id.data(), 2);
+  return QString(cn.c_str());
 }
 
-QString LockId::cal_manufacturer(QString id)
+QString LockId::cal_manufacturer()
 {
-  return QString(id.data() + 2, 2);
+  return QString(cn.c_str());
 }
 
-QString LockId::cal_serial_id(QString id)
+QString LockId::cal_serial_id()
 {
-  string data(id.toStdString());
-
-  string ret(cal_hex(data));
-  ret.erase(6);
+  string ret(serial_id);
   ret.insert(4, " ");
   ret.insert(2, " ");
-  return QString(ret.c_str());
-}
-
-QString LockId::cal_lock_type(QString id)
-{
-  string data(id.toStdString());
-  string ret(cal_hex(data));
-  ret.erase(7);
-  ret.erase(0, 6);
 
   return QString(ret.c_str());
 }
 
-QString LockId::cal_check_code(QString id)
+QString LockId::cal_lock_type()
 {
-  string data(id.toStdString());
-  string ret(cal_hex(data));
-  ret.erase(0, 7);
+  return QString(type.c_str());
+}
 
-  return QString(ret.c_str());
+QString LockId::cal_check_code()
+{
+  return QString(QChar(check + 0x30));
 }
 
 string LockId::cal_hex(const string& data)
 {
   unsigned int num = 0;
-
-  if (!NumberParser::tryParseUnsigned(data.data() + 4, num)) {
+  if (!NumberParser::tryParseUnsigned(data.data(), num)) {
     qDebug("Error: %s", data.c_str());
   }
 
-  string ret(NumberFormatter::formatHex(num, 8));
-
-  return ret;
+  return string(NumberFormatter::formatHex(num, 8));
 }
 
 QString LockId::check_code()
 {
   return QString(QChar(check + 0x30));
+}
+
+bool LockId::validate()
+{
+
+  string str(cn + nt + serial_id + type);
+
+  qDebug("ID: %s", str.c_str());
+  unsigned int res = 0;
+  for(int i = 0; i < 11; ++i) {
+    res += table[str[i]] << i;
+  }
+
+  uint8_t crc = (res % 11) % 10;
+
+  if (crc != check) {
+    qDebug("CHECK crc failed: %d, %d", crc, check);
+    return false;
+  }
+
+  return true;
+}
+
+void LockId::init(QString id)
+{
+  string data(id.toStdString());
+
+  cn = data.substr(0, 2);
+  nt = data.substr(2, 2);
+  string hex(cal_hex(data.substr(4)));
+  serial_id = hex.substr(0, 6);
+  type = hex.substr(6, 1);
+  string tmp(hex.substr(7, 1));
+  check = tmp[0] - 0x30;
 }

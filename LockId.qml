@@ -26,21 +26,40 @@ LockIdForm {
 
   btn_cal2.onClicked: {
     if (txt_lock_id.text.length != 14) {
-      //input_dialog.open()
-      input_dialog.visible = true
-   } else {
-      var cn = lockid.cal_country_code(txt_lock_id.text)
-      var nt = lockid.cal_manufacturer(txt_lock_id.text)
-      var serial_id = lockid.cal_serial_id(txt_lock_id.text)
-      var lock_type = lockid.cal_lock_type(txt_lock_id.text)
-      var check_code = lockid.cal_check_code(txt_lock_id.text)
+      lbl_country_code.text = "----"
+      lbl_manufacturer.text = "----"
+      lbl_serial_id.text = "----"
+      lbl_lock_type.text = "----"
+      lbl_check_code.text = "----"
 
-      lbl_country_code.text = cn
-      lbl_manufacturer.text = nt
-      lbl_serial_id.text = serial_id
-      lbl_lock_type.text = lock_type
-      lbl_check_code.text = check_code
+      input_dialog.visible = true
+      return
     }
+
+    lockid.init(txt_lock_id.text)
+    if (!lockid.validate()) {
+      lbl_country_code.text = "----"
+      lbl_manufacturer.text = "----"
+      lbl_serial_id.text = "----"
+      lbl_lock_type.text = "----"
+      lbl_check_code.text = "----"
+
+      input_dialog.text = "lock id is incorrect, check crc failed!"
+      input_dialog.visible = true
+      return
+    }
+
+    var cn = lockid.cal_country_code()
+    var nt = lockid.cal_manufacturer()
+    var serial_id = lockid.cal_serial_id()
+    var lock_type = lockid.cal_lock_type()
+    var check_code = lockid.cal_check_code()
+
+    lbl_country_code.text = cn
+    lbl_manufacturer.text = nt
+    lbl_serial_id.text = serial_id
+    lbl_lock_type.text = lock_type
+    lbl_check_code.text = check_code
   }
 }
 

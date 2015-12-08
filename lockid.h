@@ -19,15 +19,19 @@ public:
 
   Q_INVOKABLE QString check_code();
 
-  Q_INVOKABLE QString cal_country_code(QString id);
+  Q_INVOKABLE QString cal_country_code();
 
-  Q_INVOKABLE QString cal_manufacturer(QString id);
+  Q_INVOKABLE QString cal_manufacturer();
 
-  Q_INVOKABLE QString cal_serial_id(QString id);
+  Q_INVOKABLE QString cal_serial_id();
 
-  Q_INVOKABLE QString cal_lock_type(QString id);
+  Q_INVOKABLE QString cal_lock_type();
 
-  Q_INVOKABLE QString cal_check_code(QString id);
+  Q_INVOKABLE QString cal_check_code();
+
+  Q_INVOKABLE bool validate();
+
+  Q_INVOKABLE void init(QString id);
 
 signals:
 
@@ -37,6 +41,10 @@ private:
   std::string cal_hex(const std::string& id);
 
 private:
+  std::string cn;
+  std::string nt;
+  std::string serial_id;
+  std::string type;
   uint8_t check;
 };
 
