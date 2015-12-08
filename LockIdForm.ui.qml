@@ -151,7 +151,8 @@ Item {
             id: lbl_check
             height: 30
             color: "#0d3ebf"
-              text: qsTr("-")
+            text: qsTr("-")
+            font.pointSize: 16
           }
         }
 

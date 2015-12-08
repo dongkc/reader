@@ -5,5 +5,7 @@
         <file>LockReaderForm.ui.qml</file>
         <file>LockId.qml</file>
         <file>LockIdForm.ui.qml</file>
+        <file>About.qml</file>
+        <file>AboutForm.ui.qml</file>
     </qresource>
 </RCC>

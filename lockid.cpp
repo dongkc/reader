@@ -163,7 +163,7 @@ QString LockId::cal_country_code()
 
 QString LockId::cal_manufacturer()
 {
-  return QString(cn.c_str());
+  return QString(nt.c_str());
 }
 
 QString LockId::cal_serial_id()

@@ -24,6 +24,11 @@ ApplicationWindow {
     Tab {
       title:"关锁GPRS测试"
     }
+    Tab {
+      title:"关于本测试工具"
+      About {
+      }
+    }
     anchors.fill: parent
   }
 }
