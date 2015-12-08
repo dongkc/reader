@@ -10,6 +10,7 @@ LockIdForm {
     id: input_dialog
     title: "Input error"
     text: "关锁贴牌号输入错误!"
+    icon: StandardIcon.Critical
   }
 
   btn_cal.onClicked: {
@@ -44,7 +45,7 @@ LockIdForm {
       lbl_lock_type.text = "----"
       lbl_check_code.text = "----"
 
-      input_dialog.text = "lock id is incorrect, check crc failed!"
+      input_dialog.text = "贴牌号校验出错"
       input_dialog.visible = true
       return
     }

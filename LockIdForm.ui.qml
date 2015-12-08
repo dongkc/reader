@@ -33,7 +33,7 @@ Item {
       id: groupBox1
       height: 480
       anchors.right: parent.right
-      anchors.rightMargin: 320
+      anchors.rightMargin: 330
       anchors.left: parent.left
       anchors.leftMargin: 10
       anchors.bottom: parent.bottom
@@ -67,7 +67,7 @@ Item {
 
           Label {
             id: label1
-            height: 20
+            height: 25
             text: qsTr("国家代码:")
             font.pointSize: 16
             transformOrigin: Item.Right
@@ -77,14 +77,16 @@ Item {
 
           TextField {
             id: country_id
-            height: 20
+            height: 25
             text: "CN"
+            font.bold: true
+            font.pointSize: 16
             inputMask: qsTr("AA")
           }
 
           Label {
             id: label2
-            height: 20
+            height: 25
             text: qsTr("制造商代码:")
             font.pointSize: 16
             wrapMode: Text.NoWrap
@@ -94,13 +96,16 @@ Item {
 
           TextField {
             id: maker_id
+            height: 25
             text: "NT"
+            font.bold: true
+            font.pointSize: 16
             inputMask: qsTr("AA")
           }
 
           Label {
             id: label3
-            height: 20
+            height: 25
             text: qsTr("生产序列号:")
             font.pointSize: 16
             verticalAlignment: Text.AlignVCenter
@@ -109,14 +114,17 @@ Item {
 
           TextField {
             id: serial_id
+            height: 25
             text: ""
+            font.bold: true
+            font.pointSize: 16
             placeholderText: qsTr("00 01 23")
             inputMask: qsTr("HH HH HH; ")
           }
 
           Label {
             id: label4
-            height: 20
+            height: 25
             text: qsTr("关锁类型:")
             font.pointSize: 16
             verticalAlignment: Text.AlignVCenter
@@ -125,6 +133,9 @@ Item {
 
           TextField {
             id: lock_type
+            height: 25
+            font.bold: true
+            font.pointSize: 16
             placeholderText: qsTr("1")
             inputMask: qsTr("H")
           }
@@ -156,7 +167,7 @@ Item {
         TextEdit {
           id: lock_id
           y: 250
-          width: 150
+          width: 200
           height: 30
           color: "#0d3ebf"
           text: qsTr("----")
@@ -168,7 +179,7 @@ Item {
           font.bold: true
           horizontalAlignment: Text.AlignHCenter
           anchors.horizontalCenter: parent.horizontalCenter
-          font.pixelSize: 18
+          font.pointSize: 20
         }
 
 
@@ -198,14 +209,14 @@ Item {
 
         Row {
           id: row1
-          width: 240
+          width: 300
           height: 50
           anchors.horizontalCenter: parent.horizontalCenter
-          spacing: 10
+          spacing: 0
 
           Label {
             id: label6
-            height: 20
+            height: 25
             text: qsTr("关锁贴牌号:")
             font.pointSize: 16
             verticalAlignment: Text.AlignVCenter
@@ -213,11 +224,11 @@ Item {
 
           TextField {
             id: txt_lock_id
-            width: 120
+            width: 180
             height: 25
             inputMask: qsTr("AAAA9999999999")
             font.bold: true
-            font.pointSize: 10
+            font.pointSize: 16
           }
         }
 
@@ -255,6 +266,7 @@ Item {
             height: 30
             color: "#1b26ed"
             text: qsTr("----")
+            font.bold: true
             font.pointSize: 18
             wrapMode: Text.NoWrap
             verticalAlignment: Text.AlignVCenter
@@ -273,6 +285,7 @@ Item {
             height: 30
             color: "#1b26ed"
             text: qsTr("----")
+            font.bold: true
             font.pointSize: 18
             verticalAlignment: Text.AlignVCenter
           }
@@ -290,6 +303,7 @@ Item {
             height: 30
             color: "#1b26ed"
             text: qsTr("----")
+            font.bold: true
             font.pointSize: 18
             verticalAlignment: Text.AlignVCenter
           }
@@ -307,6 +321,7 @@ Item {
             height: 30
             color: "#1b26ed"
             text: qsTr("----")
+            font.bold: true
             font.pointSize: 18
             verticalAlignment: Text.AlignVCenter
           }
@@ -324,6 +339,7 @@ Item {
               height: 30
               color: "#1b26ed"
               text: qsTr("----")
+              font.bold: true
               font.pointSize: 18
               verticalAlignment: Text.AlignVCenter
           }
