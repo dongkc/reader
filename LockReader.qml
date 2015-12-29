@@ -22,5 +22,10 @@ LockReaderForm {
       state = ""
     }
   }
+
+  btn_lock.onClicked: {
+    reader.lock(txt_lockid.text, qsTr("0000000000"));
+  }
+
 }
 

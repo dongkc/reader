@@ -55,6 +55,7 @@ void Reader::lock(QString lock_id, QString pass)
                    len);
 
   socket->write(begin, len);
+  qDebug() << "Send out seal data";
 }
 
 void Reader::unlock(QString lock_id, QString pass)

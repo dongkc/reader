@@ -111,6 +111,7 @@ Item {
 
           TextField {
             id: txt_lockid
+            text: "CNNT0000001560"
             readOnly: true
           }
 
