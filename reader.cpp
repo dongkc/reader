@@ -89,4 +89,5 @@ void Reader::check(QString lock_id, QString pass)
 void Reader::read()
 {
   qDebug() << "Received data from server";
+  socket->read(recv_buf, MAX_BUF_SIZE);
 }
