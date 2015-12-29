@@ -7,7 +7,8 @@ SOURCES += main.cpp \
     uidata.cpp \
     reader.cpp \
     message.cpp \
-    lockid.cpp
+    lockid.cpp \
+    util.cpp
 
 RESOURCES += qml.qrc
 
@@ -21,7 +22,8 @@ HEADERS += \
     uidata.h \
     reader.h \
     message.h \
-    lockid.h
+    lockid.h \
+    util.h
 
 
 LIBS += -L"E:/code/poco-1.6.0/lib" -lPocoFoundationd

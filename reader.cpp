@@ -2,6 +2,9 @@
 
 #include "reader.h"
 #include "message.h"
+#include "util.h"
+
+#define MAX_BUF_SIZE 1024
 
 Reader::Reader(QObject *parent) : QObject(parent)
 {
@@ -15,7 +18,6 @@ bool Reader::connect(QString ip, int port)
 {
   qDebug() << "CONNECT TO " << ip << " port: " << port;
   socket->connectToHost(QHostAddress(ip), port);
-  qDebug("Connect ...");
 
   return true;
 }
@@ -89,5 +91,10 @@ void Reader::check(QString lock_id, QString pass)
 void Reader::read()
 {
   qDebug() << "Received data from server";
-  socket->read(recv_buf, MAX_BUF_SIZE);
+  char recv_buf[MAX_BUF_SIZE];
+  qint64 len = socket->read(recv_buf, MAX_BUF_SIZE);
+  string msg(format(recv_buf, len));
+
+  QString log(msg.c_str());
+  emit  messagePosed(log);
 }

@@ -21,6 +21,9 @@ LockReaderForm {
       reader.disconnect()
       state = ""
     }
+    onMessagePost: {
+      txt_log.text = txt_log.text + log
+    }
   }
 
   btn_lock.onClicked: {

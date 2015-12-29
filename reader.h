@@ -5,7 +5,6 @@
 #include <QtNetwork>
 #include "uidata.h"
 
-#define MAX_BUF_SIZE 1024
 
 class Reader : public QObject
 {
@@ -22,6 +21,7 @@ public:
 signals:
   void conn();
   void disConn();
+  void messagePosed(const QString &msg);
 
 public slots:
   void connected();
@@ -30,7 +30,6 @@ public slots:
 
 private:
   QTcpSocket *socket;
-  char recv_buf[MAX_BUF_SIZE];
 };
 
 #endif // READER_H

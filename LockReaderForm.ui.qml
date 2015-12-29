@@ -17,6 +17,7 @@ Item {
   property alias btn_multi_send: btn_multi_send
   property alias btn_stop: btn_stop
   property alias spinbox_count: spinbox_count
+  property alias txt_log: txt_log
 
   RowLayout {
     id: rowLayout1
@@ -190,7 +191,7 @@ Item {
       anchors.fill: parent
 
       TextArea {
-        id: textArea1
+        id: txt_log
         anchors.rightMargin: 5
         anchors.leftMargin: 0
         anchors.bottomMargin: 5
