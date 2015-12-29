@@ -55,7 +55,7 @@ Item {
 
           TextField {
             id: txt_ip
-            text: "220.181.112.244"
+            text: "192.168.10.254"
             inputMask: "000.000.000.000;_"
             placeholderText: qsTr("192.168.1.100")
           }
@@ -70,7 +70,7 @@ Item {
 
           TextField {
             id: txt_port
-            text: "80"
+            text: "8071"
             inputMask: "00000000"
             placeholderText: qsTr("8000")
           }
