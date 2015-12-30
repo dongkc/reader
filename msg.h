@@ -34,13 +34,13 @@ struct Unseal_p
   char counter[4];
 };
 
-struct Verify_q
+struct Check_q
 {
   char passwd[10];
   char timestamp[10];
 };
 
-struct Verify_p
+struct Check_p
 {
   char status;
   char voltage;
@@ -64,8 +64,8 @@ struct Message
     Seal_p    seal_p;
     Unseal_q  unseal_q;
     Unseal_p  unseal_p;
-    Verify_q  verify_q;
-    Verify_p  verify_p;
+    Check_q  check_q;
+    Check_p   check_p;
   }body;
 };
 
