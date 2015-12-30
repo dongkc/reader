@@ -1,10 +1,14 @@
+#include <string>
+#include <iostream>
+
 #include "msg.h"
 #include "message.h"
-#include <string>
 
 using namespace std;
 
 namespace {
+typedef char BYTE;
+
 int EqualValue[26] = {10,12,13,14,15,16,17,18,19,20,21,23,24,25,26,27,28,29,30,31,32,34,35,36,37,38};
 int CheckCode[11]  = {0,1,2,3,4,5,6,7,8,9,0};
 char HexToAsni[16] = {0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F'};
@@ -131,6 +135,7 @@ bool CheckVerifyCode(unsigned char * buf, unsigned int buflen)
   return false;
 }
 
+#if 0
 int GetELockId(const std::string &lockid, unsigned char * outbuf, unsigned int buflen)
 {
   if(lockid.length() != 14 || buflen != 8)
@@ -172,6 +177,7 @@ bool GetELockIdFromBuf(unsigned char * buf, unsigned int buflen, std::string &lo
 
   return false;
 }
+#endif
 
 bool CheckCrc(unsigned char * buf, int buflen)
 {
@@ -188,9 +194,42 @@ bool CheckCrc(unsigned char * buf, int buflen)
 
 } //  namespace
 
+
+void parse_seal(char* buf, int len, Seal_p* seal_p)
+{
+  seal_p->result = buf[0];
+  seal_p->voltage = buf[1];
+  seal_p->success_flag = buf[2];
+  memcpy((void*)seal_p->timestamp, &buf[3], 8);
+  memcpy(seal_p->counter, &buf[11], 4);
+}
+
+void parse_unseal(char* buf, int len, Unseal_p* unseal_p)
+{
+  unseal_p->result = buf[0];
+  unseal_p->voltage = buf[1];
+  unseal_p->success_flag = buf[2];
+  memcpy((void*)unseal_p->timestamp, &buf[3], 8);
+  unseal_p->alarm_counter = buf[11];
+  memcpy((void*)unseal_p->alarm_timestamp, &buf[12], 4);
+  memcpy(unseal_p->counter, &buf[16], 4);
+}
+
+void parse_check_seal(char* buf, int len, Check_p* check_p)
+{
+  check_p->status = buf[0];
+  check_p->voltage = buf[1];
+  check_p->success_flag = buf[2];
+  memcpy((void*)check_p->timestamp, &buf[3], 8);
+  check_p->alarm_counter = buf[11];
+  memcpy((void*)check_p->alarm_timestamp, &buf[12], 4);
+  memcpy(check_p->counter, &buf[16], 4);
+
+}
+
 int parse(char* buf, int32_t len, Message* msg)
 {
-  if (!CheckCrc(buf, buflen)) {
+  if (!CheckCrc((unsigned char*)buf, len)) {
     cout << "check crc failed";
     return -1;
   }
@@ -200,50 +239,21 @@ int parse(char* buf, int32_t len, Message* msg)
   msg->cmd_id = buf[10];
 
   char *body = &buf[12];
-  int len = buf[11];
+  len = buf[11];
 
   // body
   switch (msg->cmd_id) {
     case ELOCK_SEALING_RES:
-      parse_seal(body, len, &body.seal_q);
+      parse_seal(body, len, &msg->body.seal_p);
       break;
     case ELOCK_UNSEALING_RES:
-      parse_unseal(body, len, &body.seal_q);
+      parse_unseal(body, len, &msg->body.unseal_p);
       break;
     case ELOCK_CHECK_SEALING_RES:
-      parse_check_seal(body, len, &body.seal_q);
+      parse_check_seal(body, len, &msg->body.check_p);
       break;
   };
+
+  return 0;
 }
 
-void parse_seal(char* buf, int len, Seal_p* seal_p)
-{
-  seal_p->result = buf[0];
-  seal_p->voltage = buf[1];
-  seal_p->success_flag = buf[2];
-  memcpy(seal_p->timestamp, &buf[3], 8);
-  memcpy(seal_p->counter, buf[11], 4);
-}
-
-void parse_unseal(char* buf, int len, Unseal_p* unseal_p)
-{
-  unseal_p->result = buf[0];
-  unseal_p->voltage = buf[1];
-  unseal_p->success_flag = buf[2];
-  memcpy(unseal_p->timestamp, &buf[3], 8);
-  unseal_p->alarm_counter = buf[11];
-  memcpy(unseal_p->alarm_timestamp, &buf[12], 4);
-  memcpy(unseal_p->counter, &buf[16], 4);
-}
-
-void parse_check_seal(char* buf, int len, Check_p* check_p)
-{
-  check_p->result = buf[0];
-  check_p->voltage = buf[1];
-  check_p->success_flag = buf[2];
-  memcpy(check_p->timestamp, &buf[3], 8);
-  check_p->alarm_counter = buf[11];
-  memcpy(check_p->alarm_timestamp, &buf[12], 4);
-  memcpy(check_p->counter, &buf[16], 4);
-
-}
