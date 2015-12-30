@@ -106,6 +106,6 @@ void Reader::read()
     qDebug() << "Parse error";
   };
 
-  string ret(serial(message));
+  string ret(serialize(message));
   emit  messagePost(QString(ret.c_str()));
 }

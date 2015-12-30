@@ -262,15 +262,40 @@ int parse(char* buf, int32_t len, Message* msg)
   return 0;
 }
 
-std::string serial(const Message& msg)
+std::string serialze_seal_p(const Seal_p& msg)
 {
-#if 1
-  LockId lock_id;
-  QString lockid = lock_id.calculate(QString(QChar(msg.lock_id[0])) + QString(QChar(msg.lock_id[1])),
-                                     QString(QChar(msg.lock_id[2])) + QString(QChar(msg.lock_id[3])),
-                                     QString(QChar(msg.lock_id[4])) + QString(QChar(msg.lock_id[5])) + QString(QChar(msg.lock_id[6])),
-                                     QString(QChar(msg.lock_id[7])));
-  return lockid.toStdString();
-#endif
-  return "===========";
+  string content;
+  return content;
+}
+
+std::string serialze_unseal_p(const Unseal_p& msg)
+{
+  string content;
+  return content;
+}
+
+std::string serialze_check_seal_p(const Check_p& msg)
+{
+  string content;
+  return content;
+}
+
+std::string serialize(const Message& msg)
+{
+  string lockid;
+  GetELockIdFromBuf((unsigned char*)msg.lock_id, 8, lockid);
+
+  string body;
+  switch (msg.cmd_id) {
+    case  ELOCK_SEALING_RES:
+      body = " 施封结果: " + serialze_seal_p(msg.body.seal_p);
+      break;
+    case  ELOCK_UNSEALING_RES:
+      body = "" + serialze_unseal_p(msg.body.unseal_p);
+      break;
+    case  ELOCK_CHECK_SEALING_RES:
+      body = "" + serialze_check_seal_p(msg.body.check_p);
+      break;
+  };
+  return lockid + body + "\n";
 }
