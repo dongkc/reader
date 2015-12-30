@@ -22,7 +22,8 @@ LockReaderForm {
       state = ""
     }
     onMessagePost: {
-      txt_log.text = txt_log.text + log
+      console.log("---------------------------------------")
+      txt_log.text = txt_log.text + msg
     }
   }
 

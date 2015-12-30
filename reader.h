@@ -21,7 +21,7 @@ public:
 signals:
   void conn();
   void disConn();
-  void messagePosed(const QString &msg);
+  void messagePost(const QString &msg);
 
 public slots:
   void connected();

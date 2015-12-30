@@ -1,17 +1,28 @@
 #include "util.h"
 #include <string>
+#include <iostream>
 
-using namespce std;
+using namespace std;
 
-void hex2ASCII(char c, char ascii[2])
+inline char helper(char c)
 {
-  ascii[0] = c >> 4 + '0';
-  ascii[1] = c & 0x0F + '0';
+  if (c < 10) {
+    return c + '0';
+  }
+
+  return c - 10 + 'A';
+}
+void hex2ASCII(char c, char* ascii)
+{
+  char high = (c & 0xF0) >> 4;
+  char low = c & 0x0F;
+  ascii[0] = helper(high);
+  ascii[1] = helper(low);
 }
 
 void ASCII2hex(char ascii[2], char& c)
 {
-  c = (ascii[0] - '0' << 4) | (ascii[1] - '0');
+  c = ((ascii[0] - '0') << 4) | (ascii[1] - '0');
 }
 
 string format(char* hex, int32_t len)
@@ -19,8 +30,8 @@ string format(char* hex, int32_t len)
   char ascii[2];
   string content;
   for (int i = 0; i < len; ++i) {
-    hex2ASCII(hex[i], ascii);
-    content += string(ascii, 2) + " ";
+    hex2ASCII(hex[i], (char*)&ascii);
+    content = content + string(ascii, 2) + " ";
   }
   content += "\n";
 

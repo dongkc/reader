@@ -1,10 +1,13 @@
 #include <QMessageBox>
+#include <string>
 
 #include "reader.h"
 #include "message.h"
 #include "util.h"
 
 #define MAX_BUF_SIZE 1024
+
+using namespace std;
 
 Reader::Reader(QObject *parent) : QObject(parent)
 {
@@ -94,7 +97,8 @@ void Reader::read()
   char recv_buf[MAX_BUF_SIZE];
   qint64 len = socket->read(recv_buf, MAX_BUF_SIZE);
   string msg(format(recv_buf, len));
+  qDebug() << len;
+  qDebug() << msg.c_str();
 
-  QString log(msg.c_str());
-  emit  messagePosed(log);
+  emit  messagePost(QString(msg.c_str()));
 }
