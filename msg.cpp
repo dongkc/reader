@@ -1,10 +1,15 @@
 #include <string>
 #include <iostream>
+#include <QDebug>
+#include <QMessageBox>
+#include <Poco/ByteOrder.h>
 
 #include "msg.h"
 #include "message.h"
+#include "lockid.h"
 
 using namespace std;
+using namespace Poco;
 
 namespace {
 typedef char BYTE;
@@ -135,7 +140,6 @@ bool CheckVerifyCode(unsigned char * buf, unsigned int buflen)
   return false;
 }
 
-#if 0
 int GetELockId(const std::string &lockid, unsigned char * outbuf, unsigned int buflen)
 {
   if(lockid.length() != 14 || buflen != 8)
@@ -177,7 +181,6 @@ bool GetELockIdFromBuf(unsigned char * buf, unsigned int buflen, std::string &lo
 
   return false;
 }
-#endif
 
 bool CheckCrc(unsigned char * buf, int buflen)
 {
@@ -201,7 +204,7 @@ void parse_seal(char* buf, int len, Seal_p* seal_p)
   seal_p->voltage = buf[1];
   seal_p->success_flag = buf[2];
   memcpy((void*)seal_p->timestamp, &buf[3], 8);
-  memcpy(seal_p->counter, &buf[11], 4);
+  memcpy((void*)seal_p->counter, &buf[11], 4);
 }
 
 void parse_unseal(char* buf, int len, Unseal_p* unseal_p)
@@ -237,10 +240,12 @@ int parse(char* buf, int32_t len, Message* msg)
   msg->protocol_id = buf[1];
   memcpy(msg->lock_id, &buf[2], 8);
   msg->cmd_id = buf[10];
+  cout << "cmd_id: " << msg->cmd_id << endl;
 
   char *body = &buf[12];
   len = buf[11];
 
+  cout << "body: " << *body <<  " len: " << len << endl;
   // body
   switch (msg->cmd_id) {
     case ELOCK_SEALING_RES:
@@ -257,3 +262,15 @@ int parse(char* buf, int32_t len, Message* msg)
   return 0;
 }
 
+std::string serial(const Message& msg)
+{
+#if 1
+  LockId lock_id;
+  QString lockid = lock_id.calculate(QString(QChar(msg.lock_id[0])) + QString(QChar(msg.lock_id[1])),
+                                     QString(QChar(msg.lock_id[2])) + QString(QChar(msg.lock_id[3])),
+                                     QString(QChar(msg.lock_id[4])) + QString(QChar(msg.lock_id[5])) + QString(QChar(msg.lock_id[6])),
+                                     QString(QChar(msg.lock_id[7])));
+  return lockid.toStdString();
+#endif
+  return "===========";
+}

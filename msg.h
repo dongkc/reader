@@ -4,7 +4,7 @@
 struct Seal_q
 {
   char passwd[10];
-  char timestamp[10];
+  char timestamp[8];
 };
 
 struct Seal_p
@@ -12,14 +12,14 @@ struct Seal_p
   char result;
   char voltage;
   char success_flag;
-  char timestamp;
+  char timestamp[8];
   char counter[4];
 };
 
 struct Unseal_q
 {
   char passwd[10];
-  char timestamp[10];
+  char timestamp[8];
 };
 
 struct Unseal_p
@@ -27,17 +27,17 @@ struct Unseal_p
   char result;
   char voltage;
   char success_flag;
-  char timestamp;
+  char timestamp[8];
   char alarm_counter;
   char alarm_type;
-  char alarm_timestamp;
+  char alarm_timestamp[8];
   char counter[4];
 };
 
 struct Check_q
 {
   char passwd[10];
-  char timestamp[10];
+  char timestamp[8];
 };
 
 struct Check_p
@@ -45,10 +45,10 @@ struct Check_p
   char status;
   char voltage;
   char success_flag;
-  char timestamp;
+  char timestamp[8];
   char alarm_counter;
   char alarm_type;
-  char alarm_timestamp;
+  char alarm_timestamp[8];
   char counter[4];
 };
 
@@ -69,5 +69,6 @@ struct Message
   }body;
 };
 
+int parse(char* buf, int len, Message* msg);
 
-int parse(const Message& msg);
+std::string serial(const Message& msg);

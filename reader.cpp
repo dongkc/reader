@@ -4,6 +4,7 @@
 #include "reader.h"
 #include "message.h"
 #include "util.h"
+#include "msg.h"
 
 #define MAX_BUF_SIZE 1024
 
@@ -100,5 +101,11 @@ void Reader::read()
   qDebug() << len;
   qDebug() << msg.c_str();
 
-  emit  messagePost(QString(msg.c_str()));
+  Message message;
+  if (!parse(recv_buf, len, &message)) {
+    qDebug() << "Parse error";
+  };
+
+  string ret(serial(message));
+  emit  messagePost(QString(ret.c_str()));
 }
