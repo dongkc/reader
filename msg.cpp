@@ -1,4 +1,5 @@
 #include <string>
+#include <map>
 #include <iostream>
 #include <QDebug>
 #include <QMessageBox>
@@ -262,10 +263,61 @@ int parse(char* buf, int32_t len, Message* msg)
   return 0;
 }
 
+string voltage2str(char c)
+{
+  std::map<char, string> dic;
+  dic.insert(make_pair('a', "3.30"));
+  dic.insert(make_pair('b', "3.40"));
+  dic.insert(make_pair('c', "3.50"));
+  dic.insert(make_pair('d', "3.60"));
+  dic.insert(make_pair('e', "3.65"));
+  dic.insert(make_pair('f', "3.70"));
+  dic.insert(make_pair('g', "3.75"));
+  dic.insert(make_pair('h', "3.80"));
+  dic.insert(make_pair('i', "3.85"));
+  dic.insert(make_pair('p', "3.90"));
+  dic.insert(make_pair('q', "4.00"));
+  dic.insert(make_pair('r', "4.10"));
+  dic.insert(make_pair('s', "4.20"));
+
+  map<char, string>::iterator it;
+  string voltage;
+  it = dic.find(c);
+  if (it == dic.end()) {
+    return "";
+  }
+  voltage = it->second;
+
+  return voltage +"V";
+}
+
+string timestamp2str(char* buf)
+{
+  char tmp[8];
+  for (int i = 0; i < 8; ++i) {
+    tmp[i] = buf[i] + '0';
+  }
+
+  return "20" + ;
+}
+
+string result2str(char c)
+{
+  return "";
+}
+
 std::string serialze_seal_p(const Seal_p& msg)
 {
-  string content;
-  return content;
+  string success_flag = "施封成功";
+  if (msg.success_flag == 0xFF) {
+    success_flag = "施封失败";
+  }
+
+  string voltage(voltage2str(msg.voltage));;
+  string timestamp(timestamp2str(msg.timestamp));
+  string result(result2str());
+
+  return success_flag + " " + timestamp + " " + result;
 }
 
 std::string serialze_unseal_p(const Unseal_p& msg)
@@ -291,10 +343,10 @@ std::string serialize(const Message& msg)
       body = " 施封结果: " + serialze_seal_p(msg.body.seal_p);
       break;
     case  ELOCK_UNSEALING_RES:
-      body = "" + serialze_unseal_p(msg.body.unseal_p);
+      body = " 解封结果: " + serialze_unseal_p(msg.body.unseal_p);
       break;
     case  ELOCK_CHECK_SEALING_RES:
-      body = "" + serialze_check_seal_p(msg.body.check_p);
+      body = " 验封结果: " + serialze_check_seal_p(msg.body.check_p);
       break;
   };
   return lockid + body + "\n";
