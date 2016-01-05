@@ -1,6 +1,6 @@
-#include <string>
 #include <map>
 #include <iostream>
+#include <string>
 #include <QDebug>
 #include <QMessageBox>
 #include <Poco/ByteOrder.h>
@@ -8,6 +8,7 @@
 #include "msg.h"
 #include "message.h"
 #include "lockid.h"
+#include "util.h"
 
 using namespace std;
 using namespace Poco;
@@ -291,19 +292,50 @@ string voltage2str(char c)
   return voltage +"V";
 }
 
-string timestamp2str(char* buf)
+string timestamp2str(const char buf[8])
 {
-  char tmp[8];
-  for (int i = 0; i < 8; ++i) {
-    tmp[i] = buf[i] + '0';
-  }
+  char year[4];
+  hex2ASCII(buf[0], &year[0]);
+  hex2ASCII(buf[1], &year[2]);
 
-  return "20" + ;
+  char mon[2];
+  hex2ASCII(buf[2], &mon[0]);
+
+  char day[2];
+  hex2ASCII(buf[3], &day[0]);
+
+  char hour[2];
+  hex2ASCII(buf[4], &hour[0]);
+
+  char minute[2];
+  hex2ASCII(buf[5], &minute[0]);
+
+  char second[2];
+  hex2ASCII(buf[6], &second[0]);
+
+  return string(year,  4) + "";
 }
 
 string result2str(char c)
 {
-  return "";
+  std::map<int, string> dic;
+  dic.insert(make_pair(0, "施封失败"));
+  dic.insert(make_pair(1, "锁杆没有插好"));
+  dic.insert(make_pair(2, "电压过低"));
+  dic.insert(make_pair(3, "重复施封"));
+  dic.insert(make_pair(4, "外壳破坏"));
+  dic.insert(make_pair(5, "响应超时"));
+  dic.insert(make_pair(6, "未检测到封条"));
+  dic.insert(make_pair(7, "封条被拆"));
+
+  string content;
+  for (int i = 0; i < 8; ++i) {
+    if (c & (1 << i)) {
+      content += dic[i] + ",";
+    }
+  }
+
+  return content;
 }
 
 std::string serialze_seal_p(const Seal_p& msg)
@@ -315,7 +347,7 @@ std::string serialze_seal_p(const Seal_p& msg)
 
   string voltage(voltage2str(msg.voltage));;
   string timestamp(timestamp2str(msg.timestamp));
-  string result(result2str());
+  string result(result2str(msg.result));
 
   return success_flag + " " + timestamp + " " + result;
 }
