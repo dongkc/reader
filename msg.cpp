@@ -313,7 +313,12 @@ string timestamp2str(const char buf[8])
   char second[2];
   hex2ASCII(buf[6], &second[0]);
 
-  return string(year,  4) + "";
+  return string(year,  4) + "-" +
+         string(mon, 2)   + "-" +
+         string(day, 2)   + " " +
+         string(hour, 2)  + ":" +
+         string(minute, 2)+ ":" +
+         string(second, 2);
 }
 
 string result2str(char c)
@@ -338,7 +343,7 @@ string result2str(char c)
   return content;
 }
 
-std::string serialze_seal_p(const Seal_p& msg)
+std::string serialize(const Seal_p& msg)
 {
   string success_flag = "施封成功";
   if (msg.success_flag == 0xFF) {
@@ -352,13 +357,13 @@ std::string serialze_seal_p(const Seal_p& msg)
   return success_flag + " " + timestamp + " " + result;
 }
 
-std::string serialze_unseal_p(const Unseal_p& msg)
+std::string serialize(const Unseal_p& msg)
 {
   string content;
   return content;
 }
 
-std::string serialze_check_seal_p(const Check_p& msg)
+std::string serialize(const Check_p& msg)
 {
   string content;
   return content;
@@ -372,13 +377,13 @@ std::string serialize(const Message& msg)
   string body;
   switch (msg.cmd_id) {
     case  ELOCK_SEALING_RES:
-      body = " 施封结果: " + serialze_seal_p(msg.body.seal_p);
+      body = " " + serialize(msg.body.seal_p);
       break;
     case  ELOCK_UNSEALING_RES:
-      body = " 解封结果: " + serialze_unseal_p(msg.body.unseal_p);
+      body = " " + serialize(msg.body.unseal_p);
       break;
     case  ELOCK_CHECK_SEALING_RES:
-      body = " 验封结果: " + serialze_check_seal_p(msg.body.check_p);
+      body = " " + serialize(msg.body.check_p);
       break;
   };
   return lockid + body + "\n";

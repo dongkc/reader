@@ -72,6 +72,6 @@ struct Message
 int parse(char* buf, int len, Message* msg);
 
 std::string serialize(const Message& msg);
-std::string serialze_seal_p(const Seal_p& msg);
-std::string serialze_unseal_p(const Unseal_p& msg);
-std::string serialze_check_seal_p(const Check_p& msg);
+std::string serialize(const Seal_p& msg);
+std::string serialize(const Unseal_p& msg);
+std::string serialize(const Check_p& msg);
