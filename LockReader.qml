@@ -1,4 +1,4 @@
-import QtQuick 2.4
+﻿import QtQuick 2.4
 
 LockReaderForm {
   btn_con.onClicked: {
@@ -29,6 +29,14 @@ LockReaderForm {
 
   btn_lock.onClicked: {
     reader.lock(txt_lockid.text, qsTr("0000000000"));
+  }
+
+  btn_unlock.onClicked: {
+    reader.unlock(txt_lockid.text, qsTr("0000000000"));
+  }
+
+  btn_verify.onClicked: {
+    reader.check(txt_lockid.text, qsTr("0000000000"));
   }
 
 }

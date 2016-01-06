@@ -201,7 +201,7 @@ bool CheckCrc(unsigned char * buf, int buflen)
 } //  namespace
 
 
-void parse_seal(char* buf, int len, Seal_p* seal_p)
+void parse(char* buf, int len, Seal_p* seal_p)
 {
   seal_p->result = buf[0];
   seal_p->voltage = buf[1];
@@ -210,26 +210,28 @@ void parse_seal(char* buf, int len, Seal_p* seal_p)
   memcpy((void*)seal_p->counter, &buf[11], 4);
 }
 
-void parse_unseal(char* buf, int len, Unseal_p* unseal_p)
+void parse(char* buf, int len, Unseal_p* unseal_p)
 {
   unseal_p->result = buf[0];
   unseal_p->voltage = buf[1];
   unseal_p->success_flag = buf[2];
   memcpy((void*)unseal_p->timestamp, &buf[3], 8);
   unseal_p->alarm_counter = buf[11];
-  memcpy((void*)unseal_p->alarm_timestamp, &buf[12], 4);
-  memcpy(unseal_p->counter, &buf[16], 4);
+  unseal_p->alarm_type = buf[12];
+  memcpy((void*)unseal_p->alarm_timestamp, &buf[13], 8);
+  memcpy(unseal_p->counter, &buf[21], 4);
 }
 
-void parse_check_seal(char* buf, int len, Check_p* check_p)
+void parse(char* buf, int len, Check_p* check_p)
 {
   check_p->status = buf[0];
   check_p->voltage = buf[1];
   check_p->success_flag = buf[2];
   memcpy((void*)check_p->timestamp, &buf[3], 8);
   check_p->alarm_counter = buf[11];
-  memcpy((void*)check_p->alarm_timestamp, &buf[12], 4);
-  memcpy(check_p->counter, &buf[16], 4);
+  check_p->alarm_type = buf[12];
+  memcpy((void*)check_p->alarm_timestamp, &buf[13], 8);
+  memcpy(check_p->counter, &buf[21], 4);
 
 }
 
@@ -252,13 +254,13 @@ int parse(char* buf, int32_t len, Message* msg)
   // body
   switch (msg->cmd_id) {
     case ELOCK_SEALING_RES:
-      parse_seal(body, len, &msg->body.seal_p);
+      parse(body, len, &msg->body.seal_p);
       break;
     case ELOCK_UNSEALING_RES:
-      parse_unseal(body, len, &msg->body.unseal_p);
+      parse(body, len, &msg->body.unseal_p);
       break;
     case ELOCK_CHECK_SEALING_RES:
-      parse_check_seal(body, len, &msg->body.check_p);
+      parse(body, len, &msg->body.check_p);
       break;
   };
 
@@ -377,7 +379,10 @@ std::string serialize(const Seal_p& msg)
   string timestamp(timestamp2str(msg.timestamp));
   string result(result2str_1(msg.result));
 
-  return success_flag + " " + timestamp + " " + result;
+  return success_flag + " " +
+         "电压:" + voltage + " " +
+         "操作时间:" + timestamp + " " +
+         result;
 }
 
 string alarmtype2str(char c)
@@ -401,7 +406,6 @@ string alarmtype2str(char c)
 
 std::string serialize(const Unseal_p& msg)
 {
-  string content;
   string success_flag = "解封成功";
   if (msg.success_flag == 0xFF) {
     success_flag = "解封失败";
@@ -412,14 +416,56 @@ std::string serialize(const Unseal_p& msg)
   string result(result2str_2(msg.result));
   string alarm_counter;
   uIntToStr<char>(msg.alarm_counter, 2, alarm_counter);
+  string alarm_timestamp(timestamp2str(msg.alarm_timestamp));
+
+  return success_flag + " " +
+         "电压:" + voltage + " " +
+         "操作时间:" + timestamp + " " +
+         result + " " +
+         "报警计数:" + alarm_counter + " " +
+         "报警时间:" + alarm_timestamp;
+}
+
+string result2str_3(char c)
+{
+  std::map<int, string> dic;
+  dic.insert(make_pair(1, "施封下无报警"));
+  dic.insert(make_pair(2, "施封下有报警"));
+  dic.insert(make_pair(3, "解封下有报警"));
+  dic.insert(make_pair(4, "解封下无报警"));
+  dic.insert(make_pair(5, "操作口令错误"));
+  dic.insert(make_pair(6, "封条报警"));
+
+  string content;
+  for (int i = 0; i < 8; ++i) {
+    if (c & (1 << i)) {
+      content += dic[i] + ",";
+    }
+  }
 
   return content;
 }
 
 std::string serialize(const Check_p& msg)
 {
-  string content;
-  return content;
+  string success_flag = "验封成功";
+  if (msg.success_flag == 0xFF) {
+    success_flag = "验封失败";
+  }
+
+  string voltage(voltage2str(msg.voltage));;
+  string timestamp(timestamp2str(msg.timestamp));
+  string result(result2str_3(msg.status));
+  string alarm_counter;
+  uIntToStr<char>(msg.alarm_counter, 2, alarm_counter);
+  string alarm_timestamp(timestamp2str(msg.alarm_timestamp));
+
+  return success_flag + " " +
+         "电压:" + voltage + " " +
+         "操作时间:" + timestamp + " " +
+         result + " " +
+         "报警计数:" + alarm_counter + " " +
+         "报警时间:" + alarm_timestamp;
 }
 
 std::string serialize(const Message& msg)
