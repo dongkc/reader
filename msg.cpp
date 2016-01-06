@@ -4,6 +4,7 @@
 #include <QDebug>
 #include <QMessageBox>
 #include <Poco/ByteOrder.h>
+#include <Poco/NumericString.h>
 
 #include "msg.h"
 #include "message.h"
@@ -321,7 +322,7 @@ string timestamp2str(const char buf[8])
          string(second, 2);
 }
 
-string result2str(char c)
+string result2str_1(char c)
 {
   std::map<int, string> dic;
   dic.insert(make_pair(0, "施封失败"));
@@ -343,6 +344,28 @@ string result2str(char c)
   return content;
 }
 
+string result2str_2(char c)
+{
+  std::map<int, string> dic;
+  dic.insert(make_pair(0, "解封失败"));
+  dic.insert(make_pair(1, "口令错误"));
+  dic.insert(make_pair(2, "电压过低"));
+  dic.insert(make_pair(3, "重复解封"));
+  dic.insert(make_pair(4, "未施封时解封"));
+  dic.insert(make_pair(5, "报警不能解封"));
+  dic.insert(make_pair(6, "响应超时"));
+  dic.insert(make_pair(7, "封条报警"));
+
+  string content;
+  for (int i = 0; i < 8; ++i) {
+    if (c & (1 << i)) {
+      content += dic[i] + ",";
+    }
+  }
+
+  return content;
+}
+
 std::string serialize(const Seal_p& msg)
 {
   string success_flag = "施封成功";
@@ -352,14 +375,44 @@ std::string serialize(const Seal_p& msg)
 
   string voltage(voltage2str(msg.voltage));;
   string timestamp(timestamp2str(msg.timestamp));
-  string result(result2str(msg.result));
+  string result(result2str_1(msg.result));
 
   return success_flag + " " + timestamp + " " + result;
+}
+
+string alarmtype2str(char c)
+{
+  std::map<int, string> dic;
+  dic.insert(make_pair(1, "锁杆断开"));
+  dic.insert(make_pair(2, "非法拆开"));
+  dic.insert(make_pair(3, "封条失联"));
+  dic.insert(make_pair(4, "施封下有封条被拆开"));
+  dic.insert(make_pair(5, "保留字段"));
+
+  string content;
+  for (int i = 0; i < 8; ++i) {
+    if (c & (1 << i)) {
+      content += dic[i] + ",";
+    }
+  }
+
+  return content;
 }
 
 std::string serialize(const Unseal_p& msg)
 {
   string content;
+  string success_flag = "解封成功";
+  if (msg.success_flag == 0xFF) {
+    success_flag = "解封失败";
+  }
+
+  string voltage(voltage2str(msg.voltage));;
+  string timestamp(timestamp2str(msg.timestamp));
+  string result(result2str_2(msg.result));
+  string alarm_counter;
+  uIntToStr<char>(msg.alarm_counter, 2, alarm_counter);
+
   return content;
 }
 
