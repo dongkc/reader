@@ -9,6 +9,7 @@
 #include "message.h"
 #include "Poco/ByteOrder.h"
 
+using namespace std;
 using Poco::ByteOrder;
 
 namespace {
@@ -343,3 +344,115 @@ bool CreateCheckSealingReq(const std::string &lockid,
 
   return true;
 }
+
+bool CreateWriteDataReq(const std::string &lockid,
+                        const std::string &passwd,
+                        unsigned char * data,
+                        int datalen,
+                        unsigned char * outbuf,
+                        unsigned int &buflen)
+{
+  if (lockid.length() != 14 ||
+      outbuf == NULL ||
+      buflen <34 ||
+      passwd.length() > 10 ||
+      data == NULL ||
+      datalen > 108) {
+    return false;
+  }
+
+  memset(outbuf, 0, buflen);
+
+  outbuf[0] = 0x7B;
+  outbuf[1] = ELOCK_ID_MSG;
+  int n = GetELockId(lockid,outbuf + 2, 8);
+  if(n != 8)
+  {
+    return false;
+  }
+  outbuf[10] = ELOCK_WRITE_EXTENSION_DATA_REQ;
+  outbuf[11] = 20 + datalen;
+
+  memcpy(outbuf + 12, passwd.c_str(), passwd.length());
+
+  char chTime[100]= {0};
+  __time64_t time_utc;
+  struct tm tm_utc = {0};
+  time_utc = _time64(NULL);
+  _gmtime64_s(&tm_utc, &time_utc);
+
+  BYTE bTime[7]= {0};
+  _snprintf(chTime,
+            sizeof(chTime) - 1,
+            "%02d%02d%02d%02d%02d%02d%02d",
+            (tm_utc.tm_year + 1900)/100,
+            (tm_utc.tm_year + 1900)%100,
+            tm_utc.tm_mon + 1,
+            tm_utc.tm_mday,
+            tm_utc.tm_hour,
+            tm_utc.tm_min,
+            tm_utc.tm_sec);
+  StrToBCD(chTime, bTime, 7);
+
+  memcpy(outbuf + 22, bTime, 7);
+  outbuf[29] = XOR_BCDCrcCheck(bTime,7);
+  outbuf[30] = 0x00;  //serialno, now only use the first extension data,total 10 extension data
+  outbuf[31] = datalen;
+  memcpy(outbuf + 32, data, datalen);
+  Crc16_Ccitt(outbuf,12 + 20 + datalen, outbuf+12 + 20 + datalen);
+  buflen = 12 + 20 + datalen + 2;
+
+  return true;
+}
+
+bool CreateReadDataReq(const std::string &lockid,
+                       const std::string &passwd,
+                       unsigned char * outbuf,
+                       unsigned int &buflen)
+{
+  if(lockid.length() != 14 || outbuf == NULL || buflen <34 || passwd.length() > 10)
+    return false;
+
+  memset(outbuf, 0, buflen);
+
+  outbuf[0] = 0x7B;
+  outbuf[1] = ELOCK_ID_MSG;
+  int n = GetELockId(lockid,outbuf + 2, 8);
+  if(n != 8)
+  {
+    return false;
+  }
+  outbuf[10] = ELOCK_READ_EXTENSION_DATA_REQ;
+  outbuf[11] = 0x13;
+
+  memcpy(outbuf + 12, passwd.c_str(), passwd.length());
+
+  char chTime[100]= {0};
+  __time64_t time_utc;
+  struct tm tm_utc = {0};
+  time_utc = _time64(NULL);
+  _gmtime64_s(&tm_utc, &time_utc);
+
+  BYTE bTime[7]= {0};
+  _snprintf(chTime,
+            sizeof(chTime) - 1,
+            "%02d%02d%02d%02d%02d%02d%02d",
+            (tm_utc.tm_year + 1900)/100,
+            (tm_utc.tm_year + 1900)%100,
+            tm_utc.tm_mon + 1,
+            tm_utc.tm_mday,
+            tm_utc.tm_hour,
+            tm_utc.tm_min,
+            tm_utc.tm_sec);
+  StrToBCD(chTime, bTime, 7);
+
+  memcpy(outbuf + 22, bTime, 7);
+  outbuf[29] = XOR_BCDCrcCheck(bTime,7);
+  outbuf[30] = 0x00;  //serialno, now only use the first extension data,total 10 extension data
+
+  Crc16_Ccitt(outbuf,31,outbuf+31);
+  buflen = 33;
+
+  return true;
+}
+
