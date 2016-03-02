@@ -453,6 +453,11 @@ Item {
         enabled: true
       }
 
+      PropertyChanges {
+          target: groupBox3
+          title: qsTr("Gateway")
+      }
+
     }
   ]
 }

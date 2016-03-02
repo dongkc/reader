@@ -456,3 +456,53 @@ bool CreateReadDataReq(const std::string &lockid,
   return true;
 }
 
+bool CreateRemoveWarnReq(const std::string &lockid,
+                         const std::string &passwd,
+                         unsigned char * outbuf,
+                         unsigned int &buflen)
+{
+  if(lockid.length() != 14 || outbuf == NULL || buflen <32 || passwd.length() > 10)
+    return false;
+
+  memset(outbuf, 0, buflen);
+
+  outbuf[0] = 0x7B;
+  outbuf[1] = ELOCK_ID_MSG;
+  int n = GetELockId(lockid,outbuf + 2, 8);
+  if(n != 8)
+  {
+    return false;
+  }
+  outbuf[10] = ELOCK_REMOVE_WARN_REQ;
+  outbuf[11] = 0x12;
+
+  memcpy(outbuf + 12, passwd.c_str(), passwd.length());
+
+  char chTime[100]= {0};
+  __time64_t time_utc;
+  struct tm tm_utc = {0};
+  time_utc = _time64(NULL);
+  _gmtime64_s(&tm_utc, &time_utc);
+
+  BYTE bTime[7]= {0};
+  _snprintf(chTime,
+            sizeof(chTime) - 1,
+            "%02d%02d%02d%02d%02d%02d%02d",
+            (tm_utc.tm_year + 1900)/100,
+            (tm_utc.tm_year + 1900)%100,
+            tm_utc.tm_mon + 1,
+            tm_utc.tm_mday,
+            tm_utc.tm_hour,
+            tm_utc.tm_min,
+            tm_utc.tm_sec);
+  StrToBCD(chTime, bTime, 7);
+
+  memcpy(outbuf + 22, bTime, 7);
+  outbuf[29] = XOR_BCDCrcCheck(bTime,7);
+
+  Crc16_Ccitt(outbuf,30,outbuf+30);
+  buflen = 32;
+
+  return true;
+}
+
