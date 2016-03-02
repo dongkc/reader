@@ -433,6 +433,26 @@ Item {
         readOnly: true
       }
 
+      PropertyChanges {
+        target: btn_connect1
+        enabled: true
+      }
+
+      PropertyChanges {
+        target: button1
+        enabled: true
+      }
+
+      PropertyChanges {
+        target: btn_data_write
+        enabled: true
+      }
+
+      PropertyChanges {
+        target: btn_data_read
+        enabled: true
+      }
+
     }
   ]
 }
