@@ -235,6 +235,21 @@ void parse(char* buf, int len, Check_p* check_p)
 
 }
 
+void parse(char* buf, int len, ClearWarn_p* p)
+{
+  p->result = buf[0];
+  p->voltage = buf[1];
+  memcpy((void*)p->timestamp, &buf[2], 8);
+}
+
+void parse(char* buf, int len, WriteData_p* p)
+{
+  p->result = buf[0];
+  p->voltage = buf[1];
+  memcpy((void*)p->data, &buf[1], len - 9);
+  memcpy((void*)p->timestamp, &buf[len - 8], 8);
+}
+
 int parse(char* buf, int32_t len, Message* msg)
 {
   if (!CheckCrc((unsigned char*)buf, len)) {
@@ -453,7 +468,7 @@ std::string serialize(const Check_p& msg)
     success_flag = "验封失败";
   }
 
-  string voltage(voltage2str(msg.voltage));;
+  string voltage(voltage2str(msg.voltage));
   string timestamp(timestamp2str(msg.timestamp));
   string result(result2str_3(msg.status));
   string alarm_counter;
@@ -466,6 +481,48 @@ std::string serialize(const Check_p& msg)
          result + " " +
          "报警计数:" + alarm_counter + " " +
          "报警时间:" + alarm_timestamp;
+}
+
+string result2str_4(char c)
+{
+  std::map<int, string> dic;
+  dic.insert(make_pair(1, ""));
+  dic.insert(make_pair(2, ""));
+  dic.insert(make_pair(3, ""));
+  dic.insert(make_pair(4, ""));
+  dic.insert(make_pair(5, ""));
+
+  string content;
+  for (int i = 0; i < 8; ++i) {
+    if (c & (1 << i)) {
+      content += dic[i] + ",";
+    }
+  }
+
+  return content;
+}
+
+std::string serialize(const ClearWarn_p& msg)
+{
+  string result(result2str_4(msg.result));
+  string timestamp(timestamp2str(msg.timestamp));
+  return result + "," + timestamp;
+}
+
+std::string serialize(const WriteData_p& msg)
+{
+  string result(result2str_4(msg.result));
+  string data(msg.data, msg.len);
+  string timestamp(timestamp2str(msg.timestamp));
+  return result + "," + timestamp + " :" + data;
+}
+
+std::string serialize(const ReadData_p& msg)
+{
+  string result(result2str_4(msg.result));
+  string data(msg.data, msg.len);
+  string timestamp(timestamp2str(msg.timestamp));
+  return result + "," + timestamp + " :" + data;
 }
 
 std::string serialize(const Message& msg)

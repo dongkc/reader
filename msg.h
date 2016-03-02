@@ -52,6 +52,49 @@ struct Check_p
   char counter[4];
 };
 
+struct ClearWarn_q
+{
+  char passwd[10];
+  char timestamp[8];
+};
+
+struct ClearWarn_p
+{
+  char result;
+  char voltage;
+  char timestamp[8];
+};
+
+struct WriteData_q
+{
+  char passwd[10];
+  char data[256];
+  uint8_t len;
+  char timestamp[8];
+};
+
+struct WriteData_p
+{
+  char result;
+  char data[256];
+  uint8_t len;
+  char timestamp[8];
+};
+
+struct ReadData_q
+{
+  char passwd[10];
+  char timestamp[8];
+};
+
+struct ReadData_p
+{
+  char result;
+  char data[256];
+  uint8_t len;
+  char timestamp[8];
+};
+
 struct Message
 {
   char protocol_id;
@@ -66,6 +109,8 @@ struct Message
     Unseal_p  unseal_p;
     Check_q  check_q;
     Check_p   check_p;
+    ClearWarn_q clear_warn_q;
+    ClearWarn_p clear_warn_p;
   }body;
 };
 

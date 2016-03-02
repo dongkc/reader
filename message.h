@@ -28,6 +28,9 @@
 #define ELOCK_READ_EXTENSION_DATA_REQ          0x4B
 #define ELOCK_READ_EXTENSION_DATA_RES          0x4C
 
+#define ELOCK_WRITE_DATA_REQ   0x4F
+#define ELOCK_WRITE_DATA_RES   0x50
+
 #define ELOCK_OPEN_WIFI_REQ          0x81
 #define ELOCK_OPEN_WIFI_RES          0x82
 #define ELOCK_CLOSE_WIFI_REQ         0x83
