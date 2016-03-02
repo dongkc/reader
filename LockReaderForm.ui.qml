@@ -1,4 +1,4 @@
-import QtQuick 2.4
+﻿import QtQuick 2.4
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.3
 
@@ -81,7 +81,7 @@ Item {
             width: 104
             text: qsTr("连接")
 
-         }
+          }
         }
       }
 
@@ -89,7 +89,7 @@ Item {
         id: groupBox2
         x: 5
         width: 150
-        height: 280
+        height: 310
         title: "Commands"
         checked: true
         checkable: false
@@ -100,8 +100,8 @@ Item {
           id: column3
           x: 5
           width: 150
-          height: 280
-          spacing: 10
+          height: 300
+          spacing: 8
 
           Label {
             id: label3
@@ -116,26 +116,69 @@ Item {
             readOnly: true
           }
 
-          Button {
-            id: btn_lock
-            width: 104
-            text: qsTr("施封")
-            enabled: false
+          Row {
+            id: row2
+            width: 120
+            height: 25
+            spacing: 3
+
+            Button {
+              id: btn_lock
+              width: 104
+              text: qsTr("施封")
+              enabled: false
+            }
+
+            CheckBox {
+              id: checkBox1
+              height: 23
+              text: qsTr("")
+            }
           }
 
-          Button {
-            id: btn_unlock
-            width: 104
-            text: qsTr("解封")
-            enabled: false
+
+          Row {
+            id: row3
+            width: 120
+            height: 25
+            spacing: 3
+
+            Button {
+              id: btn_unlock
+              width: 104
+              text: qsTr("解封")
+              enabled: false
+            }
+
+            CheckBox {
+              id: checkBox2
+              height: 23
+            }
           }
 
-          Button {
-            id: btn_verify
-            width: 104
-            text: qsTr("验封")
-            enabled: false
+
+
+          Row {
+            id: row4
+            width: 120
+            height: 25
+            spacing: 3
+
+            Button {
+              id: btn_verify
+              width: 104
+              text: qsTr("验封")
+              enabled: false
+            }
+
+            CheckBox {
+              id: checkBox3
+              height: 23
+            }
           }
+
+
+
 
           Row {
             id: row1
@@ -163,12 +206,18 @@ Item {
 
 
 
+
+
+
           Button {
             id: btn_multi_send
             width: 104
             text: qsTr("连续发送")
             enabled: false
           }
+
+
+
 
 
 
@@ -179,6 +228,9 @@ Item {
             checkable: false
             enabled: false
           }
+
+
+
 
 
         }
@@ -192,14 +244,71 @@ Item {
 
       TextArea {
         id: txt_log
+        height: 400
+        anchors.bottom: rowLayout2.top
+        anchors.right: parent.right
+        anchors.left: parent.left
+        anchors.top: parent.top
         anchors.rightMargin: 5
         anchors.leftMargin: 0
-        anchors.bottomMargin: 5
+        anchors.bottomMargin: 10
         anchors.topMargin: 5
-        anchors.fill: parent
         readOnly: true
       }
+
+      RowLayout {
+        id: rowLayout2
+        height: 30
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.right: parent.right
+        anchors.rightMargin: 10
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 5
+
+        TextArea {
+          id: textArea1
+          anchors.top: parent.top
+          anchors.topMargin: 0
+          anchors.right: columnLayout2.left
+          anchors.rightMargin: 5
+          anchors.left: parent.left
+          anchors.leftMargin: 0
+          anchors.bottom: parent.bottom
+          anchors.bottomMargin: 0
+        }
+
+        ColumnLayout {
+          id: columnLayout2
+          width: 100
+          anchors.right: parent.right
+          anchors.rightMargin: 0
+          anchors.bottom: parent.bottom
+          anchors.bottomMargin: 0
+          anchors.top: parent.top
+          anchors.topMargin: 0
+
+          Button {
+            id: btn_data_write
+            width: 104
+            text: qsTr("write")
+          }
+
+          Button {
+            id: btn_data_read
+            text: qsTr("data send")
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+          }
+
+        }
+
+      }
+
+
+
     }
+
   }
 
   states: [
@@ -213,8 +322,8 @@ Item {
       }
 
       PropertyChanges {
-          target: btn_connect
-          text: "断开"
+        target: btn_connect
+        text: "断开"
       }
 
       PropertyChanges {
