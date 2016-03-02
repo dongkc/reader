@@ -3,8 +3,8 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.3
 
 Item {
-  width: 500
-  height: 500
+  width: 800
+  height: 600
   anchors.fill: parent
 
   property alias btn_con: btn_connect
@@ -27,8 +27,8 @@ Item {
       id: column1
       x: 0
       width: 150
-      height: 500
-      spacing: 10
+      height: 590
+      spacing: 5
       anchors.top: parent.top
       anchors.topMargin: 0
 
@@ -37,7 +37,7 @@ Item {
         x: 5
         width: 150
         height: 150
-        title: qsTr("Settings")
+        title: qsTr("Connect")
 
         Column {
           id: column2
@@ -89,7 +89,7 @@ Item {
         id: groupBox2
         x: 5
         width: 150
-        height: 310
+        height: 280
         title: "Commands"
         checked: true
         checkable: false
@@ -101,7 +101,7 @@ Item {
           x: 5
           width: 150
           height: 300
-          spacing: 8
+          spacing: 5
 
           Label {
             id: label3
@@ -229,11 +229,69 @@ Item {
             enabled: false
           }
 
+          Button {
+            id: button1
+            width: 104
+            text: qsTr("Button")
+            enabled: false
+          }
+
 
 
 
 
         }
+      }
+
+      GroupBox {
+          id: groupBox3
+          x: 5
+          width: 150
+          height: 150
+          title: qsTr("Connect")
+          Column {
+              id: column4
+              x: 5
+              width: 150
+              height: 140
+              spacing: 3
+              Label {
+                  id: lbl_ip1
+                  height: 20
+                  text: "IP地址:"
+                  horizontalAlignment: Text.AlignLeft
+                  verticalAlignment: Text.AlignVCenter
+              }
+
+              TextField {
+                  id: txt_ip1
+                  text: "192.168.10.254"
+                  inputMask: "000.000.000.000;_"
+                  placeholderText: qsTr("192.168.1.100")
+              }
+
+              Label {
+                  id: label5
+                  height: 20
+                  text: qsTr("端口:")
+                  horizontalAlignment: Text.AlignLeft
+                  verticalAlignment: Text.AlignVCenter
+              }
+
+              TextField {
+                  id: txt_port1
+                  text: "8071"
+                  inputMask: "00000000"
+                  placeholderText: qsTr("8000")
+              }
+
+              Button {
+                  id: btn_connect1
+                  width: 104
+                  text: qsTr("confirm")
+                  enabled: false
+              }
+          }
       }
     }
 
@@ -292,11 +350,13 @@ Item {
             id: btn_data_write
             width: 104
             text: qsTr("write")
+            enabled: false
           }
 
           Button {
             id: btn_data_read
             text: qsTr("data send")
+            enabled: false
             anchors.right: parent.right
             anchors.bottom: parent.bottom
           }
