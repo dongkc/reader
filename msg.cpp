@@ -485,11 +485,10 @@ std::string serialize(const Check_p& msg)
 string result2str_4(char c)
 {
   std::map<int, string> dic;
-  dic.insert(make_pair(1, ""));
-  dic.insert(make_pair(2, ""));
-  dic.insert(make_pair(3, ""));
-  dic.insert(make_pair(4, ""));
-  dic.insert(make_pair(5, ""));
+  dic.insert(make_pair(1, "解除报警成功"));
+  dic.insert(make_pair(2, "口令错误"));
+  dic.insert(make_pair(3, "没有报警解除"));
+  dic.insert(make_pair(4, "响应超时"));
 
   string content;
   for (int i = 0; i < 8; ++i) {
@@ -510,7 +509,11 @@ std::string serialize(const ClearWarn_p& msg)
 
 std::string serialize(const WriteData_p& msg)
 {
-  string result(result2str_4(msg.result));
+  string result = "写入业务数据成功";
+  if (msg.result == 0xFF) {
+    result = "写入业务数据失败";
+  }
+
   string data(msg.data, msg.len);
   string timestamp(timestamp2str(msg.timestamp));
   return result + "," + timestamp + " :" + data;
@@ -518,7 +521,11 @@ std::string serialize(const WriteData_p& msg)
 
 std::string serialize(const ReadData_p& msg)
 {
-  string result(result2str_4(msg.result));
+  string result = "写入业务数据成功";
+  if (msg.result == 0xFF) {
+    result = "写入业务数据失败";
+  }
+
   string data(msg.data, msg.len);
   string timestamp(timestamp2str(msg.timestamp));
   return result + "," + timestamp + " :" + data;
