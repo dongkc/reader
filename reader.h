@@ -17,6 +17,9 @@ public:
   Q_INVOKABLE void lock(QString lock_id, QString password);
   Q_INVOKABLE void unlock(QString lock_id, QString password);
   Q_INVOKABLE void check(QString lock_id, QString password);
+  Q_INVOKABLE void clear_warn(QString lock_id, QString password);
+  Q_INVOKABLE void write_data(QString lock_id, QString password, QString data);
+  Q_INVOKABLE void read_data(QString lock_id, QString password);
 
 signals:
   void conn();

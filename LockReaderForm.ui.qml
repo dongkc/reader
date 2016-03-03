@@ -19,6 +19,14 @@ Item {
   property alias spinbox_count: spinbox_count
   property alias txt_log: txt_log
 
+  property alias btn_data_write: btn_data_write
+  property alias btn_data_read: btn_data_read
+  property alias btn_clear_warn: btn_clear_warn
+
+  property alias btn_gateway: btn_gateway
+  property alias txt_gateway_ip: txt_gateway_ip
+  property alias txt_gateway_port: txt_gateway_port
+
   RowLayout {
     id: rowLayout1
     anchors.fill: parent
@@ -230,9 +238,9 @@ Item {
           }
 
           Button {
-            id: button1
+            id: btn_clear_warn
             width: 104
-            text: qsTr("Button")
+            text: qsTr("clear warns")
             enabled: false
           }
 
@@ -248,7 +256,7 @@ Item {
           x: 5
           width: 150
           height: 150
-          title: qsTr("Connect")
+          title: qsTr("Gateway")
           Column {
               id: column4
               x: 5
@@ -264,7 +272,7 @@ Item {
               }
 
               TextField {
-                  id: txt_ip1
+                  id: txt_gateway_ip
                   text: "192.168.10.254"
                   inputMask: "000.000.000.000;_"
                   placeholderText: qsTr("192.168.1.100")
@@ -279,14 +287,14 @@ Item {
               }
 
               TextField {
-                  id: txt_port1
+                  id: txt_gateway_port
                   text: "8071"
                   inputMask: "00000000"
                   placeholderText: qsTr("8000")
               }
 
               Button {
-                  id: btn_connect1
+                  id: btn_gateway
                   width: 104
                   text: qsTr("confirm")
                   enabled: false
@@ -325,7 +333,7 @@ Item {
         anchors.bottomMargin: 5
 
         TextArea {
-          id: textArea1
+          id: txtarea_data
           anchors.top: parent.top
           anchors.topMargin: 0
           anchors.right: columnLayout2.left
@@ -355,7 +363,7 @@ Item {
 
           Button {
             id: btn_data_read
-            text: qsTr("data send")
+            text: qsTr("read")
             enabled: false
             anchors.right: parent.right
             anchors.bottom: parent.bottom
@@ -439,7 +447,7 @@ Item {
       }
 
       PropertyChanges {
-        target: button1
+        target: btn_clear_warn
         enabled: true
       }
 

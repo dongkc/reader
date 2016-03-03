@@ -347,7 +347,7 @@ bool CreateCheckSealingReq(const std::string &lockid,
 
 bool CreateWriteDataReq(const std::string &lockid,
                         const std::string &passwd,
-                        unsigned char * data,
+                        const char * data,
                         int datalen,
                         unsigned char * outbuf,
                         unsigned int &buflen)

@@ -92,6 +92,54 @@ void Reader::check(QString lock_id, QString pass)
   socket->write(begin, len);
 }
 
+void Reader::clear_warn(QString lock_id, QString pass)
+{
+  unsigned char buf[64];
+  unsigned int len = sizeof(buf);
+  memset(buf, 64, 0);
+  char *begin = (char*)buf;
+  CreateRemoveWarnReq(lock_id.toStdString(),
+                        pass.toStdString(),
+                        &buf[0],
+                        len);
+
+  socket->write(begin, len);
+}
+
+void Reader::write_data(QString lock_id,
+                        QString pass,
+                        QString data)
+{
+  unsigned char buf[64];
+  unsigned int len = sizeof(buf);
+  memset(buf, 64, 0);
+  char *begin = (char*)buf;
+  string data_write = data.toStdString();
+  CreateWriteDataReq(lock_id.toStdString(),
+                     pass.toStdString(),
+                     data_write.data(),
+                     data_write.size(),
+                     &buf[0],
+                     len);
+
+  socket->write(begin, len);
+}
+
+void Reader::read_data(QString lock_id, QString pass)
+{
+  unsigned char buf[64];
+  unsigned int len = sizeof(buf);
+  memset(buf, 64, 0);
+  char *begin = (char*)buf;
+  CreateReadDataReq(lock_id.toStdString(),
+                    pass.toStdString(),
+                    &buf[0],
+                    len);
+
+  socket->write(begin, len);
+
+}
+
 void Reader::read()
 {
   qDebug() << "Received data from server";

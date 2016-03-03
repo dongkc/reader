@@ -92,4 +92,20 @@ bool ProcessPacket(unsigned char * buf, unsigned int buflen, std::string & strre
 
 void CreateGeneralResponse(const std::string & id,  std::string & elockid, std::string & strret);
 
+bool CreateWriteDataReq(const std::string &lockid,
+                        const std::string &passwd,
+                        const char * data,
+                        int datalen,
+                        unsigned char * outbuf,
+                        unsigned int &buflen);
+
+bool CreateRemoveWarnReq(const std::string &lockid,
+                         const std::string &passwd,
+                         unsigned char * outbuf,
+                         unsigned int &buflen);
+
+bool CreateReadDataReq(const std::string &lockid,
+                       const std::string &passwd,
+                       unsigned char * outbuf,
+                       unsigned int &buflen);
 #endif
