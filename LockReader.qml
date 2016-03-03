@@ -39,5 +39,12 @@ LockReaderForm {
     reader.check(txt_lockid.text, qsTr("0000000000"));
   }
 
+  btn_clear_warn.onClicked: {
+    reader.clear_warn(txt_lockid.text, qsTr("0000000000"));
+  }
+
+  btn_data_write.onClicked: {
+    reader.write_data(txt_lockid.text, qsTr("0000000000"), txtarea_data.text);
+  }
 }
 

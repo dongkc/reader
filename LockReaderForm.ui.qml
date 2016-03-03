@@ -120,7 +120,7 @@ Item {
 
           TextField {
             id: txt_lockid
-            text: "CNNT0000001560"
+            text: "CNNT0000000272"
             readOnly: true
           }
 
@@ -442,7 +442,7 @@ Item {
       }
 
       PropertyChanges {
-        target: btn_connect1
+        target: btn_gateway
         enabled: true
       }
 
@@ -464,6 +464,11 @@ Item {
       PropertyChanges {
           target: groupBox3
           title: qsTr("Gateway")
+      }
+
+      PropertyChanges {
+        target: btn_gateway
+        enabled: true
       }
 
     }
