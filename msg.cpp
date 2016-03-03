@@ -245,7 +245,6 @@ void parse(char* buf, int len, ClearWarn_p* p)
 void parse(char* buf, int len, WriteData_p* p)
 {
   p->result = buf[0];
-  p->voltage = buf[1];
   memcpy((void*)p->data, &buf[1], len - 9);
   memcpy((void*)p->timestamp, &buf[len - 8], 8);
 }
@@ -541,6 +540,16 @@ std::string serialize(const Message& msg)
     case  ELOCK_CHECK_SEALING_RES:
       body = " " + serialize(msg.body.check_p);
       break;
+    case  ELOCK_REMOVE_WARN_RES:
+      body = " " + serialize(msg.body.clear_warn_p);
+      break;
+    case  ELOCK_READ_DATA_RES:
+      body = " " + serialize(msg.body.read_data_p);
+      break;
+    case  ELOCK_WRITE_DATA_RES:
+      body = " " + serialize(msg.body.write_data_p);
+      break;
   };
+
   return lockid + body + "\n";
 }

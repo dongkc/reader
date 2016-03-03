@@ -30,6 +30,8 @@
 
 #define ELOCK_WRITE_DATA_REQ   0x4F
 #define ELOCK_WRITE_DATA_RES   0x50
+#define ELOCK_READ_DATA_REQ    0x51
+#define ELOCK_READ_DATA_RES    0x52
 
 #define ELOCK_OPEN_WIFI_REQ          0x81
 #define ELOCK_OPEN_WIFI_RES          0x82

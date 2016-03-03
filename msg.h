@@ -103,14 +103,18 @@ struct Message
 
   union
   {
-    Seal_q    seal_q;
-    Seal_p    seal_p;
-    Unseal_q  unseal_q;
-    Unseal_p  unseal_p;
-    Check_q  check_q;
-    Check_p   check_p;
+    Seal_q      seal_q;
+    Seal_p      seal_p;
+    Unseal_q    unseal_q;
+    Unseal_p    unseal_p;
+    Check_q     check_q;
+    Check_p     check_p;
     ClearWarn_q clear_warn_q;
     ClearWarn_p clear_warn_p;
+    ReadData_q  read_data_q;
+    ReadData_p  read_data_p;
+    WriteData_q write_data_q;
+    WriteData_p write_data_p;
   }body;
 };
 
