@@ -7,5 +7,5 @@ void hex2ASCII(char c, char* ascii);
 
 void ASCII2hex(char ascii[2], char& c);
 
-std::string format(char* hex, int len);
+std::string format(const char* hex, int len);
 #endif

@@ -25,7 +25,7 @@ void ASCII2hex(char ascii[2], char& c)
   c = ((ascii[0] - '0') << 4) | (ascii[1] - '0');
 }
 
-string format(char* hex, int32_t len)
+string format(const char* hex, int32_t len)
 {
   char ascii[2];
   string content;

@@ -46,5 +46,9 @@ LockReaderForm {
   btn_data_write.onClicked: {
     reader.write_data(txt_lockid.text, qsTr("0000000000"), txtarea_data.text);
   }
+
+  btn_data_read.onClicked: {
+    reader.read_data(txt_lockid.text, qsTr("0000000000"));
+  }
 }
 

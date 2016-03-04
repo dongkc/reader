@@ -245,6 +245,15 @@ void parse(char* buf, int len, ClearWarn_p* p)
 void parse(char* buf, int len, WriteData_p* p)
 {
   p->result = buf[0];
+  qDebug() << "WRITE: " << format(buf, len).c_str();
+  memcpy((void*)p->data, &buf[1], len - 9);
+  memcpy((void*)p->timestamp, &buf[len - 8], 8);
+}
+
+void parse(char* buf, int len, ReadData_p* p)
+{
+  p->result = buf[0];
+  qDebug() << "WRITE: " << format(buf, len).c_str();
   memcpy((void*)p->data, &buf[1], len - 9);
   memcpy((void*)p->timestamp, &buf[len - 8], 8);
 }
@@ -275,6 +284,15 @@ int parse(char* buf, int32_t len, Message* msg)
       break;
     case ELOCK_CHECK_SEALING_RES:
       parse(body, len, &msg->body.check_p);
+      break;
+    case ELOCK_WRITE_DATA_RES:
+      parse(body, len, &msg->body.write_data_p);
+      break;
+    case ELOCK_READ_DATA_RES:
+      parse(body, len, &msg->body.read_data_p);
+      break;
+    case ELOCK_REMOVE_WARN_RES:
+      parse(body, len, &msg->body.clear_warn_p);
       break;
   };
 
@@ -521,9 +539,9 @@ std::string serialize(const WriteData_p& msg)
 
 std::string serialize(const ReadData_p& msg)
 {
-  string result = "写入业务数据成功";
+  string result = "业务数据成功";
   if (msg.result == 0xFF) {
-    result = "写入业务数据失败";
+    result = "业务数据失败";
   }
 
   string data(msg.data, msg.len);

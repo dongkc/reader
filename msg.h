@@ -9,9 +9,9 @@ struct Seal_q
 
 struct Seal_p
 {
-  char result;
-  char voltage;
-  char success_flag;
+  unsigned char result;
+  unsigned char voltage;
+  unsigned char success_flag;
   char timestamp[8];
   char counter[4];
 };
@@ -24,9 +24,9 @@ struct Unseal_q
 
 struct Unseal_p
 {
-  char result;
-  char voltage;
-  char success_flag;
+  unsigned char result;
+  unsigned char voltage;
+  unsigned char success_flag;
   char timestamp[8];
   char alarm_counter;
   char alarm_type;
@@ -42,9 +42,9 @@ struct Check_q
 
 struct Check_p
 {
-  char status;
-  char voltage;
-  char success_flag;
+  unsigned char status;
+  unsigned char voltage;
+  unsigned char success_flag;
   char timestamp[8];
   char alarm_counter;
   char alarm_type;
@@ -60,8 +60,8 @@ struct ClearWarn_q
 
 struct ClearWarn_p
 {
-  char result;
-  char voltage;
+  unsigned char result;
+  unsigned char voltage;
   char timestamp[8];
 };
 
@@ -75,7 +75,7 @@ struct WriteData_q
 
 struct WriteData_p
 {
-  char result;
+  unsigned char result;
   char data[256];
   uint8_t len;
   char timestamp[8];

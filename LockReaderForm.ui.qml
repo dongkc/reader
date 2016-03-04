@@ -26,6 +26,7 @@ Item {
   property alias btn_gateway: btn_gateway
   property alias txt_gateway_ip: txt_gateway_ip
   property alias txt_gateway_port: txt_gateway_port
+  property alias txtarea_data: txtarea_data
 
   RowLayout {
     id: rowLayout1
@@ -37,8 +38,6 @@ Item {
       width: 150
       height: 590
       spacing: 5
-      anchors.top: parent.top
-      anchors.topMargin: 0
 
       GroupBox {
         id: groupBox1

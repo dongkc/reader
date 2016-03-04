@@ -61,8 +61,7 @@ void Reader::lock(QString lock_id, QString pass)
                    len);
 
   socket->write(begin, len);
-  qDebug() << "Send out seal data";
-  qDebug() << "Send out:" << format(begin, len).c_str();
+  qDebug() << ">>" << format(begin, len).c_str();
 }
 
 void Reader::unlock(QString lock_id, QString pass)
@@ -77,8 +76,7 @@ void Reader::unlock(QString lock_id, QString pass)
                      len);
 
   socket->write(begin, len);
-  qDebug() << "Send out unlock data";
-  qDebug() << "Send out:" << format(begin, len).c_str();
+  qDebug() << ">>" << format(begin, len).c_str();
 }
 
 void Reader::check(QString lock_id, QString pass)
@@ -93,8 +91,7 @@ void Reader::check(QString lock_id, QString pass)
                         len);
 
   socket->write(begin, len);
-  qDebug() << "Send out check data";
-  qDebug() << "Send out:" << format(begin, len).c_str();
+  qDebug() << ">>" << format(begin, len).c_str();
 }
 
 void Reader::clear_warn(QString lock_id, QString pass)
@@ -109,7 +106,7 @@ void Reader::clear_warn(QString lock_id, QString pass)
                         len);
 
   socket->write(begin, len);
-  qDebug() << "Send out:" << format(begin, len).c_str();
+  qDebug() << ">>" << format(begin, len).c_str();
 }
 
 void Reader::write_data(QString lock_id,
@@ -129,7 +126,7 @@ void Reader::write_data(QString lock_id,
                      len);
 
   socket->write(begin, len);
-  qDebug() << "Send out:" << format(begin, len).c_str();
+  qDebug() << ">>" << format(begin, len).c_str();
 }
 
 void Reader::read_data(QString lock_id, QString pass)
@@ -143,7 +140,7 @@ void Reader::read_data(QString lock_id, QString pass)
                     &buf[0],
                     len);
 
-  qDebug() << "Send out:" << format(begin, len).c_str();
+  qDebug() << ">>" << format(begin, len).c_str();
   socket->write(begin, len);
 
 }
@@ -153,10 +150,10 @@ void Reader::read()
   char recv_buf[MAX_BUF_SIZE];
   qint64 len = socket->read(recv_buf, MAX_BUF_SIZE);
   string msg(format(recv_buf, len));
-  qDebug() << "Received data:" << msg.c_str();
+  qDebug() << "<<" << msg.c_str();
 
   Message message;
-  if (!parse(recv_buf, len, &message)) {
+  if (parse(recv_buf, len, &message)) {
     qDebug() << "Parse error";
   };
 
