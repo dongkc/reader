@@ -246,16 +246,16 @@ void parse(char* buf, int len, WriteData_p* p)
 {
   p->result = buf[0];
   qDebug() << "WRITE: " << format(buf, len).c_str();
-  memcpy((void*)p->data, &buf[1], len - 9);
-  memcpy((void*)p->timestamp, &buf[len - 8], 8);
+  memcpy((void*)p->data, &buf[1], len - 1);
+  p->len = len - 1;
 }
 
 void parse(char* buf, int len, ReadData_p* p)
 {
   p->result = buf[0];
   qDebug() << "WRITE: " << format(buf, len).c_str();
-  memcpy((void*)p->data, &buf[1], len - 9);
-  memcpy((void*)p->timestamp, &buf[len - 8], 8);
+  memcpy((void*)p->data, &buf[1], len - 1);
+  p->len = len - 1;
 }
 
 int parse(char* buf, int32_t len, Message* msg)
@@ -527,26 +527,25 @@ std::string serialize(const ClearWarn_p& msg)
 
 std::string serialize(const WriteData_p& msg)
 {
-  string result = "写入业务数据成功";
+  string result = "写入车号厢号成功";
   if (msg.result == 0xFF) {
-    result = "写入业务数据失败";
+    result = "写入车号厢号失败";
   }
 
   string data(msg.data, msg.len);
-  string timestamp(timestamp2str(msg.timestamp));
-  return result + "," + timestamp + " :" + data;
+  qDebug() << "DATA: " << format(data.c_str(), msg.len).c_str();
+  return result + "," + "车号/厢号: " + data;
 }
 
 std::string serialize(const ReadData_p& msg)
 {
-  string result = "业务数据成功";
+  string result = "读取车号厢号成功";
   if (msg.result == 0xFF) {
-    result = "业务数据失败";
+    result = "读取车号厢号失败";
   }
 
   string data(msg.data, msg.len);
-  string timestamp(timestamp2str(msg.timestamp));
-  return result + "," + timestamp + " :" + data;
+  return result + "," + "车号/厢号: " + data;
 }
 
 std::string serialize(const Message& msg)

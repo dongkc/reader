@@ -78,7 +78,6 @@ struct WriteData_p
   unsigned char result;
   char data[256];
   uint8_t len;
-  char timestamp[8];
 };
 
 struct ReadData_q
