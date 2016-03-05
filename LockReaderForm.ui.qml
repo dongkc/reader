@@ -3,8 +3,8 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.3
 
 Item {
-  width: 800
-  height: 600
+  width: 1024
+  height: 768
   anchors.fill: parent
 
   property alias btn_con: btn_connect
@@ -26,6 +26,10 @@ Item {
   property alias btn_gateway: btn_gateway
   property alias txt_gateway_ip: txt_gateway_ip
   property alias txt_gateway_port: txt_gateway_port
+  property alias txt_apn: txt_apn
+  property alias txt_phone: txt_phone
+  property alias txt_interval: txt_interval
+  property alias txt_pass: txt_pass
   property alias txtarea_data: txtarea_data
 
   RowLayout {
@@ -239,7 +243,7 @@ Item {
           Button {
             id: btn_clear_warn
             width: 104
-            text: qsTr("clear warns")
+            text: qsTr("WARNNING CLEAR")
             enabled: false
           }
 
@@ -254,13 +258,13 @@ Item {
           id: groupBox3
           x: 5
           width: 150
-          height: 150
+          height: 300
           title: qsTr("Gateway")
           Column {
               id: column4
               x: 5
               width: 150
-              height: 140
+              height: 280
               spacing: 3
               Label {
                   id: lbl_ip1
@@ -292,12 +296,65 @@ Item {
                   placeholderText: qsTr("8000")
               }
 
-              Button {
-                  id: btn_gateway
-                  width: 104
-                  text: qsTr("confirm")
-                  enabled: false
+
+              Label {
+                id: lbl_apn
+                text: qsTr("APN:")
               }
+
+
+              TextField {
+                id: txt_apn
+              }
+
+
+              Label {
+                id: lbl_interval
+                text: qsTr("INTERVAL:")
+              }
+
+
+              TextField {
+                id: txt_interval
+              }
+
+
+
+              Label {
+                id: label1
+                text: qsTr("PHONE")
+              }
+
+              TextField {
+                id: txt_phone
+              }
+
+              Label {
+                id: lbl_pass
+                text: qsTr("PASSWORD:")
+              }
+
+
+
+
+
+              TextField {
+                id: txt_pass
+              }
+
+
+
+
+
+              Button {
+                id: btn_gateway
+                width: 104
+                text: qsTr("CONFIRM")
+                enabled: false
+              }
+
+
+
           }
       }
     }
@@ -333,6 +390,7 @@ Item {
 
         TextArea {
           id: txtarea_data
+          height: 50
           anchors.top: parent.top
           anchors.topMargin: 0
           anchors.right: columnLayout2.left

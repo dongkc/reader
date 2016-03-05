@@ -20,6 +20,14 @@ public:
   Q_INVOKABLE void clear_warn(QString lock_id, QString password);
   Q_INVOKABLE void write_data(QString lock_id, QString password, QString data);
   Q_INVOKABLE void read_data(QString lock_id, QString password);
+  Q_INVOKABLE void modify_apn(QString lock_id,
+                              QString password,
+                              QString apn,
+                              QString phone_num,
+                              QString gateway_ip,
+                              QString gateway_port,
+                              QString interval,
+                              QString pass);
 
 signals:
   void conn();

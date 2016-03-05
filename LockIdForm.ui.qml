@@ -1,11 +1,11 @@
-import QtQuick 2.4
+﻿import QtQuick 2.4
 import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.3
 import QtQuick.Window 2.2
 
 Item {
-  width: 640
-  height: 480
+  width: 1024
+  height: 768
 
   property alias group2: groupBox2
   property alias rowlayout: rowLayout1
@@ -31,9 +31,8 @@ Item {
 
     GroupBox {
       id: groupBox1
-      height: 480
       anchors.right: parent.right
-      anchors.rightMargin: 330
+      anchors.rightMargin: 512
       anchors.left: parent.left
       anchors.leftMargin: 10
       anchors.bottom: parent.bottom

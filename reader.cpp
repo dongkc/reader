@@ -109,6 +109,34 @@ void Reader::clear_warn(QString lock_id, QString pass)
   qDebug() << ">>" << format(begin, len).c_str();
 }
 
+void Reader::modify_apn(QString lock_id,
+                        QString password,
+                        QString apn,
+                        QString phone_num,
+                        QString gateway_ip,
+                        QString gateway_port,
+                        QString interval,
+                        QString pass)
+{
+  unsigned char buf[256];
+  unsigned int len = sizeof(buf);
+  memset(buf, 256, 0);
+  char *begin = (char*)buf;
+  CreateAPNReq(lock_id.toStdString(),
+               pass.toStdString(),
+               apn.toStdString(),
+               phone_num.toStdString(),
+               gateway_ip.toStdString(),
+               gateway_port.toStdString(),
+               interval.toStdString(),
+               pass.toStdString(),
+               &buf[0],
+               len);
+
+  socket->write(begin, len);
+  qDebug() << ">>" << format(begin, len).c_str();
+}
+
 void Reader::write_data(QString lock_id,
                         QString pass,
                         QString data)

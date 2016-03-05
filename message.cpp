@@ -505,3 +505,46 @@ bool CreateRemoveWarnReq(const std::string &lockid,
   return true;
 }
 
+bool CreateAPNReq(const std::string &lockid,
+                  const std::string &passwd,
+                  const std::string &apn,
+                  const std::string &phone,
+                  const std::string &ip,
+                  const std::string &port,
+                  const std::string &interval,
+                  const std::string &pass,
+                  unsigned char * outbuf,
+                  unsigned int &buflen)
+{
+  if(lockid.length() != 14 || outbuf == NULL || buflen <32 || passwd.length() > 10)
+    return false;
+
+  memset(outbuf, 0, buflen);
+
+  outbuf[0] = 0x7B;
+  outbuf[1] = ELOCK_ID_MSG;
+  int n = GetELockId(lockid,outbuf + 2, 8);
+  if(n != 8)
+  {
+    return false;
+  }
+  outbuf[10] = ELOCK_APN_REQ;
+  outbuf[11] = 0x12;
+
+  memcpy(outbuf + 12, passwd.c_str(), passwd.length());
+
+  string tmp(apn + "," +
+             phone + "," +
+             ip + "," +
+             port + "," +
+             interval + ","
+             + pass);
+
+  memcpy(outbuf + 22, tmp.data(), tmp.size());
+  int body_len = 22 + tmp.size();
+
+  Crc16_Ccitt(outbuf, body_len, outbuf + body_len);
+  buflen = body_len + 2;
+
+  return true;
+}

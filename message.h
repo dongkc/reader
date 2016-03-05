@@ -32,6 +32,8 @@
 #define ELOCK_WRITE_DATA_RES   0x50
 #define ELOCK_READ_DATA_REQ    0x51
 #define ELOCK_READ_DATA_RES    0x52
+#define ELOCK_APN_REQ          0x57
+#define ELOCK_APN_RES          0x58
 
 #define ELOCK_OPEN_WIFI_REQ          0x81
 #define ELOCK_OPEN_WIFI_RES          0x82
@@ -108,4 +110,15 @@ bool CreateReadDataReq(const std::string &lockid,
                        const std::string &passwd,
                        unsigned char * outbuf,
                        unsigned int &buflen);
+
+bool CreateAPNReq(const std::string &lockid,
+                  const std::string &passwd,
+                  const std::string &apn,
+                  const std::string &phone,
+                  const std::string &ip,
+                  const std::string &port,
+                  const std::string &interval,
+                  const std::string &pass,
+                  unsigned char * outbuf,
+                  unsigned int &buflen);
 #endif

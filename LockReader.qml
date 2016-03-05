@@ -50,5 +50,15 @@ LockReaderForm {
   btn_data_read.onClicked: {
     reader.read_data(txt_lockid.text, qsTr("0000000000"));
   }
+  btn_gateway.onClicked: {
+    reader.modify_apn(txt_lockid.text,
+                      qsTr("0000000000"),
+                      txt_apn.text,
+                      txt_phone.text,
+                      txt_gateway_ip.text,
+                      txt_gateway_port.text,
+                      txt_interval.text,
+                      txt_pass.text);
+  }
 }
 
