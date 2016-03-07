@@ -3,8 +3,8 @@ import QtQuick.Controls 1.2
 
 ApplicationWindow {
   visible: true
-  width: 1024
-  height: 768
+  width: 1200
+  height: 600
   minimumWidth: 800
   minimumHeight: 600
   title: qsTr("关锁测试")
