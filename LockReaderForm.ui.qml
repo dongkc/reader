@@ -34,6 +34,8 @@ Item {
 
   RowLayout {
     id: rowLayout1
+    width: 1200
+    height: 600
     anchors.fill: parent
 
     Column {
@@ -41,6 +43,8 @@ Item {
       x: 0
       width: 150
       height: 590
+      anchors.top: parent.top
+      anchors.topMargin: 0
       spacing: 5
 
       GroupBox {
@@ -253,115 +257,124 @@ Item {
 
         }
       }
+    }
+
+    Column {
+      id: column5
+      width: 200
+      height: 400
+      anchors.left: column1.right
+      anchors.leftMargin: 10
+      anchors.top: parent.top
+      anchors.topMargin: 0
 
       GroupBox {
-          id: groupBox3
+        id: groupBox3
+        width: 150
+        height: 300
+        title: qsTr("Gateway")
+        Column {
+          id: column4
           x: 5
           width: 150
-          height: 300
-          title: qsTr("Gateway")
-          Column {
-              id: column4
-              x: 5
-              width: 150
-              height: 280
-              spacing: 3
-              Label {
-                  id: lbl_ip1
-                  height: 20
-                  text: "IP地址:"
-                  horizontalAlignment: Text.AlignLeft
-                  verticalAlignment: Text.AlignVCenter
-              }
-
-              TextField {
-                  id: txt_gateway_ip
-                  text: "192.168.10.254"
-                  inputMask: "000.000.000.000;_"
-                  placeholderText: qsTr("192.168.1.100")
-              }
-
-              Label {
-                  id: label5
-                  height: 20
-                  text: qsTr("端口:")
-                  horizontalAlignment: Text.AlignLeft
-                  verticalAlignment: Text.AlignVCenter
-              }
-
-              TextField {
-                  id: txt_gateway_port
-                  text: "8071"
-                  inputMask: "00000000"
-                  placeholderText: qsTr("8000")
-              }
-
-
-              Label {
-                id: lbl_apn
-                text: qsTr("APN:")
-              }
-
-
-              TextField {
-                id: txt_apn
-              }
-
-
-              Label {
-                id: lbl_interval
-                text: qsTr("INTERVAL:")
-              }
-
-
-              TextField {
-                id: txt_interval
-              }
-
-
-
-              Label {
-                id: label1
-                text: qsTr("PHONE")
-              }
-
-              TextField {
-                id: txt_phone
-              }
-
-              Label {
-                id: lbl_pass
-                text: qsTr("PASSWORD:")
-              }
-
-
-
-
-
-              TextField {
-                id: txt_pass
-              }
-
-
-
-
-
-              Button {
-                id: btn_gateway
-                width: 104
-                text: qsTr("CONFIRM")
-                enabled: false
-              }
-
-
-
+          height: 280
+          spacing: 3
+          Label {
+            id: lbl_ip1
+            height: 20
+            text: "IP地址:"
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
           }
+
+          TextField {
+            id: txt_gateway_ip
+            text: "192.168.10.254"
+            inputMask: "000.000.000.000;_"
+            placeholderText: qsTr("192.168.1.100")
+          }
+
+          Label {
+            id: label5
+            height: 20
+            text: qsTr("端口:")
+            horizontalAlignment: Text.AlignLeft
+            verticalAlignment: Text.AlignVCenter
+          }
+
+          TextField {
+            id: txt_gateway_port
+            text: "8071"
+            inputMask: "00000000"
+            placeholderText: qsTr("8000")
+          }
+
+
+          Label {
+            id: lbl_apn
+            text: qsTr("APN:")
+          }
+
+
+          TextField {
+            id: txt_apn
+          }
+
+
+          Label {
+            id: lbl_interval
+            text: qsTr("INTERVAL:")
+          }
+
+
+          TextField {
+            id: txt_interval
+          }
+
+
+
+          Label {
+            id: label1
+            text: qsTr("PHONE")
+          }
+
+          TextField {
+            id: txt_phone
+          }
+
+          Label {
+            id: lbl_pass
+            text: qsTr("PASSWORD:")
+          }
+
+
+
+
+
+          TextField {
+            id: txt_pass
+          }
+
+
+
+
+
+          Button {
+            id: btn_gateway
+            width: 104
+            text: qsTr("CONFIRM")
+            enabled: false
+          }
+
+
+
+        }
       }
     }
 
     ColumnLayout {
       id: columnLayout1
-      anchors.leftMargin: 170
+      anchors.leftMargin: 320
       anchors.fill: parent
 
       TextArea {
@@ -433,6 +446,7 @@ Item {
 
 
     }
+
 
   }
 
@@ -519,8 +533,8 @@ Item {
       }
 
       PropertyChanges {
-          target: groupBox3
-          title: qsTr("Gateway")
+        target: groupBox3
+        title: qsTr("Gateway")
       }
 
       PropertyChanges {

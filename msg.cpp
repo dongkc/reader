@@ -224,6 +224,7 @@ void parse(char* buf, int len, Unseal_p* unseal_p)
 
 void parse(char* buf, int len, Check_p* check_p)
 {
+  qDebug() << "WRITE: " << format(buf, len).c_str();
   check_p->status = buf[0];
   check_p->voltage = buf[1];
   check_p->success_flag = buf[2];
@@ -375,7 +376,7 @@ string result2str_1(char c)
     }
   }
 
-  return content;
+  return dic[c];
 }
 
 string result2str_2(char c)
@@ -397,7 +398,7 @@ string result2str_2(char c)
     }
   }
 
-  return content;
+  return dic[c];
 }
 
 std::string serialize(const Seal_p& msg)
@@ -433,7 +434,7 @@ string alarmtype2str(char c)
     }
   }
 
-  return content;
+  return dic[c];
 }
 
 std::string serialize(const Unseal_p& msg)
@@ -460,7 +461,7 @@ std::string serialize(const Unseal_p& msg)
 
 string result2str_3(char c)
 {
-  std::map<int, string> dic;
+  std::map<char, string> dic;
   dic.insert(make_pair(1, "施封下无报警"));
   dic.insert(make_pair(2, "施封下有报警"));
   dic.insert(make_pair(3, "解封下有报警"));
@@ -475,7 +476,7 @@ string result2str_3(char c)
     }
   }
 
-  return content;
+  return dic[c];
 }
 
 std::string serialize(const Check_p& msg)
@@ -488,6 +489,8 @@ std::string serialize(const Check_p& msg)
   string voltage(voltage2str(msg.voltage));
   string timestamp(timestamp2str(msg.timestamp));
   string result(result2str_3(msg.status));
+  qDebug() << "---------" << format((const char*)&msg.status, 1).c_str();
+  //qDebug() << "WRITE: " << format(buf, len).c_str();
   string alarm_counter;
   uIntToStr<char>(msg.alarm_counter, 2, alarm_counter);
   string alarm_timestamp(timestamp2str(msg.alarm_timestamp));
@@ -515,7 +518,7 @@ string result2str_4(char c)
     }
   }
 
-  return content;
+  return dic[c];
 }
 
 std::string serialize(const ClearWarn_p& msg)
