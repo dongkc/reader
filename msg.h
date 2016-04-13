@@ -1,3 +1,4 @@
+﻿#include <QString>
 #include <string>
 #include <stdint.h>
 
@@ -119,7 +120,7 @@ struct Message
 
 int parse(char* buf, int len, Message* msg);
 
-std::string serialize(const Message& msg);
+QString serialize(const Message& msg);
 std::string serialize(const Seal_p& msg);
 std::string serialize(const Unseal_p& msg);
 std::string serialize(const Check_p& msg);

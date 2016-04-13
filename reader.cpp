@@ -1,4 +1,4 @@
-#include <QMessageBox>
+﻿#include <QMessageBox>
 #include <string>
 
 #include "reader.h"
@@ -185,6 +185,13 @@ void Reader::read()
     qDebug() << "Parse error";
   };
 
-  string ret(serialize(message));
-  emit  messagePost(QString(ret.c_str()));
+  emit  messagePost(serialize(message));
+
+  // multi lock and unlock success notifications
+  if ((message.cmd_id == ELOCK_SEALING_RES &&
+       message.body.seal_p.success_flag != 0xFF ) ||
+      (message.cmd_id == ELOCK_UNSEALING_RES &&
+       message.body.unseal_p.success_flag != 0xFF)) {
+    emit lockUnlock();
+  }
 }

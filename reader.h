@@ -33,6 +33,7 @@ signals:
   void conn();
   void disConn();
   void messagePost(const QString &msg);
+  void lockUnlock();
 
 public slots:
   void connected();

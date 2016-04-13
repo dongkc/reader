@@ -1,4 +1,4 @@
-#include <map>
+﻿#include <map>
 #include <iostream>
 #include <string>
 #include <QDebug>
@@ -370,13 +370,13 @@ string result2str_1(char c)
   dic.insert(make_pair(7, "封条被拆"));
 
   string content;
-  for (int i = 0; i < 8; ++i) {
+  for (int i = 0; i < 7; ++i) {
     if (c & (1 << i)) {
       content += dic[i] + ",";
     }
   }
 
-  return dic[c];
+  return content;
 }
 
 string result2str_2(char c)
@@ -398,10 +398,10 @@ string result2str_2(char c)
     }
   }
 
-  return dic[c];
+  return content;
 }
 
-std::string serialize(const Seal_p& msg)
+string serialize(const Seal_p& msg)
 {
   string success_flag = "施封成功";
   if (msg.success_flag == 0xFF) {
@@ -437,7 +437,7 @@ string alarmtype2str(char c)
   return dic[c];
 }
 
-std::string serialize(const Unseal_p& msg)
+string serialize(const Unseal_p& msg)
 {
   string success_flag = "解封成功";
   if (msg.success_flag == 0xFF) {
@@ -479,7 +479,7 @@ string result2str_3(char c)
   return dic[c];
 }
 
-std::string serialize(const Check_p& msg)
+string serialize(const Check_p& msg)
 {
   string success_flag = "验封成功";
   if (msg.success_flag == 0xFF) {
@@ -521,14 +521,14 @@ string result2str_4(char c)
   return dic[c];
 }
 
-std::string serialize(const ClearWarn_p& msg)
+string serialize(const ClearWarn_p& msg)
 {
   string result(result2str_4(msg.result));
   string timestamp(timestamp2str(msg.timestamp));
   return result + "," + timestamp;
 }
 
-std::string serialize(const WriteData_p& msg)
+string serialize(const WriteData_p& msg)
 {
   string result = "写入车号厢号成功";
   if (msg.result == 0xFF) {
@@ -540,7 +540,7 @@ std::string serialize(const WriteData_p& msg)
   return result + "," + "车号/厢号: " + data;
 }
 
-std::string serialize(const ReadData_p& msg)
+string serialize(const ReadData_p& msg)
 {
   string result = "读取车号厢号成功";
   if (msg.result == 0xFF) {
@@ -551,7 +551,7 @@ std::string serialize(const ReadData_p& msg)
   return result + "," + "车号/厢号: " + data;
 }
 
-std::string serialize(const Message& msg)
+QString serialize(const Message& msg)
 {
   string lockid;
   GetELockIdFromBuf((unsigned char*)msg.lock_id, 8, lockid);
@@ -578,5 +578,6 @@ std::string serialize(const Message& msg)
       break;
   };
 
-  return lockid + body + "\n";
+  string tmp(lockid + body + "\n");
+  return QString::fromLocal8Bit(tmp.data());
 }

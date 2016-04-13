@@ -1,6 +1,27 @@
 ﻿import QtQuick 2.4
 
 LockReaderForm {
+
+  property int success_counter: 0;
+
+  Timer {
+    id: timer;
+    interval:spinbox_send_interval.value * 1000;
+    running: false;
+    repeat: true;
+
+    property int counter: 0
+    onTriggered: {
+      if (counter++ % 2) {
+        reader.unlock(txt_lockid.text,"0000000000");
+      } else {
+        reader.lock(txt_lockid.text, "0000000000");
+      }
+
+      txt_send_counter.text = counter;
+    }
+  }
+
   btn_con.onClicked: {
     if (state == "") {
       reader.connect(txt_ip.text, txt_port.text)
@@ -9,6 +30,19 @@ LockReaderForm {
       state = ""
     }
 
+  }
+  btn_multi_send.onClicked: {
+    state = "multi_test"
+
+    btn_multi_send.cl = btn_multi_send.cl ? false : true;
+    timer.running = true;
+  }
+
+  btn_stop.onClicked: {
+    state = "connected"
+    btn_multi_send.cl = false;
+
+    timer.running = false;
   }
 
   Connections {
@@ -22,8 +56,12 @@ LockReaderForm {
       state = ""
     }
     onMessagePost: {
-      console.log("---------------------------------------")
       txt_log.text = txt_log.text + msg
+    }
+
+    onLockUnlock: {
+      success_counter++;
+      txt_success_counter.text = success_counter;
     }
   }
 

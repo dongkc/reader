@@ -3,8 +3,9 @@ import QtQuick.Layouts 1.2
 import QtQuick.Controls 1.3
 
 Item {
-  width: 1024
-  height: 768
+  id: item1
+  width: 1200
+  height: 600
   anchors.fill: parent
 
   property alias btn_con: btn_connect
@@ -14,9 +15,6 @@ Item {
   property alias btn_lock: btn_lock
   property alias btn_unlock: btn_unlock
   property alias btn_verify: btn_verify
-  property alias btn_multi_send: btn_multi_send
-  property alias btn_stop: btn_stop
-  property alias spinbox_count: spinbox_count
   property alias txt_log: txt_log
 
   property alias btn_data_write: btn_data_write
@@ -31,6 +29,13 @@ Item {
   property alias txt_interval: txt_interval
   property alias txt_pass: txt_pass
   property alias txtarea_data: txtarea_data
+
+  property alias txt_success_counter: txt_success_counter
+  property alias txt_send_counter: txt_send_counter
+  property alias btn_multi_send: btn_multi_send
+  property alias btn_stop: btn_stop
+  property alias spinbox_count: spinbox_count
+  property alias spinbox_send_interval: spinbox_send_interval
 
   RowLayout {
     id: rowLayout1
@@ -104,7 +109,7 @@ Item {
         id: groupBox2
         x: 5
         width: 150
-        height: 280
+        height: 220
         title: "Commands"
         checked: true
         checkable: false
@@ -143,12 +148,6 @@ Item {
               text: qsTr("施封")
               enabled: false
             }
-
-            CheckBox {
-              id: checkBox1
-              height: 23
-              text: qsTr("")
-            }
           }
 
 
@@ -163,11 +162,6 @@ Item {
               width: 104
               text: qsTr("解封")
               enabled: false
-            }
-
-            CheckBox {
-              id: checkBox2
-              height: 23
             }
           }
 
@@ -185,15 +179,46 @@ Item {
               text: qsTr("验封")
               enabled: false
             }
-
-            CheckBox {
-              id: checkBox3
-              height: 23
-            }
           }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+          Button {
+            id: btn_clear_warn
+            width: 104
+            text: qsTr("WARNNING CLEAR")
+            enabled: false
+          }
+
+
+
+
+
+        }
+      }
+
+      GroupBox {
+        id: groupBox4
+        x: 5
+        width: 150
+        height: 180
+        title: qsTr("Group Box")
+
+        Column {
+          id: column6
+          spacing: 5
+          anchors.fill: parent
 
           Row {
             id: row1
@@ -211,30 +236,82 @@ Item {
 
             SpinBox {
               id: spinbox_count
-              activeFocusOnPress: false
-              selectByMouse: false
+              suffix: qsTr("")
+              activeFocusOnPress: true
+              selectByMouse: true
               minimumValue: 1
               decimals: 0
-              maximumValue: 10000
+              maximumValue: 100000
+            }
+          }
+
+          Row {
+            id: row5
+            width: 120
+            height: 25
+            spacing: 5
+
+            Label {
+              id: label6
+              text: qsTr("间隔时间")
+            }
+
+            SpinBox {
+              id: spinbox_send_interval
+              width: 64
+              suffix: qsTr("秒")
             }
           }
 
 
+          Row {
+            id: row6
+            y: 77
+            width: 120
+            height: 15
+            spacing: 10
 
+            Label {
+              id: label7
+              height: 12
+              text: qsTr("发送次数")
+            }
 
-
-
-          Button {
-            id: btn_multi_send
-            width: 104
-            text: qsTr("连续发送")
-            enabled: false
+            Text {
+              id: txt_send_counter
+              text: qsTr("0")
+              font.pixelSize: 12
+            }
           }
 
 
+          Row {
+            id: row7
+            width: 120
+            height: 15
+            spacing: 10
 
+            Label {
+              id: label8
+              text: qsTr("成功次数")
+            }
 
+            Text {
+              id: txt_success_counter
+              text: qsTr("0")
+              font.pixelSize: 12
+            }
+          }
 
+          Button {
+            id: btn_multi_send
+            x: 0
+            width: 104
+            text: qsTr("连续发送")
+            enabled: false
+
+            property bool cl: false
+          }
 
           Button {
             id: btn_stop
@@ -243,20 +320,9 @@ Item {
             checkable: false
             enabled: false
           }
-
-          Button {
-            id: btn_clear_warn
-            width: 104
-            text: qsTr("WARNNING CLEAR")
-            enabled: false
-          }
-
-
-
-
-
         }
       }
+
     }
 
     Column {
@@ -304,7 +370,7 @@ Item {
 
           TextField {
             id: txt_gateway_port
-            text: "8071"
+            text: "80"
             inputMask: "00000000"
             placeholderText: qsTr("8000")
           }
@@ -456,6 +522,7 @@ Item {
 
       PropertyChanges {
         target: groupBox2
+        height: 190
         checkable: false
         checked: true
       }
@@ -542,6 +609,120 @@ Item {
         enabled: true
       }
 
+      PropertyChanges {
+        target: item1
+        width: 1200
+        height: 600
+      }
+
+      PropertyChanges {
+        target: groupBox4
+        title: qsTr("连续施解封")
+      }
+
+    },
+    State {
+        name: "multi_test"
+        PropertyChanges {
+            target: groupBox2
+            height: 190
+            checkable: false
+            checked: true
+        }
+
+        PropertyChanges {
+            target: btn_connect
+            text: "断开"
+            enabled: false
+        }
+
+        PropertyChanges {
+            target: txt_lockid
+            placeholderText: qsTr("")
+            readOnly: false
+        }
+
+        PropertyChanges {
+            target: btn_lock
+            enabled: false
+        }
+
+        PropertyChanges {
+            target: btn_unlock
+            enabled: false
+        }
+
+        PropertyChanges {
+            target: btn_verify
+            enabled: false
+        }
+
+        PropertyChanges {
+            target: btn_multi_send
+            enabled: false
+        }
+
+        PropertyChanges {
+            target: btn_stop
+            enabled: true
+        }
+
+        PropertyChanges {
+            target: spinbox_count
+            selectByMouse: true
+            activeFocusOnPress: true
+        }
+
+        PropertyChanges {
+            target: txt_ip
+            readOnly: true
+        }
+
+        PropertyChanges {
+            target: txt_port
+            readOnly: true
+        }
+
+        PropertyChanges {
+            target: btn_gateway
+            enabled: false
+        }
+
+        PropertyChanges {
+            target: btn_clear_warn
+            enabled: false
+        }
+
+        PropertyChanges {
+            target: btn_data_write
+            enabled: true
+        }
+
+        PropertyChanges {
+            target: btn_data_read
+            enabled: true
+        }
+
+        PropertyChanges {
+            target: groupBox3
+            title: qsTr("Gateway")
+        }
+
+        PropertyChanges {
+            target: btn_gateway
+            enabled: true
+        }
+
+        PropertyChanges {
+            target: item1
+            width: 1200
+            height: 600
+        }
+
+        PropertyChanges {
+            target: groupBox4
+            title: qsTr("连续施解封")
+        }
     }
   ]
 }
