@@ -3,6 +3,7 @@
 LockReaderForm {
 
   property int success_counter: 0;
+  property int counter: 0
 
   Timer {
     id: timer;
@@ -10,9 +11,10 @@ LockReaderForm {
     running: false;
     repeat: true;
 
-    property int counter: 0
     onTriggered: {
-      if (counter++ % 2) {
+      counter++;
+
+      if (counter % 2) {
         reader.unlock(txt_lockid.text,"0000000000");
       } else {
         reader.lock(txt_lockid.text, "0000000000");
@@ -32,6 +34,11 @@ LockReaderForm {
 
   }
   btn_multi_send.onClicked: {
+    txt_send_counter.text = 0;
+    txt_success_counter.text = 0;
+    counter = 0;
+    success_counter = 0;
+
     state = "multi_test"
 
     btn_multi_send.cl = btn_multi_send.cl ? false : true;
@@ -60,8 +67,19 @@ LockReaderForm {
     }
 
     onLockUnlock: {
+      if (!btn_multi_send.cl)
+      return;
+
       success_counter++;
       txt_success_counter.text = success_counter;
+
+      if (counter >= spinbox_count.value) {
+        console.log("--- " + counter)
+        state = "connected"
+        btn_multi_send.cl = false;
+        timer.running = false;
+      }
+
     }
   }
 
