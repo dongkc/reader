@@ -529,8 +529,9 @@ bool CreateAPNReq(const std::string &lockid,
     return false;
   }
   outbuf[10] = ELOCK_APN_REQ;
-  outbuf[11] = 0x12;
+  outbuf[11] = 0x37;
 
+#if 0
   memcpy(outbuf + 12, passwd.c_str(), passwd.length());
 
   string tmp(apn + "," +
@@ -542,6 +543,20 @@ bool CreateAPNReq(const std::string &lockid,
 
   memcpy(outbuf + 22, tmp.data(), tmp.size());
   int body_len = 22 + tmp.size();
+#endif
+
+  string apn_(string("\"") + apn + string("\""));
+  string ip_port(string("\"") + ip + string("\",") + port);
+
+  memset(outbuf + 12, 0, 0x37);
+  unsigned char *ptr = outbuf + 22;
+  memcpy(outbuf + 12, apn_.data(), apn_.size());
+  memcpy(outbuf + 22, phone.data(), phone.size());
+  memcpy(outbuf + 33, ip_port.data(), ip_port.size());
+  memcpy(outbuf + 55, interval.data(), interval.size());
+  memcpy(outbuf + 59, pass.data(), pass.size());
+
+  int body_len = 67;
 
   Crc16_Ccitt(outbuf, body_len, outbuf + body_len);
   buflen = body_len + 2;

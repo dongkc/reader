@@ -15,9 +15,9 @@ LockReaderForm {
       counter++;
 
       if (counter % 2) {
-        reader.unlock(txt_lockid.text,"0000000000");
+        reader.unlock(txt_lockid.text, txt_rfid_pass.text);
       } else {
-        reader.lock(txt_lockid.text, "0000000000");
+        reader.lock(txt_lockid.text, txt_rfid_pass.text);
       }
 
       txt_send_counter.text = counter;
@@ -84,31 +84,31 @@ LockReaderForm {
   }
 
   btn_lock.onClicked: {
-    reader.lock(txt_lockid.text, qsTr("0000000000"));
+    reader.lock(txt_lockid.text, txt_rfid_pass.text);
   }
 
   btn_unlock.onClicked: {
-    reader.unlock(txt_lockid.text, qsTr("0000000000"));
+    reader.unlock(txt_lockid.text, txt_rfid_pass.text);
   }
 
   btn_verify.onClicked: {
-    reader.check(txt_lockid.text, qsTr("0000000000"));
+    reader.check(txt_lockid.text, txt_rfid_pass.text);
   }
 
   btn_clear_warn.onClicked: {
-    reader.clear_warn(txt_lockid.text, qsTr("0000000000"));
+    reader.clear_warn(txt_lockid.text, txt_rfid_pass.text);
   }
 
   btn_data_write.onClicked: {
-    reader.write_data(txt_lockid.text, qsTr("0000000000"), txtarea_data.text);
+    reader.write_data(txt_lockid.text, txt_rfid_pass.text, txtarea_data.text);
   }
 
   btn_data_read.onClicked: {
-    reader.read_data(txt_lockid.text, qsTr("0000000000"));
+    reader.read_data(txt_lockid.text, txt_rfid_pass.text);
   }
   btn_gateway.onClicked: {
     reader.modify_apn(txt_lockid.text,
-                      qsTr("0000000000"),
+                      txt_rfid_pass.text,
                       txt_apn.text,
                       txt_phone.text,
                       txt_gateway_ip.text,

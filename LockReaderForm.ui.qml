@@ -28,6 +28,7 @@ Item {
   property alias txt_phone: txt_phone
   property alias txt_interval: txt_interval
   property alias txt_pass: txt_pass
+
   property alias txtarea_data: txtarea_data
 
   property alias txt_success_counter: txt_success_counter
@@ -36,6 +37,7 @@ Item {
   property alias btn_stop: btn_stop
   property alias spinbox_count: spinbox_count
   property alias spinbox_send_interval: spinbox_send_interval
+  property alias txt_rfid_pass: txt_rfid_pass
 
   RowLayout {
     id: rowLayout1
@@ -136,6 +138,18 @@ Item {
             readOnly: true
           }
 
+          Label {
+            id: lbl_rfid_pass
+            text: qsTr("通讯密码:")
+          }
+
+          TextField {
+            id: txt_rfid_pass
+            text: "0000000000"
+            placeholderText: qsTr("")
+          }
+
+
           Row {
             id: row2
             width: 120
@@ -151,6 +165,8 @@ Item {
           }
 
 
+
+
           Row {
             id: row3
             width: 120
@@ -164,6 +180,8 @@ Item {
               enabled: false
             }
           }
+
+
 
 
 
@@ -194,12 +212,16 @@ Item {
 
 
 
+
+
           Button {
             id: btn_clear_warn
             width: 104
             text: qsTr("WARNNING CLEAR")
             enabled: false
           }
+
+
 
 
 
