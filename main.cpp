@@ -20,25 +20,25 @@ void outputMessage(QtMsgType type, const QMessageLogContext &context, const QStr
     switch(type)
     {
     case QtDebugMsg:
-        text = QString("Debug:");
+        text = QString("DEBUG:");
         break;
 
     case QtWarningMsg:
-        text = QString("Warning:");
+        text = QString("WARN:");
         break;
 
     case QtCriticalMsg:
-        text = QString("Critical:");
+        text = QString("CRITICAL:");
         break;
 
     case QtFatalMsg:
-        text = QString("Fatal:");
+        text = QString("FATAL:");
     }
 
     QString context_info = QString("File:(%1) Line:(%2)").arg(QString(context.file)).arg(context.line);
     QString current_date_time = QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss");
-    QString current_date = QString("(%1)").arg(current_date_time);
-    QString message = QString("%1 %2 %3 %4").arg(text).arg(context_info).arg(msg).arg(current_date);
+    QString current_date = QString("%1").arg(current_date_time);
+    QString message = QString("%1 %2 %3").arg(text).arg(current_date).arg(msg);
 
     QFile file("log.txt");
     file.open(QIODevice::WriteOnly | QIODevice::Append);

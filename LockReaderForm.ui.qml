@@ -78,7 +78,7 @@ Item {
 
           TextField {
             id: txt_ip
-            text: "192.168.10.254"
+            text: "220.181.111.188"
             inputMask: "000.000.000.000;_"
             placeholderText: qsTr("192.168.1.100")
           }
@@ -93,7 +93,7 @@ Item {
 
           TextField {
             id: txt_port
-            text: "8071"
+            text: "80"
             inputMask: "00000000"
             placeholderText: qsTr("8000")
           }
@@ -544,7 +544,7 @@ Item {
 
       PropertyChanges {
         target: groupBox2
-        height: 190
+        height: 220
         checkable: false
         checked: true
       }
@@ -647,7 +647,7 @@ Item {
         name: "multi_test"
         PropertyChanges {
             target: groupBox2
-            height: 190
+            height: 220
             checkable: false
             checked: true
         }

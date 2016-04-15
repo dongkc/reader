@@ -7,11 +7,20 @@ LockReaderForm {
 
   Timer {
     id: timer;
-    interval:spinbox_send_interval.value * 1000;
+    interval: 1000;
     running: false;
     repeat: true;
 
+    property int last_timestamp: 0;
+    property int now_timestamp;
+
     onTriggered: {
+      now_timestamp = get_time();
+
+      if (now_timestamp - last_timestamp < spinbox_send_interval.value)
+        return
+
+      last_timestamp = now_timestamp;
       counter++;
 
       if (counter % 2) {
@@ -21,6 +30,11 @@ LockReaderForm {
       }
 
       txt_send_counter.text = counter;
+    }
+
+    function get_time() {
+      var date = new Date();
+      return date.getTime() / 1000;
     }
   }
 
@@ -61,6 +75,7 @@ LockReaderForm {
     onDisConn: {
       reader.disconnect()
       state = ""
+      timer.running = false;
     }
     onMessagePost: {
       txt_log.text = txt_log.text + msg
