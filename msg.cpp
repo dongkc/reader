@@ -366,8 +366,6 @@ string result2str_1(char c)
   dic.insert(make_pair(3, "重复施封"));
   dic.insert(make_pair(4, "外壳破坏"));
   dic.insert(make_pair(5, "响应超时"));
-  dic.insert(make_pair(6, "未检测到封条"));
-  dic.insert(make_pair(7, "封条被拆"));
 
   string content;
   for (int i = 0; i < 7; ++i) {
@@ -389,7 +387,6 @@ string result2str_2(char c)
   dic.insert(make_pair(4, "未施封时解封"));
   dic.insert(make_pair(5, "报警不能解封"));
   dic.insert(make_pair(6, "响应超时"));
-  dic.insert(make_pair(7, "封条报警"));
 
   string content;
   for (int i = 0; i < 8; ++i) {

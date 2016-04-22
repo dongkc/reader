@@ -47,6 +47,7 @@ LockReaderForm {
     }
 
   }
+
   btn_multi_send.onClicked: {
     txt_send_counter.text = 0;
     txt_success_counter.text = 0;
@@ -132,4 +133,3 @@ LockReaderForm {
                       txt_pass.text);
   }
 }
-
