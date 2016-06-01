@@ -78,7 +78,7 @@ Item {
 
           TextField {
             id: txt_ip
-            text: "220.181.111.188"
+            text: "192.168.10.11"
             inputMask: "000.000.000.000;_"
             placeholderText: qsTr("192.168.1.100")
           }
@@ -93,7 +93,7 @@ Item {
 
           TextField {
             id: txt_port
-            text: "80"
+            text: "10001"
             inputMask: "00000000"
             placeholderText: qsTr("8000")
           }
@@ -134,7 +134,7 @@ Item {
 
           TextField {
             id: txt_lockid
-            text: "CNNT0000000272"
+            text: "CNNT0000003607"
             readOnly: true
           }
 
@@ -377,7 +377,7 @@ Item {
 
           TextField {
             id: txt_gateway_ip
-            text: "192.168.10.254"
+            text: "114.251.120.120"
             inputMask: "000.000.000.000;_"
             placeholderText: qsTr("192.168.1.100")
           }
@@ -392,7 +392,7 @@ Item {
 
           TextField {
             id: txt_gateway_port
-            text: "80"
+            text: "8067"
             inputMask: "00000000"
             placeholderText: qsTr("8000")
           }
@@ -406,6 +406,7 @@ Item {
 
           TextField {
             id: txt_apn
+            text: "CMNET"
           }
 
 
@@ -417,6 +418,7 @@ Item {
 
           TextField {
             id: txt_interval
+            text: "0030"
           }
 
 
@@ -428,6 +430,7 @@ Item {
 
           TextField {
             id: txt_phone
+            text: "13612345678"
           }
 
           Label {
@@ -441,6 +444,7 @@ Item {
 
           TextField {
             id: txt_pass
+            text: "12345678"
           }
 
 

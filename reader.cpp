@@ -183,6 +183,9 @@ void Reader::read()
   Message message;
   if (parse(recv_buf, len, &message)) {
     qDebug() << "Parse error";
+    emit  messagePost(QString::fromLocal8Bit("Invalid data received!"));
+
+    return;
   };
 
   emit  messagePost(serialize(message));

@@ -1,4 +1,4 @@
-#include <vector>
+﻿#include <vector>
 #include <math.h>
 #include <time.h>
 
@@ -529,7 +529,7 @@ bool CreateAPNReq(const std::string &lockid,
     return false;
   }
   outbuf[10] = ELOCK_APN_REQ;
-  outbuf[11] = 0x37;
+  outbuf[11] = 0x4b;
 
 #if 0
   memcpy(outbuf + 12, passwd.c_str(), passwd.length());
@@ -548,15 +548,15 @@ bool CreateAPNReq(const std::string &lockid,
   string apn_(string("\"") + apn + string("\""));
   string ip_port(string("\"") + ip + string("\",") + port);
 
-  memset(outbuf + 12, 0, 0x37);
+  memset(outbuf + 12, 0, 0x4b);
   unsigned char *ptr = outbuf + 22;
   memcpy(outbuf + 12, apn_.data(), apn_.size());
-  memcpy(outbuf + 22, phone.data(), phone.size());
-  memcpy(outbuf + 33, ip_port.data(), ip_port.size());
-  memcpy(outbuf + 55, interval.data(), interval.size());
-  memcpy(outbuf + 59, pass.data(), pass.size());
+  memcpy(outbuf + 42, phone.data(), phone.size());
+  memcpy(outbuf + 53, ip_port.data(), ip_port.size());
+  memcpy(outbuf + 75, interval.data(), interval.size());
+  memcpy(outbuf + 79, pass.data(), pass.size());
 
-  int body_len = 67;
+  int body_len = 87;
 
   Crc16_Ccitt(outbuf, body_len, outbuf + body_len);
   buflen = body_len + 2;

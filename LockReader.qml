@@ -56,7 +56,7 @@ LockReaderForm {
 
     state = "multi_test"
 
-    btn_multi_send.cl = btn_multi_send.cl ? false : true;
+    btn_multi_send.cl = true;
     timer.running = true;
   }
 
