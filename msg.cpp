@@ -259,6 +259,11 @@ void parse(char* buf, int len, ReadData_p* p)
   p->len = len - 1;
 }
 
+void parse(char* buf, int len, WriteApn_p* p)
+{
+  p->success_flag = buf[75];
+}
+
 int parse(char* buf, int32_t len, Message* msg)
 {
   if (!CheckCrc((unsigned char*)buf, len)) {
@@ -546,6 +551,16 @@ string serialize(const ReadData_p& msg)
 
   string data(msg.data, msg.len);
   return result + "," + "车号/厢号: " + data;
+}
+
+string serialize(const WriteApn_p& msg)
+{
+   string success_flag = "关锁配置更新成功";
+  if (msg.success_flag == 0xFF) {
+    success_flag = "关锁配置更新失败";
+  }
+
+  return success_flag;
 }
 
 QString serialize(const Message& msg)

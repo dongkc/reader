@@ -30,6 +30,13 @@ LockReaderForm {
       }
 
       txt_send_counter.text = counter;
+
+      if (counter >= spinbox_count.value) {
+        console.log("--- " + counter)
+        state = "connected"
+        btn_multi_send.cl = false;
+        timer.running = false;
+      }
     }
 
     function get_time() {
@@ -89,12 +96,6 @@ LockReaderForm {
       success_counter++;
       txt_success_counter.text = success_counter;
 
-      if (counter >= spinbox_count.value) {
-        console.log("--- " + counter)
-        state = "connected"
-        btn_multi_send.cl = false;
-        timer.running = false;
-      }
 
     }
   }

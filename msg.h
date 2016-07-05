@@ -95,6 +95,20 @@ struct ReadData_p
   char timestamp[8];
 };
 
+struct WriteApn_q
+{
+  char apn[30];
+  char phone[11];
+  char ip[22];
+  char interval[4];
+  char initial_passwd[8];
+};
+
+struct WriteApn_p
+{
+  unsigned char success_flag;
+};
+
 struct Message
 {
   char protocol_id;
@@ -115,6 +129,8 @@ struct Message
     ReadData_p  read_data_p;
     WriteData_q write_data_q;
     WriteData_p write_data_p;
+    WriteApn_q  write_apn_q;
+    WriteApn_p  write_apn_p;
   }body;
 };
 

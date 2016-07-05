@@ -183,7 +183,8 @@ void Reader::read()
   Message message;
   if (parse(recv_buf, len, &message)) {
     qDebug() << "Parse error";
-    emit  messagePost(QString::fromLocal8Bit("Invalid data received!"));
+    msg = "Unknown msg received: " + msg + "\r\n";
+    emit  messagePost(QString::fromLocal8Bit(msg.c_str()));
 
     return;
   };
