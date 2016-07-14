@@ -30,6 +30,7 @@ Item {
   property alias txt_pass: txt_pass
 
   property alias txtarea_data: txtarea_data
+  property alias btn_clear_info: btn_clear_info
 
   property alias txt_success_counter: txt_success_counter
   property alias txt_send_counter: txt_send_counter
@@ -43,6 +44,10 @@ Item {
     id: rowLayout1
     width: 1200
     height: 600
+    anchors.rightMargin: 0
+    anchors.bottomMargin: 0
+    anchors.leftMargin: 0
+    anchors.topMargin: 0
     anchors.fill: parent
 
     Column {
@@ -461,6 +466,13 @@ Item {
 
 
         }
+      }
+
+      Button {
+          id: btn_clear_info
+          width: 150
+          height: 50
+          text: qsTr("清除收到的信息")
       }
     }
 

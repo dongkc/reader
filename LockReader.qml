@@ -34,7 +34,6 @@ LockReaderForm {
       if (counter >= spinbox_count.value) {
         console.log("--- " + counter)
         state = "connected"
-        btn_multi_send.cl = false;
         timer.running = false;
       }
     }
@@ -96,7 +95,9 @@ LockReaderForm {
       success_counter++;
       txt_success_counter.text = success_counter;
 
-
+      if (timer.running == false) {
+        btn_multi_send.cl = false;
+      }
     }
   }
 
@@ -132,5 +133,9 @@ LockReaderForm {
                       txt_gateway_port.text,
                       txt_interval.text,
                       txt_pass.text);
+  }
+
+  btn_clear_info.onClicked: {
+    txt_log.text = "";
   }
 }
