@@ -143,16 +143,26 @@ Item {
             readOnly: true
           }
 
+          Button {
+            id: btn_read_lockid
+            width: 150
+            height: 40
+            text: qsTr("Button")
+            enabled: false
+          }
+
           Label {
             id: lbl_rfid_pass
             text: qsTr("通讯密码:")
           }
+
 
           TextField {
             id: txt_rfid_pass
             text: "0000000000"
             placeholderText: qsTr("")
           }
+
 
 
           Row {
@@ -172,6 +182,7 @@ Item {
 
 
 
+
           Row {
             id: row3
             width: 120
@@ -185,6 +196,7 @@ Item {
               enabled: false
             }
           }
+
 
 
 
@@ -219,12 +231,14 @@ Item {
 
 
 
+
           Button {
             id: btn_clear_warn
             width: 104
             text: qsTr("WARNNING CLEAR")
             enabled: false
           }
+
 
 
 
@@ -469,10 +483,16 @@ Item {
       }
 
       Button {
-          id: btn_clear_info
-          width: 150
-          height: 50
-          text: qsTr("清除收到的信息")
+        id: btn_clear_info
+        width: 150
+        height: 40
+        text: qsTr("清除收到的信息")
+      }
+
+      Button {
+        id: button1
+        text: qsTr("Button")
+        opacity: 0
       }
     }
 
@@ -560,7 +580,7 @@ Item {
 
       PropertyChanges {
         target: groupBox2
-        height: 220
+        height: 250
         checkable: false
         checked: true
       }
@@ -658,109 +678,123 @@ Item {
         title: qsTr("连续施解封")
       }
 
+      PropertyChanges {
+        target: btn_read_lockid
+        width: 104
+        height: 23
+        enabled: true
+      }
+
+      PropertyChanges {
+        target: button1
+        width: 150
+        height: 40
+        opacity: 1
+      }
+
     },
     State {
-        name: "multi_test"
-        PropertyChanges {
-            target: groupBox2
-            height: 220
-            checkable: false
-            checked: true
-        }
+      name: "multi_test"
+      PropertyChanges {
+        target: groupBox2
+        height: 220
+        checkable: false
+        checked: true
+      }
 
-        PropertyChanges {
-            target: btn_connect
-            text: "断开"
-            enabled: false
-        }
+      PropertyChanges {
+        target: btn_connect
+        text: "断开"
+        enabled: false
+      }
 
-        PropertyChanges {
-            target: txt_lockid
-            placeholderText: qsTr("")
-            readOnly: false
-        }
+      PropertyChanges {
+        target: txt_lockid
+        placeholderText: qsTr("")
+        readOnly: false
+      }
 
-        PropertyChanges {
-            target: btn_lock
-            enabled: false
-        }
+      PropertyChanges {
+        target: btn_lock
+        enabled: false
+      }
 
-        PropertyChanges {
-            target: btn_unlock
-            enabled: false
-        }
+      PropertyChanges {
+        target: btn_unlock
+        enabled: false
+      }
 
-        PropertyChanges {
-            target: btn_verify
-            enabled: false
-        }
+      PropertyChanges {
+        target: btn_verify
+        enabled: false
+      }
 
-        PropertyChanges {
-            target: btn_multi_send
-            enabled: false
-        }
+      PropertyChanges {
+        target: btn_multi_send
+        enabled: false
+      }
 
-        PropertyChanges {
-            target: btn_stop
-            enabled: true
-        }
+      PropertyChanges {
+        target: btn_stop
+        enabled: true
+      }
 
-        PropertyChanges {
-            target: spinbox_count
-            selectByMouse: true
-            activeFocusOnPress: true
-        }
+      PropertyChanges {
+        target: spinbox_count
+        selectByMouse: true
+        activeFocusOnPress: true
+      }
 
-        PropertyChanges {
-            target: txt_ip
-            readOnly: true
-        }
+      PropertyChanges {
+        target: txt_ip
+        readOnly: true
+      }
 
-        PropertyChanges {
-            target: txt_port
-            readOnly: true
-        }
+      PropertyChanges {
+        target: txt_port
+        readOnly: true
+      }
 
-        PropertyChanges {
-            target: btn_gateway
-            enabled: false
-        }
+      PropertyChanges {
+        target: btn_gateway
+        enabled: false
+      }
 
-        PropertyChanges {
-            target: btn_clear_warn
-            enabled: false
-        }
+      PropertyChanges {
+        target: btn_clear_warn
+        enabled: false
+      }
 
-        PropertyChanges {
-            target: btn_data_write
-            enabled: true
-        }
+      PropertyChanges {
+        target: btn_data_write
+        enabled: true
+      }
 
-        PropertyChanges {
-            target: btn_data_read
-            enabled: true
-        }
+      PropertyChanges {
+        target: btn_data_read
+        enabled: true
+      }
 
-        PropertyChanges {
-            target: groupBox3
-            title: qsTr("Gateway")
-        }
+      PropertyChanges {
+        target: groupBox3
+        title: qsTr("Gateway")
+      }
 
-        PropertyChanges {
-            target: btn_gateway
-            enabled: true
-        }
+      PropertyChanges {
+        target: btn_gateway
+        enabled: true
+      }
 
-        PropertyChanges {
-            target: item1
-            width: 1200
-            height: 600
-        }
+      PropertyChanges {
+        target: item1
+        width: 1200
+        height: 600
+      }
 
-        PropertyChanges {
-            target: groupBox4
-            title: qsTr("连续施解封")
-        }
+      PropertyChanges {
+        target: groupBox4
+        title: qsTr("连续施解封")
+      }
     }
   ]
 }

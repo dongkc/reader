@@ -308,19 +308,10 @@ int parse(char* buf, int32_t len, Message* msg)
 string voltage2str(char c)
 {
   std::map<char, string> dic;
-  dic.insert(make_pair('a', "3.30"));
-  dic.insert(make_pair('b', "3.40"));
-  dic.insert(make_pair('c', "3.50"));
-  dic.insert(make_pair('d', "3.60"));
-  dic.insert(make_pair('e', "3.65"));
-  dic.insert(make_pair('f', "3.70"));
-  dic.insert(make_pair('g', "3.75"));
-  dic.insert(make_pair('h', "3.80"));
-  dic.insert(make_pair('i', "3.85"));
-  dic.insert(make_pair('p', "3.90"));
-  dic.insert(make_pair('q', "4.00"));
-  dic.insert(make_pair('r', "4.10"));
-  dic.insert(make_pair('s', "4.20"));
+  dic.insert(make_pair('a', "严重低电压"));
+  dic.insert(make_pair('b', "低电压"));
+  dic.insert(make_pair('c', "电压正常"));
+  dic.insert(make_pair('d', "充满电"));
 
   map<char, string>::iterator it;
   string voltage;
@@ -330,7 +321,7 @@ string voltage2str(char c)
   }
   voltage = it->second;
 
-  return voltage +"V";
+  return voltage;
 }
 
 string timestamp2str(const char buf[8])
@@ -415,7 +406,7 @@ string serialize(const Seal_p& msg)
   string result(result2str_1(msg.result));
 
   return success_flag + " " +
-         "电压:" + voltage + " " +
+         "电压状态:" + voltage + " " +
          "操作时间:" + timestamp + " " +
          result;
 }
