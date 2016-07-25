@@ -71,7 +71,7 @@ Item {
           x: 5
           width: 150
           height: 140
-          spacing: 5
+          spacing: 3
 
           Label {
             id: lbl_ip
@@ -116,7 +116,7 @@ Item {
         id: groupBox2
         x: 5
         width: 150
-        height: 220
+        height: 250
         title: "Commands"
         checked: true
         checkable: false
@@ -145,8 +145,8 @@ Item {
 
           Button {
             id: btn_read_lockid
-            width: 150
-            height: 40
+            width: 104
+            height: 20
             text: qsTr("Button")
             enabled: false
           }

@@ -34,6 +34,8 @@
 #define ELOCK_READ_DATA_RES    0x52
 #define ELOCK_APN_REQ          0x57
 #define ELOCK_APN_RES          0x58
+#define ELOCK_READ_LOCKID_REQ  0x5D
+#define ELOCK_READ_LOCKID_RES  0x5E
 
 #define ELOCK_OPEN_WIFI_REQ          0x81
 #define ELOCK_OPEN_WIFI_RES          0x82

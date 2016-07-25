@@ -404,6 +404,32 @@ bool CreateWriteDataReq(const std::string &lockid,
   return true;
 }
 
+bool CreateReadLockidReq(const std::string &lockid,
+                         const std::string &passwd,
+                         unsigned char * outbuf,
+                         unsigned int &buflen)
+{
+  if(lockid.length() != 14 || outbuf == NULL || buflen <34 || passwd.length() > 10)
+    return false;
+
+  memset(outbuf, 0, buflen);
+
+  outbuf[0] = 0x7B;
+  outbuf[1] = ELOCK_ID_MSG;
+  int n = GetELockId(lockid,outbuf + 2, 8);
+  if(n != 8)
+  {
+    return false;
+  }
+  outbuf[10] = ELOCK_READ_LOCKID_REQ;
+  outbuf[11] = 0x00;
+
+  Crc16_Ccitt(outbuf,12,outbuf+12);
+  buflen = 14;
+
+  return true;
+}
+
 bool CreateReadDataReq(const std::string &lockid,
                        const std::string &passwd,
                        unsigned char * outbuf,

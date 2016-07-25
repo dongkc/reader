@@ -173,6 +173,22 @@ void Reader::read_data(QString lock_id, QString pass)
 
 }
 
+void Reader::read_lockid(QString lock_id, QString pass)
+{
+  unsigned char buf[64];
+  unsigned int len = sizeof(buf);
+  memset(buf, 64, 0);
+  char *begin = (char*)buf;
+  CreateReadDataReq(lock_id.toStdString(),
+                    pass.toStdString(),
+                    &buf[0],
+                    len);
+
+  qDebug() << ">>" << format(begin, len).c_str();
+  socket->write(begin, len);
+
+}
+
 void Reader::read()
 {
   char recv_buf[MAX_BUF_SIZE];
