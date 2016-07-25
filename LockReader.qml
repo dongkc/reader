@@ -121,9 +121,14 @@ LockReaderForm {
     reader.write_data(txt_lockid.text, txt_rfid_pass.text, txtarea_data.text);
   }
 
+  btn_read_lockid.onClicked: {
+    reader.read_lockid(txt_lockid.text, txt_rfid_pass.text);
+  }
+
   btn_data_read.onClicked: {
     reader.read_data(txt_lockid.text, txt_rfid_pass.text);
   }
+
   btn_gateway.onClicked: {
     reader.modify_apn(txt_lockid.text,
                       txt_rfid_pass.text,

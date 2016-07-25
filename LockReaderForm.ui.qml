@@ -16,6 +16,7 @@ Item {
   property alias btn_unlock: btn_unlock
   property alias btn_verify: btn_verify
   property alias txt_log: txt_log
+  property alias btn_read_lockid: btn_read_lockid
 
   property alias btn_data_write: btn_data_write
   property alias btn_data_read: btn_data_read
@@ -63,14 +64,14 @@ Item {
         id: groupBox1
         x: 5
         width: 150
-        height: 150
+        height: 140
         title: qsTr("Connect")
 
         Column {
           id: column2
           x: 5
           width: 150
-          height: 140
+          height: 130
           spacing: 3
 
           Label {

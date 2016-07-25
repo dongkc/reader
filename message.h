@@ -123,4 +123,9 @@ bool CreateAPNReq(const std::string &lockid,
                   const std::string &pass,
                   unsigned char * outbuf,
                   unsigned int &buflen);
+
+bool CreateReadLockidReq(const std::string &lockid,
+                         const std::string &passwd,
+                         unsigned char * outbuf,
+                         unsigned int &buflen);
 #endif

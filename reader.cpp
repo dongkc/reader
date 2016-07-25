@@ -179,7 +179,7 @@ void Reader::read_lockid(QString lock_id, QString pass)
   unsigned int len = sizeof(buf);
   memset(buf, 64, 0);
   char *begin = (char*)buf;
-  CreateReadDataReq(lock_id.toStdString(),
+  CreateReadLockidReq(lock_id.toStdString(),
                     pass.toStdString(),
                     &buf[0],
                     len);
