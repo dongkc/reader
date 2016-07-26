@@ -148,7 +148,7 @@ Item {
             id: btn_read_lockid
             width: 104
             height: 20
-            text: qsTr("Button")
+            text: qsTr(" 上报锁号")
             enabled: false
           }
 

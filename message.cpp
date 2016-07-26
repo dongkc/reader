@@ -557,20 +557,6 @@ bool CreateAPNReq(const std::string &lockid,
   outbuf[10] = ELOCK_APN_REQ;
   outbuf[11] = 0x4b;
 
-#if 0
-  memcpy(outbuf + 12, passwd.c_str(), passwd.length());
-
-  string tmp(apn + "," +
-             phone + "," +
-             ip + "," +
-             port + "," +
-             interval + ","
-             + pass);
-
-  memcpy(outbuf + 22, tmp.data(), tmp.size());
-  int body_len = 22 + tmp.size();
-#endif
-
   string apn_(string("\"") + apn + string("\""));
   string ip_port(string("\"") + ip + string("\",") + port);
 

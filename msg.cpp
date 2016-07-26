@@ -579,6 +579,11 @@ QString serialize(const Message& msg)
     case  ELOCK_WRITE_DATA_RES:
       body = " " + serialize(msg.body.write_data_p);
       break;
+    case  ELOCK_READ_LOCKID_RES:
+      body = " 锁号上报: " + lockid;
+      break;
+    default:
+      body = " unknown cmd";
   };
 
   string tmp(lockid + body + "\n");
