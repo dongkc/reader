@@ -18,8 +18,8 @@ public:
   Q_INVOKABLE void unlock(QString lock_id, QString password);
   Q_INVOKABLE void check(QString lock_id, QString password);
   Q_INVOKABLE void clear_warn(QString lock_id, QString password);
-  Q_INVOKABLE void write_data(QString lock_id, QString password, QString data);
-  Q_INVOKABLE void read_data(QString lock_id, QString password);
+  Q_INVOKABLE void write_data(QString lock_id, QString password, int blockid, QString data);
+  Q_INVOKABLE void read_data(QString lock_id, QString password, int blockid);
   Q_INVOKABLE void read_lockid(QString lock_id, QString password);
   Q_INVOKABLE void modify_apn(QString lock_id,
                               QString password,

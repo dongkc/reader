@@ -139,6 +139,7 @@ void Reader::modify_apn(QString lock_id,
 
 void Reader::write_data(QString lock_id,
                         QString pass,
+                        int blockid,
                         QString data)
 {
   unsigned char buf[64];
@@ -148,6 +149,7 @@ void Reader::write_data(QString lock_id,
   string data_write = data.toStdString();
   CreateWriteDataReq(lock_id.toStdString(),
                      pass.toStdString(),
+                     blockid,
                      data_write.data(),
                      data_write.size(),
                      &buf[0],
@@ -157,7 +159,7 @@ void Reader::write_data(QString lock_id,
   qDebug() << ">>" << format(begin, len).c_str();
 }
 
-void Reader::read_data(QString lock_id, QString pass)
+void Reader::read_data(QString lock_id, QString pass, int blockid)
 {
   unsigned char buf[64];
   unsigned int len = sizeof(buf);
@@ -165,6 +167,7 @@ void Reader::read_data(QString lock_id, QString pass)
   char *begin = (char*)buf;
   CreateReadDataReq(lock_id.toStdString(),
                     pass.toStdString(),
+                    blockid,
                     &buf[0],
                     len);
 

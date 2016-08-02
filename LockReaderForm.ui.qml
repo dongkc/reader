@@ -21,6 +21,7 @@ Item {
   property alias btn_data_write: btn_data_write
   property alias btn_data_read: btn_data_read
   property alias btn_clear_warn: btn_clear_warn
+  property alias spinbox_blockid: spinbox_blockid
 
   property alias btn_gateway: btn_gateway
   property alias txt_gateway_ip: txt_gateway_ip
@@ -562,7 +563,7 @@ Item {
           }
 
           SpinBox {
-            id: spinBox1
+            id: spinbox_blockid
             anchors.right: parent.right
             anchors.rightMargin: 0
             anchors.left: parent.left

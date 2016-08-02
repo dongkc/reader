@@ -347,6 +347,7 @@ bool CreateCheckSealingReq(const std::string &lockid,
 
 bool CreateWriteDataReq(const std::string &lockid,
                         const std::string &passwd,
+                        int blockid,
                         const char * data,
                         int datalen,
                         unsigned char * outbuf,
@@ -357,7 +358,7 @@ bool CreateWriteDataReq(const std::string &lockid,
       buflen <34 ||
       passwd.length() > 10 ||
       data == NULL ||
-      datalen > 108) {
+      datalen > 256) {
     return false;
   }
 
@@ -370,11 +371,10 @@ bool CreateWriteDataReq(const std::string &lockid,
   {
     return false;
   }
-  outbuf[10] = ELOCK_WRITE_DATA_REQ;
-  outbuf[11] = 18 + datalen;
+  outbuf[10] = ELOCK_WRITE_EXTENSION_DATA_REQ;
+  outbuf[11] = 20 + datalen;
 
   memcpy(outbuf + 12, passwd.c_str(), passwd.length());
-  memcpy(outbuf + 22, data, datalen);
 
   char chTime[100]= {0};
   __time64_t time_utc;
@@ -395,11 +395,16 @@ bool CreateWriteDataReq(const std::string &lockid,
             tm_utc.tm_sec);
   StrToBCD(chTime, bTime, 7);
 
-  memcpy(outbuf + 22 + datalen, bTime, 7);
+  memcpy(outbuf + 22, bTime, 7);
+  outbuf[30] = XOR_BCDCrcCheck(bTime,7);
 
-  outbuf[30 + datalen] = XOR_BCDCrcCheck(bTime,7);
-  Crc16_Ccitt(outbuf, 30 + datalen, outbuf + 30 + datalen);
-  buflen = 30 + datalen + 2;
+  outbuf[31] = blockid;
+  outbuf[32] = datalen;
+
+  memcpy(outbuf + 33, data, datalen);
+
+  Crc16_Ccitt(outbuf, 33 + datalen, outbuf + 33 + datalen);
+  buflen = 33 + datalen + 2;
 
   return true;
 }
@@ -432,6 +437,7 @@ bool CreateReadLockidReq(const std::string &lockid,
 
 bool CreateReadDataReq(const std::string &lockid,
                        const std::string &passwd,
+                       int blockid,
                        unsigned char * outbuf,
                        unsigned int &buflen)
 {
@@ -447,8 +453,8 @@ bool CreateReadDataReq(const std::string &lockid,
   {
     return false;
   }
-  outbuf[10] = ELOCK_READ_DATA_REQ;
-  outbuf[11] = 0x13;
+  outbuf[10] = ELOCK_READ_EXTENSION_DATA_REQ;
+  outbuf[11] = 19;
 
   memcpy(outbuf + 12, passwd.c_str(), passwd.length());
 
@@ -473,7 +479,7 @@ bool CreateReadDataReq(const std::string &lockid,
 
   memcpy(outbuf + 22, bTime, 7);
   outbuf[29] = XOR_BCDCrcCheck(bTime,7);
-  outbuf[30] = 0x00;  //serialno, now only use the first extension data,total 10 extension data
+  outbuf[30] = blockid;
 
   Crc16_Ccitt(outbuf,31,outbuf+31);
   buflen = 33;

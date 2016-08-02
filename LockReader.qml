@@ -118,7 +118,7 @@ LockReaderForm {
   }
 
   btn_data_write.onClicked: {
-    reader.write_data(txt_lockid.text, txt_rfid_pass.text, txtarea_data.text);
+    reader.write_data(txt_lockid.text, txt_rfid_pass.text, spinbox_blockid.value, txtarea_data.text);
   }
 
   btn_read_lockid.onClicked: {
@@ -126,7 +126,7 @@ LockReaderForm {
   }
 
   btn_data_read.onClicked: {
-    reader.read_data(txt_lockid.text, txt_rfid_pass.text);
+    reader.read_data(txt_lockid.text, txt_rfid_pass.text, spinbox_blockid.value);
   }
 
   btn_gateway.onClicked: {

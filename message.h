@@ -98,6 +98,7 @@ void CreateGeneralResponse(const std::string & id,  std::string & elockid, std::
 
 bool CreateWriteDataReq(const std::string &lockid,
                         const std::string &passwd,
+                        int blockid,
                         const char * data,
                         int datalen,
                         unsigned char * outbuf,
@@ -110,6 +111,7 @@ bool CreateRemoveWarnReq(const std::string &lockid,
 
 bool CreateReadDataReq(const std::string &lockid,
                        const std::string &passwd,
+                       int blockid,
                        unsigned char * outbuf,
                        unsigned int &buflen);
 
