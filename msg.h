@@ -72,27 +72,28 @@ struct WriteData_q
   char data[256];
   uint8_t len;
   char timestamp[8];
+  uint8_t blockid;
 };
 
 struct WriteData_p
 {
-  unsigned char result;
-  char data[256];
-  uint8_t len;
+  uint8_t flag;
+  uint8_t blockid;
 };
 
 struct ReadData_q
 {
   char passwd[10];
   char timestamp[8];
+  uint8_t blockid;
 };
 
 struct ReadData_p
 {
-  char result;
+  uint8_t flag;
+  uint8_t blockid;
   char data[256];
   uint8_t len;
-  char timestamp[8];
 };
 
 struct WriteApn_q

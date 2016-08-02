@@ -245,18 +245,16 @@ void parse(char* buf, int len, ClearWarn_p* p)
 
 void parse(char* buf, int len, WriteData_p* p)
 {
-  p->result = buf[0];
-  qDebug() << "WRITE: " << format(buf, len).c_str();
-  memcpy((void*)p->data, &buf[1], len - 1);
-  p->len = len - 1;
+  p->blockid = buf[0];
+  p->flag = buf[1];
 }
 
 void parse(char* buf, int len, ReadData_p* p)
 {
-  p->result = buf[0];
-  qDebug() << "WRITE: " << format(buf, len).c_str();
-  memcpy((void*)p->data, &buf[1], len - 1);
-  p->len = len - 1;
+  p->flag = buf[0];
+  p->blockid = buf[1];
+  memcpy((void*)p->data, &buf[2], len - 2);
+  p->len = len - 2;
 }
 
 void parse(char* buf, int len, WriteApn_p* p)
@@ -291,10 +289,10 @@ int parse(char* buf, int32_t len, Message* msg)
     case ELOCK_CHECK_SEALING_RES:
       parse(body, len, &msg->body.check_p);
       break;
-    case ELOCK_WRITE_DATA_RES:
+    case ELOCK_WRITE_EXTENSION_DATA_RES:
       parse(body, len, &msg->body.write_data_p);
       break;
-    case ELOCK_READ_DATA_RES:
+    case ELOCK_READ_EXTENSION_DATA_RES:
       parse(body, len, &msg->body.read_data_p);
       break;
     case ELOCK_REMOVE_WARN_RES:
@@ -523,25 +521,26 @@ string serialize(const ClearWarn_p& msg)
 
 string serialize(const WriteData_p& msg)
 {
-  string result = "写入车号厢号成功";
-  if (msg.result == 0xFF) {
-    result = "写入车号厢号失败";
-  }
+  std::map<int, string> dic;
+  dic.insert(make_pair(1, "写业务数据成功"));
+  dic.insert(make_pair(2, "写业务数据失败"));
+  dic.insert(make_pair(3, "操作口令不符合"));
+  dic.insert(make_pair(4, "响应超时"));
 
-  string data(msg.data, msg.len);
-  qDebug() << "DATA: " << format(data.c_str(), msg.len).c_str();
-  return result + "," + "车号/厢号: " + data;
+  return dic[msg.flag];
 }
 
 string serialize(const ReadData_p& msg)
 {
-  string result = "读取车号厢号成功";
-  if (msg.result == 0xFF) {
-    result = "读取车号厢号失败";
-  }
+  std::map<int, string> dic;
+  dic.insert(make_pair(1, "写业务数据成功"));
+  dic.insert(make_pair(2, "写业务数据失败"));
+  dic.insert(make_pair(3, "操作口令不符合"));
+  dic.insert(make_pair(4, "响应超时"));
 
   string data(msg.data, msg.len);
-  return result + "," + "车号/厢号: " + data;
+  return msg.flag == 1 ? dic[msg.flag] + ":" + data
+                       : dic[msg.flag];
 }
 
 string serialize(const WriteApn_p& msg)
@@ -573,14 +572,17 @@ QString serialize(const Message& msg)
     case  ELOCK_REMOVE_WARN_RES:
       body = " " + serialize(msg.body.clear_warn_p);
       break;
-    case  ELOCK_READ_DATA_RES:
+    case  ELOCK_READ_EXTENSION_DATA_RES:
       body = " " + serialize(msg.body.read_data_p);
       break;
-    case  ELOCK_WRITE_DATA_RES:
+    case  ELOCK_WRITE_EXTENSION_DATA_RES:
       body = " " + serialize(msg.body.write_data_p);
       break;
     case  ELOCK_READ_LOCKID_RES:
       body = " 锁号上报: " + lockid;
+      break;
+    case  ELOCK_APN_RES:
+      body = " 配置网关: " + lockid;
       break;
     default:
       body = " unknown cmd";
