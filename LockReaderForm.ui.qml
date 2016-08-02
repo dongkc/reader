@@ -23,13 +23,14 @@ Item {
   property alias btn_clear_warn: btn_clear_warn
   property alias spinbox_blockid: spinbox_blockid
 
-  property alias btn_gateway: btn_gateway
   property alias txt_gateway_ip: txt_gateway_ip
   property alias txt_gateway_port: txt_gateway_port
   property alias txt_apn: txt_apn
   property alias txt_phone: txt_phone
   property alias txt_interval: txt_interval
   property alias txt_pass: txt_pass
+  property alias btn_gateway: btn_gateway
+  property alias btn_gateway_read: btn_gateway_read
 
   property alias txtarea_data: txtarea_data
   property alias btn_clear_info: btn_clear_info
@@ -380,13 +381,13 @@ Item {
       GroupBox {
         id: groupBox3
         width: 150
-        height: 300
+        height: 340
         title: qsTr("网关配置")
         Column {
           id: column4
           x: 5
           width: 150
-          height: 280
+          height: 320
           spacing: 3
           Label {
             id: lbl_ip1
@@ -477,6 +478,12 @@ Item {
             width: 104
             text: qsTr("写配置")
             enabled: false
+          }
+
+          Button {
+              id: btn_gateway_read
+              width: 104
+              text: qsTr("读配置")
           }
 
 

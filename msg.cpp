@@ -262,6 +262,15 @@ void parse(char* buf, int len, WriteApn_p* p)
   p->success_flag = buf[75];
 }
 
+void parse(char* buf, int len, ReadApn_p* p)
+{
+  memcpy(p->apn, &buf[0], 30);
+  memcpy(p->phone, &buf[30], 11);
+  memcpy(p->ip, &buf[41], 22);
+  memcpy(p->interval, &buf[63], 4);
+  p->flag = buf[67];
+}
+
 int parse(char* buf, int32_t len, Message* msg)
 {
   if (!CheckCrc((unsigned char*)buf, len)) {
@@ -297,6 +306,9 @@ int parse(char* buf, int32_t len, Message* msg)
       break;
     case ELOCK_REMOVE_WARN_RES:
       parse(body, len, &msg->body.clear_warn_p);
+      break;
+    case ELOCK_READ_APN_RES:
+      parse(body, len, &msg->body.read_apn_p);
       break;
   };
 
@@ -553,6 +565,20 @@ string serialize(const WriteApn_p& msg)
   return success_flag;
 }
 
+string serialize(const ReadApn_p& msg)
+{
+  string result("读取关锁配置失败");
+  if (msg.flag == 0x01) {
+    result = "读取关锁配置成功";
+    result += "APN:" + string(msg.apn)
+            + "本机号码:" + string(msg.phone)
+            + "平台IP:" + string(msg.ip)
+            + "上传间隔:" + string(msg.interval);
+  }
+
+  return result;
+}
+
 QString serialize(const Message& msg)
 {
   string lockid;
@@ -583,6 +609,9 @@ QString serialize(const Message& msg)
       break;
     case  ELOCK_APN_RES:
       body = " 配置网关: " + lockid;
+      break;
+    case  ELOCK_READ_APN_RES:
+      body = " 读取网关配置: " + serialize(msg.body.read_apn_p);
       break;
     default:
       body = " unknown cmd";

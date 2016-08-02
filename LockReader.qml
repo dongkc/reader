@@ -140,6 +140,10 @@ LockReaderForm {
                       txt_pass.text);
   }
 
+  btn_gateway_read.onClicked: {
+    reader.read_apn(txt_lockid.text, txt_rfid_pass.text);
+  }
+
   btn_clear_info.onClicked: {
     txt_log.text = "";
   }
