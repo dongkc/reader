@@ -65,7 +65,7 @@ Item {
         x: 5
         width: 150
         height: 140
-        title: qsTr("Connect")
+        title: qsTr("阅读器")
 
         Column {
           id: column2
@@ -118,7 +118,7 @@ Item {
         x: 5
         width: 150
         height: 250
-        title: "Commands"
+        title: "操作命令"
         checked: true
         checkable: false
         flat: false
@@ -236,7 +236,7 @@ Item {
           Button {
             id: btn_clear_warn
             width: 104
-            text: qsTr("WARNNING CLEAR")
+            text: qsTr("清除报警")
             enabled: false
           }
 
@@ -255,7 +255,7 @@ Item {
         x: 5
         width: 150
         height: 180
-        title: qsTr("Group Box")
+        title: qsTr("连续操作命令")
 
         Column {
           id: column6
@@ -380,7 +380,7 @@ Item {
         id: groupBox3
         width: 150
         height: 300
-        title: qsTr("Gateway")
+        title: qsTr("网关配置")
         Column {
           id: column4
           x: 5
@@ -474,7 +474,7 @@ Item {
           Button {
             id: btn_gateway
             width: 104
-            text: qsTr("CONFIRM")
+            text: qsTr("写配置")
             enabled: false
           }
 
@@ -526,6 +526,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 5
 
+
         TextArea {
           id: txtarea_data
           height: 50
@@ -539,6 +540,7 @@ Item {
           anchors.bottomMargin: 0
         }
 
+
         ColumnLayout {
           id: columnLayout2
           width: 100
@@ -549,23 +551,45 @@ Item {
           anchors.top: parent.top
           anchors.topMargin: 0
 
-          Button {
-            id: btn_data_write
-            width: 104
-            text: qsTr("write")
-            enabled: false
+          Label {
+            id: label9
+            height: 15
+            text: qsTr("数据块序号:")
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+          }
+
+          SpinBox {
+            id: spinBox1
+            anchors.right: parent.right
+            anchors.rightMargin: 0
+            anchors.left: parent.left
+            anchors.leftMargin: 0
+            maximumValue: 255
           }
 
           Button {
+            id: btn_data_write
+            width: 104
+            text: qsTr("写业务数据")
+            enabled: false
+          }
+
+
+
+          Button {
             id: btn_data_read
-            text: qsTr("read")
+            text: qsTr("读业务数据")
             enabled: false
             anchors.right: parent.right
             anchors.bottom: parent.bottom
           }
 
-        }
 
+
+        }
       }
 
 
