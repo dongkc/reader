@@ -396,15 +396,15 @@ bool CreateWriteDataReq(const std::string &lockid,
   StrToBCD(chTime, bTime, 7);
 
   memcpy(outbuf + 22, bTime, 7);
-  outbuf[30] = XOR_BCDCrcCheck(bTime,7);
+  outbuf[29] = XOR_BCDCrcCheck(bTime,7);
 
-  outbuf[31] = blockid;
-  outbuf[32] = datalen;
+  outbuf[30] = blockid;
+  outbuf[31] = datalen;
 
-  memcpy(outbuf + 33, data, datalen);
+  memcpy(outbuf + 32, data, datalen);
 
-  Crc16_Ccitt(outbuf, 33 + datalen, outbuf + 33 + datalen);
-  buflen = 33 + datalen + 2;
+  Crc16_Ccitt(outbuf, 32 + datalen, outbuf + 32 + datalen);
+  buflen = 32 + datalen + 2;
 
   return true;
 }

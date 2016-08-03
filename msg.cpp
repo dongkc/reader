@@ -253,8 +253,8 @@ void parse(char* buf, int len, ReadData_p* p)
 {
   p->flag = buf[0];
   p->blockid = buf[1];
-  memcpy((void*)p->data, &buf[2], len - 2);
-  p->len = len - 2;
+  memcpy((void*)p->data, &buf[3], len - 3);
+  p->len = len - 3;
 }
 
 void parse(char* buf, int len, WriteApn_p* p)
@@ -545,8 +545,8 @@ string serialize(const WriteData_p& msg)
 string serialize(const ReadData_p& msg)
 {
   std::map<int, string> dic;
-  dic.insert(make_pair(1, "写业务数据成功"));
-  dic.insert(make_pair(2, "写业务数据失败"));
+  dic.insert(make_pair(1, "读业务数据成功"));
+  dic.insert(make_pair(2, "读业务数据失败"));
   dic.insert(make_pair(3, "操作口令不符合"));
   dic.insert(make_pair(4, "响应超时"));
 
