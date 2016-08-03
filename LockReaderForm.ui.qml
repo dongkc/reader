@@ -86,7 +86,7 @@ Item {
 
           TextField {
             id: txt_ip
-            text: "192.168.10.11"
+            text: "192.168.10.254"
             inputMask: "000.000.000.000;_"
             placeholderText: qsTr("192.168.1.100")
           }
@@ -101,7 +101,7 @@ Item {
 
           TextField {
             id: txt_port
-            text: "10001"
+            text: "8071"
             inputMask: "00000000"
             placeholderText: qsTr("8000")
           }
@@ -786,11 +786,13 @@ Item {
 
       PropertyChanges {
         target: txt_ip
+        text: "192.168.10.254"
         readOnly: true
       }
 
       PropertyChanges {
         target: txt_port
+        text: "8071"
         readOnly: true
       }
 

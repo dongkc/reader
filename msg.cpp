@@ -570,10 +570,10 @@ string serialize(const ReadApn_p& msg)
   string result("读取关锁配置失败");
   if (msg.flag == 0x01) {
     result = "读取关锁配置成功";
-    result += "APN:" + string(msg.apn)
-            + "本机号码:" + string(msg.phone)
-            + "平台IP:" + string(msg.ip)
-            + "上传间隔:" + string(msg.interval);
+    result += " APN: " + string(msg.apn)
+            + " 本机号码: " + string(msg.phone, 11)
+            + " 平台IP: " + string(msg.ip, 22)
+            + " 上传间隔: " + string(msg.interval, 4);
   }
 
   return result;
@@ -608,7 +608,7 @@ QString serialize(const Message& msg)
       body = " 锁号上报: " + lockid;
       break;
     case  ELOCK_APN_RES:
-      body = " 配置网关: " + lockid;
+      body = " 配置网关: " + serialize(msg.body.write_apn_p);
       break;
     case  ELOCK_READ_APN_RES:
       body = " 读取网关配置: " + serialize(msg.body.read_apn_p);
