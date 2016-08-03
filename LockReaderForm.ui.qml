@@ -484,6 +484,7 @@ Item {
               id: btn_gateway_read
               width: 104
               text: qsTr("读配置")
+              enabled: false
           }
 
 
@@ -725,6 +726,11 @@ Item {
         opacity: 1
       }
 
+      PropertyChanges {
+        target: btn_gateway_read
+        enabled: true
+      }
+
     },
     State {
       name: "multi_test"
@@ -800,12 +806,12 @@ Item {
 
       PropertyChanges {
         target: btn_data_write
-        enabled: true
+        enabled: false
       }
 
       PropertyChanges {
         target: btn_data_read
-        enabled: true
+        enabled: false
       }
 
       PropertyChanges {
@@ -827,6 +833,11 @@ Item {
       PropertyChanges {
         target: groupBox4
         title: qsTr("连续施解封")
+      }
+
+      PropertyChanges {
+        target: btn_gateway_read
+        enabled: false
       }
     }
   ]

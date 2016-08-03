@@ -137,6 +137,21 @@ void Reader::modify_apn(QString lock_id,
   qDebug() << ">>" << format(begin, len).c_str();
 }
 
+void Reader::read_apn(QString lock_id, QString pass)
+{
+  unsigned char buf[64];
+  unsigned int len = sizeof(buf);
+  memset(buf, 64, 0);
+  char *begin = (char*)buf;
+  CreateReadAPNReq(lock_id.toStdString(),
+                   pass.toStdString(),
+                   &buf[0],
+                   len);
+
+  socket->write(begin, len);
+  qDebug() << ">>" << format(begin, len).c_str();
+}
+
 void Reader::write_data(QString lock_id,
                         QString pass,
                         int blockid,

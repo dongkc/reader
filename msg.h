@@ -114,7 +114,7 @@ struct ReadApn_q
 {
   char passwd[10];
   char timestamp[8];
-}
+};
 
 struct ReadApn_p
 {
@@ -123,7 +123,7 @@ struct ReadApn_p
   char ip[22];
   char interval[4];
   uint8_t flag;
-}
+};
 
 struct Message
 {
