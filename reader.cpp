@@ -16,6 +16,16 @@ Reader::Reader(QObject *parent) : QObject(parent)
   QObject::connect(socket, SIGNAL(connected()), this, SLOT(connected()));
   QObject::connect(socket, SIGNAL(readyRead()), this, SLOT(read()));
   QObject::connect(socket, SIGNAL(error(QAbstractSocket::SocketError)), this, SLOT(error(QAbstractSocket::SocketError)));
+
+  timer = new QTimer(this);
+  timer->setSingleShot(true);
+}
+
+void Reader::timeout()
+{
+  QMessageBox msg;
+  msg.setText("响应超时");
+  msg.exec();
 }
 
 bool Reader::connect(QString ip, int port)
@@ -62,6 +72,7 @@ void Reader::lock(QString lock_id, QString pass)
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  timer->start(6000);
 }
 
 void Reader::unlock(QString lock_id, QString pass)
@@ -77,6 +88,7 @@ void Reader::unlock(QString lock_id, QString pass)
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  timer->start(6000);
 }
 
 void Reader::check(QString lock_id, QString pass)
@@ -92,6 +104,7 @@ void Reader::check(QString lock_id, QString pass)
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  timer->start(6000);
 }
 
 void Reader::clear_warn(QString lock_id, QString pass)
@@ -107,6 +120,7 @@ void Reader::clear_warn(QString lock_id, QString pass)
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  timer->start(6000);
 }
 
 void Reader::modify_apn(QString lock_id,
@@ -135,6 +149,7 @@ void Reader::modify_apn(QString lock_id,
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  timer->start(6000);
 }
 
 void Reader::read_apn(QString lock_id, QString pass)
@@ -150,6 +165,7 @@ void Reader::read_apn(QString lock_id, QString pass)
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  timer->start(6000);
 }
 
 void Reader::write_data(QString lock_id,
@@ -172,6 +188,7 @@ void Reader::write_data(QString lock_id,
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  timer->start(6000);
 }
 
 void Reader::read_data(QString lock_id, QString pass, int blockid)
@@ -189,6 +206,7 @@ void Reader::read_data(QString lock_id, QString pass, int blockid)
   qDebug() << ">>" << format(begin, len).c_str();
   socket->write(begin, len);
 
+  timer->start(6000);
 }
 
 void Reader::read_lockid(QString lock_id, QString pass)
@@ -204,11 +222,14 @@ void Reader::read_lockid(QString lock_id, QString pass)
 
   qDebug() << ">>" << format(begin, len).c_str();
   socket->write(begin, len);
-
 }
 
 void Reader::read()
 {
+
+  // stop the counting timer first
+  timer->stop();
+
   char recv_buf[MAX_BUF_SIZE];
   qint64 len = socket->read(recv_buf, MAX_BUF_SIZE);
   string msg(format(recv_buf, len));
@@ -232,4 +253,11 @@ void Reader::read()
        message.body.unseal_p.success_flag != 0xFF)) {
     emit lockUnlock();
   }
+
+  if (message.cmd_id != cmd_current + 1) {
+    QMessageBox msg;
+    msg.setText("接收到的消息与发送的命令不匹配i!");
+    msg.exec();
+  }
+
 }

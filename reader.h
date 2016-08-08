@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtNetwork>
+#include <QTimer>
 #include "uidata.h"
 
 
@@ -57,8 +58,12 @@ public slots:
 
   void error(QAbstractSocket::SocketError);
 
+  void timeout();
+
 private:
   QTcpSocket *socket;
+  QTimer *timer;
+  char cmd_current;
 };
 
 #endif // READER_H
