@@ -72,6 +72,8 @@ void Reader::lock(QString lock_id, QString pass)
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+
+  this->cmd_current = ELOCK_SEALING_REQ;
   timer->start(6000);
 }
 
@@ -88,6 +90,7 @@ void Reader::unlock(QString lock_id, QString pass)
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  this->cmd_current = ELOCK_UNSEALING_REQ;
   timer->start(6000);
 }
 
@@ -104,6 +107,7 @@ void Reader::check(QString lock_id, QString pass)
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  this->cmd_current = ELOCK_CHECK_SEALING_REQ;
   timer->start(6000);
 }
 
@@ -120,6 +124,7 @@ void Reader::clear_warn(QString lock_id, QString pass)
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  this->cmd_current = ELOCK_REMOVE_WARN_REQ;
   timer->start(6000);
 }
 
@@ -149,6 +154,7 @@ void Reader::modify_apn(QString lock_id,
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  this->cmd_current = ELOCK_APN_REQ;
   timer->start(6000);
 }
 
@@ -165,6 +171,7 @@ void Reader::read_apn(QString lock_id, QString pass)
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  this->cmd_current = ELOCK_READ_APN_REQ;
   timer->start(6000);
 }
 
@@ -188,6 +195,7 @@ void Reader::write_data(QString lock_id,
 
   socket->write(begin, len);
   qDebug() << ">>" << format(begin, len).c_str();
+  this->cmd_current = ELOCK_WRITE_EXTENSION_DATA_REQ;
   timer->start(6000);
 }
 
@@ -206,6 +214,7 @@ void Reader::read_data(QString lock_id, QString pass, int blockid)
   qDebug() << ">>" << format(begin, len).c_str();
   socket->write(begin, len);
 
+  this->cmd_current = ELOCK_READ_EXTENSION_DATA_REQ;
   timer->start(6000);
 }
 
@@ -221,6 +230,7 @@ void Reader::read_lockid(QString lock_id, QString pass)
                     len);
 
   qDebug() << ">>" << format(begin, len).c_str();
+  this->cmd_current = ELOCK_READ_LOCKID_REQ;
   socket->write(begin, len);
 }
 
@@ -256,7 +266,7 @@ void Reader::read()
 
   if (message.cmd_id != cmd_current + 1) {
     QMessageBox msg;
-    msg.setText("接收到的消息与发送的命令不匹配i!");
+    msg.setText(QString::fromLocal8Bit("接收到的消息与发送的命令不匹配!"));
     msg.exec();
   }
 

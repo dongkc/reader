@@ -271,9 +271,9 @@ void parse(char* buf, int len, ReadApn_p* p)
   p->flag = buf[67];
 }
 
-int parse(char* buf, int32_t len, Message* msg)
+int parse(char* buf, uint32_t length, Message* msg)
 {
-  if (!CheckCrc((unsigned char*)buf, len)) {
+  if (!CheckCrc((unsigned char*)buf, length)) {
     cout << "check crc failed";
     return -1;
   }
@@ -284,7 +284,7 @@ int parse(char* buf, int32_t len, Message* msg)
   cout << "cmd_id: " << msg->cmd_id << endl;
 
   char *body = &buf[12];
-  len = buf[11];
+  uint8_t len = buf[11];
 
   cout << "body: " << *body <<  " len: " << len << endl;
   // body

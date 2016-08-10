@@ -92,7 +92,7 @@ struct ReadData_p
 {
   uint8_t flag;
   uint8_t blockid;
-  char data[256];
+  char data[1024];
   uint8_t len;
 };
 
@@ -152,7 +152,7 @@ struct Message
   }body;
 };
 
-int parse(char* buf, int len, Message* msg);
+int parse(char* buf, uint32_t len, Message* msg);
 
 QString serialize(const Message& msg);
 
