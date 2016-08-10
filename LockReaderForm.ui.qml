@@ -498,12 +498,6 @@ Item {
         height: 40
         text: qsTr("清除收到的信息")
       }
-
-      Button {
-        id: button1
-        text: qsTr("Button")
-        opacity: 0
-      }
     }
 
     ColumnLayout {

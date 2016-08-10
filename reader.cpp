@@ -19,12 +19,13 @@ Reader::Reader(QObject *parent) : QObject(parent)
 
   timer = new QTimer(this);
   timer->setSingleShot(true);
+  QObject::connect(timer, SIGNAL(timeout()), this, SLOT(timeout()));
 }
 
 void Reader::timeout()
 {
   QMessageBox msg;
-  msg.setText("响应超时");
+  msg.setText(QString::fromLocal8Bit("响应超时!"));
   msg.exec();
 }
 
